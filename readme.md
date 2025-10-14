@@ -17,3 +17,6 @@ Der Webauftritt besteht aus vier Seiten:
 - CSS mit Grid und Flexbox (wird in Phase 2 gestaltet)
 - 1 Breakpoint bei 768px
 - Barrierefreiheit: Alt-Texte, ARIA-Labels, sinnvolle Überschriftenstruktur
+
+## Live-Preview
+<a href="https://iu-webprogrammierung.github.io/webprogrammierung-umused/">Webauftritt öffnen</a>
