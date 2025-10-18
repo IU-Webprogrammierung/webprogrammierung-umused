@@ -16,9 +16,9 @@ body {
 }
 
 :root {
-  --primary-color: #2e86c1;      /* Blau: Hauptfarbe */
-  --secondary-color: #f4f4f4;    /* Hellgrau: Hintergrund */
-  --accent-color: #f39c12;       /* Orange: Akzent */
+  --primary-color: #132739;      /* Blau: Hauptfarbe */
+  --secondary-color: #F0F5FA;    /* Hellgrau: Hintergrund */
+  --accent-color: #5D2838;       /* Orange: Akzent */
   --text-color: #222;
   --text-light: #555;
 }
@@ -62,14 +62,19 @@ header nav a:focus {
 /* HERO-BEREICH */
 .hero {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 0rem 0rem;
   background: linear-gradient(to bottom, #eef5fb, #fff);
 }
 
 .hero img {
-  max-width: 100%;
-  height: auto;
-  margin: 1.5rem 0;
+  display: block;              /* entfernt kleinen Inline-Abstand */
+  width: 100%;                 /* Bild über gesamte Breite */
+  height: auto;                /* Proportional skalieren */
+  max-height: 60vh;            /* maximale Höhe: 40% der Viewport-Höhe */
+  object-fit: cover;           /* Bild füllt den Bereich, ohne verzerrt zu wirken */
+  margin: 1.5rem 0;            /* Abstand zum Text */
+  object-position: 50% 35%;
+
 }
 
 .hero h1 {
@@ -103,11 +108,21 @@ cta,
   background-color: var(--secondary-color);
   text-align: center;
 }
+
+.visual-break {
+  width: 100vw;
+  height: 60vh;
+  background-image: url("img/visual-break.jpg");
+  background-size: cover;
+  background-position: 50% 50%;
+  overflow: hidden;
+}
 .visual-break img {
-  display: block;
   width: 100%;
-  height: auto;
-  object-fit: cover;
+  height: 100%;
+  object-fit: cover;        
+  object-position: 20% 20%;  
+  display: block;
 }
 
 .visual-break figcaption {
@@ -123,6 +138,9 @@ cta,
   padding: 2rem;
   align-items: center;
 }
+
+/* Cards */
+
 .card-section {
   padding: 2rem;
   background-color: #fff;
@@ -138,9 +156,14 @@ cta,
 
 .card {
   background-color: var(--secondary-color);
-  padding: 1rem;
-  border-radius: 10px;
-  text-align: left;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
 }
 
 .card img {
@@ -148,6 +171,33 @@ cta,
   border-radius: 8px;
   margin-bottom: 0.5rem;
 }
+
+/* Community-Bereich */
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+input, textarea {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 4px rgba(46, 134, 193, 0.5);
+}
+
+
+/* Footer */
+
 footer {
   background-color: var(--primary-color);
   color: white;
@@ -167,6 +217,13 @@ footer a:hover {
   text-decoration: underline;
 }
 
+@media (max-width: 1024px) {
+  .content-two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+
 @media (max-width: 768px) {
   header nav ul {
     flex-direction: column;
@@ -182,7 +239,7 @@ footer a:hover {
   }
 
   .hero {
-    padding: 2rem 1rem;
+    padding: 0rem 0rem;
   }
 
   .hero h1 {
