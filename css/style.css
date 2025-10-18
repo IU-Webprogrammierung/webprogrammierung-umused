@@ -123,3 +123,28 @@ cta,
   padding: 2rem;
   align-items: center;
 }
+.card-section {
+  padding: 2rem;
+  background-color: #fff;
+  text-align: center;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.card {
+  background-color: var(--secondary-color);
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
