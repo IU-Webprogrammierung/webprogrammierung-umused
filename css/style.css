@@ -14,3 +14,22 @@ body {
   color: #222;
   background-color: #fff;
 }
+
+:root {
+  --primary-color: #2e86c1;      /* Blau: Hauptfarbe */
+  --secondary-color: #f4f4f4;    /* Hellgrau: Hintergrund */
+  --accent-color: #f39c12;       /* Orange: Akzent */
+  --text-color: #222;
+  --text-light: #555;
+}
+
+h1, h2, h3 {
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
