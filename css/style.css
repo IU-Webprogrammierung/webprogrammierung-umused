@@ -97,3 +97,9 @@ cta,
 .button:hover {
   background-color: #e67e22;
 }
+
+.intro {
+  padding: 2rem;
+  background-color: var(--secondary-color);
+  text-align: center;
+}
