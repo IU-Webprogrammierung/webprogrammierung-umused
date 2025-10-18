@@ -116,3 +116,10 @@ cta,
   margin-top: 0.5rem;
   color: var(--text-light);
 }
+.content-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  align-items: center;
+}
