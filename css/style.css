@@ -103,3 +103,16 @@ cta,
   background-color: var(--secondary-color);
   text-align: center;
 }
+.visual-break img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.visual-break figcaption {
+  text-align: center;
+  font-style: italic;
+  margin-top: 0.5rem;
+  color: var(--text-light);
+}
