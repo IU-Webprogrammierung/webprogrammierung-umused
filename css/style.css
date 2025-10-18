@@ -33,3 +33,51 @@ p {
   color: var(--text-light);
   margin-bottom: 1rem;
 }
+/* HEADER mit FLEXBOX */
+header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem 0;
+}
+
+header nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+header nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+header nav a:hover,
+header nav a:focus {
+  text-decoration: underline;
+}
+
+/* HERO-BEREICH */
+.hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(to bottom, #eef5fb, #fff);
+}
+
+.hero img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero p {
+  max-width: 700px;
+  margin: 0 auto 1rem auto;
+}
