@@ -7,6 +7,8 @@
 
     <title>Mein Weg zum Halbmarathon</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/cards-slider.css">
+
     <script src="js/loader.js" defer></script>
   </head>
 
@@ -17,9 +19,7 @@
 <main>
   <!-- Hero -->
   <section class="about-hero">
-    <h1>Über mich</h1>
-    <h2>Mein Weg zum Laufen</h2>
-    <img src="img/hero-about.jpg" alt="Läufer mit Kopfhörern beim Joggen" />
+    <h1>Mein Weg zum Halb-Marathon-Läufer</h1>  
   </section>
 
   <!-- Hauptinhalt -->
@@ -36,19 +36,76 @@
 </section>
 
 <section class="favorite-spot">
-  <h2>Mein Lieblingsort zum Laufen</h2>
-  <img src="img/laufstrecke.jpg" alt="Laufstrecke durch die Berliner Innenstadt" />
+  <h2>Meine Laufstrecken</h2>
+  <img src="img/strecke.svg" alt="Laufstrecke durch die Berliner Innenstadt" />
   <p>Am liebsten laufe ich am späten Nachmittag direkt bei mir durch die Stadt.
   Es gibt so viel zu sehen – Architektur, lebendige Parks oder die unterschiedlichsten Menschen in ihrem Alltagstrott.
   Wenn alles geschafft ist, die Sonne langsam untergeht und der Tag sich dem Ende neigt, gebe ich für heute noch ein letztes Mal alles.</p>
 </section>
 
-<section class="equipment">
-  <h2>Meine Lieblingsausrüstung</h2>
-  <img src="img/laufschuhe.jpg" alt="Meine Lieblingslaufschuhe auf einer Bank" />
-  <p>Ich laufe aktuell mit den ASICS GT-1000. Sie sind leicht und bieten genug Halt – perfekt für Asphalt und Waldwege.
-  Damit ich mich ungestört bewegen kann, nutze ich das Nike Performance Lean Armband und die Apple AirPods Pro – natürlich mit meiner persönlichen Lauf-Playlist.</p>
+<section class="slider-section">
+  <h2>Highlights</h2>
+
+  <div class="slider slider--radio">
+    <!-- State -->
+    <input type="radio" name="slide" id="r1" checked hidden>
+    <input type="radio" name="slide" id="r2" hidden>
+    <input type="radio" name="slide" id="r3" hidden>
+
+    <!-- Viewport/Bahn -->
+    <div class="slider__viewport">
+      <article class="slider-card">
+        <div class="slider-card__media">
+          <img src="img/karte.jpg.webp" alt="Laufstrecke durch die Berliner Innenstadt">
+        </div>
+        <div class="slider-card__content">
+          <h3 class="slider-card__title">Lieblingsort</h3>
+          <p class="slider-card__subline">Stadt, Parks & Abendsonne</p>
+          <p class="slider-card__body">Am späten Nachmittag durch die Stadt – Architektur, Parks, Menschen im Alltag.</p>
+        </div>
+      </article>
+
+      <article class="slider-card">
+        <div class="slider-card__media">
+          <img src="img/shoe.svg" alt="Meine Lieblingslaufschuhe">
+        </div>
+        <div class="slider-card__content">
+          <h3 class="slider-card__title">Lieblingsschuhe</h3>
+          <p class="slider-card__subline">ASICS GT-1000</p>
+          <p class="slider-card__body">Leicht, stabil und vielseitig – perfekt für Asphalt und Waldwege.</p>
+        </div>
+      </article>
+
+      <article class="slider-card">
+        <div class="slider-card__media">
+          <img src="img/airpods.svg" alt="Kopfhörer fürs Laufen">
+        </div>
+        <div class="slider-card__content">
+          <h3 class="slider-card__title">Ausrüstung</h3>
+          <p class="slider-card__subline">AirPods Pro & Armband</p>
+          <p class="slider-card__body">Musik & Nike Lean Armband – frei und konzentriert laufen.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- EIN Pfeil-UI unten rechts, dynamisch per :checked -->
+    <div class="slider-nav">
+      <div class="nav nav--1">
+        <label class="next" for="r2" aria-label="Nächste Karte">›</label>
+      </div>
+      <div class="nav nav--2">
+        <label class="prev" for="r1" aria-label="Vorherige Karte">‹</label>
+        <label class="next" for="r3" aria-label="Nächste Karte">›</label>
+      </div>
+      <div class="nav nav--3">
+        <label class="prev" for="r2" aria-label="Vorherige Karte">‹</label>
+      </div>
+    </div>
+  </div>
 </section>
+
+
+
 
 <section class="goals">
   <h2>Mein Ziel</h2>

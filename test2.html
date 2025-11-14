@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Track – Intro/Run/Outro</title>
+<style>
+  html,body{margin:0;padding:0} body{overflow-x:hidden;font-family:system-ui,sans-serif}
+
+  :root{
+    --run-h: 100vh;     /* Scrollweg bis Ziel  */
+    --outro-h: 1000vh;   /* Scrollweg fürs Auswischen */
+    --lane-color:#8f8f8f;  /* sichtbarer als sehr hellgrau */
+    --lane-width:0.2;      /* deine gewünschte Dicke */
+  }
+
+  #runner-section{width:100%}
+  header.hero{position:sticky;top:0;height:100vh;overflow:hidden;background:#fff}
+  .hero-spacer{height:var(--run-h)}
+  .hero-outro{height:var(--outro-h)}
+  .content{min-height:110vh;padding:0rem 1.5rem}
+
+  .overlay{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+  /* Linien */
+  .lane{
+    fill:none; stroke:var(--lane-color); stroke-width:var(--lane-width);
+    stroke-linecap:round; vector-effect:non-scaling-stroke;
+  }
+
+  /* Fadenkreuz */
+  #runner{ pointer-events:none; vector-effect:non-scaling-stroke; transform-box:fill-box; transform-origin:center; }
+  #runner line{ stroke:#111; stroke-width:0.6; stroke-linecap:round }
+  #runner circle{ fill:#111 }
+</style>
+</head>
+<body>
+
+<section id="runner-section">
+  <header class="hero" id="hero">
+    <!-- ViewBox so, dass alles bequem reinpasst -->
+    <svg class="overlay" viewBox="0 0 500 500" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <!-- Maske für Intro & Outro -->
+        <mask id="wipeMask" maskUnits="userSpaceOnUse">
+          <rect id="wipeRect" x="-0" y="0" width="0" height="1900" fill="#a0a0a0"/>
+        </mask>
+      </defs>
+
+      <!-- SCENE: kleiner Bleed -> Linien laufen über den Rand hinaus -->
+      <!-- (beide, Pfade + Runner, werden identisch skaliert/verschoben) -->
+      <g id="scene" transform="translate(100,100) scale(0.6)">
+        <!-- alles in Maske, damit wir ein-/ausblenden können -->
+        <g id="track-group" mask="url(#wipeMask)">
+          <!-- DEINE PFADE -->
+          <path id="lane1" class="lane" d="M651.5 72.5C544 162.333 247.3 338.9 -79.5 326.5"/>
+          <path id="lane2" class="lane" d="M673.5 139C566 228.833 269.3 405.4 -57.5 393"/>
+          <path id="lane3" class="lane" d="M697 205.5C589.5 295.333 292.8 471.9 -34 459.5"/>
+          <path id="lane4" class="lane" d="M783.5 253.5C676 343.333 379.3 519.9 52.5 507.5"/>
+        </g>
+
+        <!-- Runner: Fadenkreuz (um 0/0 zentriert) -->
+        <g id="runner" opacity="1">
+          <line x1="-4" y1="0" x2="4" y2="0"></line>
+          <line x1="0" y1="-4" x2="0" y2="4"></line>
+          <circle cx="0" cy="0" r="0.9"></circle>
+        </g>
+      </g>
+    </svg>
+  </header>
+
+  <div class="hero-spacer" aria-hidden="true"></div>
+  <div class="hero-outro" aria-hidden="true"></div>
+</section>
+
+<section class="content">
+  <h1>Nächster Abschnitt</h1>
+  <p>Nach Lauf und Auswischen scrollst du normal weiter.</p>
+</section>
+
+<script>
+(() => {
+  const section = document.getElementById('runner-section');
+  const hero    = document.getElementById('hero');
+  const svg     = hero.querySelector('svg.overlay');
+
+  const scene   = svg.querySelector('#scene');
+  const lane1   = svg.querySelector('#lane1');
+  const lane2   = svg.querySelector('#lane2');
+  const runner  = svg.querySelector('#runner');
+  const wipeRect= svg.querySelector('#wipeRect');
+
+  // Helper oben ins Script (einmal):
+const clamp = (v,min=0,max=1)=>Math.max(min,Math.min(max,v));
+const easeOutCubic = t => 1 - Math.pow(1 - t, 3); // langsamer am Anfang
+
+// Stellschrauben:
+const FADE_START = 0.01; // ab 45% der Outro-Phase erst mit dem Ausfaden beginnen
+const FADE_END   = 0.012; // bis Ende der Outro-Phase komplett ausgefadet
+
+
+  // ViewBox lesen (x y w h)
+  const [vbX, vbY, vbW, vbH] = svg.getAttribute('viewBox').split(/\s+/).map(parseFloat);
+
+  // Längen der Leitpfade
+  let L1=0, L2=0;
+  function initLengths(){ L1 = lane1.getTotalLength(); L2 = lane2.getTotalLength(); }
+
+  // Punkt + Tangente
+  function ptTan(path, len, d=1){
+    const p1 = path.getPointAtLength(len);
+    const p2 = path.getPointAtLength(Math.min(path.getTotalLength(), len+d));
+    return {x:p1.x, y:p1.y, tx:p2.x-p1.x, ty:p2.y-p1.y};
+  }
+
+  // Fortschritt
+  function getProgresses(){
+    const start = section.offsetTop;
+    const total = section.offsetHeight - window.innerHeight;
+    const y     = Math.min(Math.max(window.pageYOffset - start, 0), Math.max(total,0));
+
+    const runH   = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--run-h'));
+    const outroH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--outro-h'));
+
+    const runT = Math.max(0, Math.min(1, y / runH));
+    const extra = Math.max(0, y - runH);
+    const outT  = Math.max(0, Math.min(1, extra / outroH));
+
+    return { runT, outT };
+  }
+
+  // Links→Rechts erzwingen
+  function normalizeLeftToRight(t){
+    const sx = (lane1.getPointAtLength(0).x + lane2.getPointAtLength(0).x)/2;
+    const ex = (lane1.getPointAtLength(L1).x + lane2.getPointAtLength(L2).x)/2;
+    return (sx > ex) ? (1 - t) : t;
+  }
+
+  // Intro: Maske von links nach rechts aufziehen
+  function introReveal(){
+    wipeRect.setAttribute('x', vbX);      // ganz links
+    wipeRect.setAttribute('y', vbY);
+    wipeRect.setAttribute('width', 0);    // 0 → wächst auf volle Breite
+    wipeRect.setAttribute('height', vbH);
+
+    wipeRect.style.transition = 'width 1.1s ease-out';
+    requestAnimationFrame(()=>{ wipeRect.setAttribute('width', vbW); });
+    wipeRect.addEventListener('transitionend', () => { wipeRect.style.transition=''; }, {once:true});
+  }
+
+  // Runner-Glättung + leichtes Offscreen-Weiterlaufen
+  // --- bleibt gleich ---
+let targetRunT = 0, currentRunT = 0;
+const SMOOTH = 0.50;
+
+// Hilfsfunktion: Mittelpunkte am Bahnende (t=1)
+function endMidpoint(){
+  const aEnd = ptTan(lane1, L1);
+  const bEnd = ptTan(lane2, L2);
+  return { x: (aEnd.x + bEnd.x)/2, y: (aEnd.y + bEnd.y)/2, tx: aEnd.tx + bEnd.tx, ty: aEnd.ty + bEnd.ty };
+}
+
+// Ersetze deinen onScroll():
+function onScroll(){
+  const { runT, outT } = getProgresses();
+  targetRunT = runT;
+
+  // 1) Wipe nach rechts mit Easing (langsamer am Anfang)
+  const e = easeOutCubic(outT);
+  const visibleW = vbW * (1 - e);
+  const newX     = vbX + vbW * e;
+  wipeRect.setAttribute('x', newX);
+  wipeRect.setAttribute('width', Math.max(0, visibleW));
+
+  // 2) Runner langsamer & später ausfaden
+  const fRaw   = (outT - FADE_START) / (FADE_END - FADE_START);
+  const f      = clamp(fRaw);          // 0..1
+  const fEase  = easeOutCubic(f);      // weich
+  runner.setAttribute('opacity', String(1 - fEase));
+
+  // für animate()
+  runner.dataset.outT = outT;
+}
+
+function animate(){
+  currentRunT += (targetRunT - currentRunT) * SMOOTH;
+
+  const outT = parseFloat(runner.dataset.outT || '0');
+
+  let x, y, angle;
+
+  if (outT <= 0.0001) {
+    // RUN-PHASE: normal zwischen lane1 & lane2
+    const t = normalizeLeftToRight(currentRunT);
+    const a = ptTan(lane1, t * L1);
+    const b = ptTan(lane2, t * L2);
+    x = (a.x + b.x)/2;
+    y = (a.y + b.y)/2;
+    angle = Math.atan2(a.ty + b.ty, a.tx + b.tx) * 180/Math.PI;
+  } else {
+    // OUTRO-PHASE: am Bahnende bleiben und zusätzlich nach rechts raus schieben
+    const end = endMidpoint();
+
+    // Schub nach rechts relativ zur ViewBox-Breite (0 → 25% vbW)
+    const pushRight = vbW * 0.00 * outT;
+
+    x = end.x + pushRight;
+    y = end.y;
+
+    // Ausrichtung: Tangente am Ende beibehalten
+    angle = Math.atan2(end.ty, end.tx) * 180/Math.PI;
+  }
+
+  runner.setAttribute('transform', `translate(${x}, ${y}) rotate(${angle})`);
+  requestAnimationFrame(animate);
+}
+
+  // Init
+  initLengths();
+  introReveal();
+  window.addEventListener('resize', ()=>{ initLengths(); onScroll(); });
+  window.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+  requestAnimationFrame(animate);
+})();
+</script>
+
+</body>
+</html>

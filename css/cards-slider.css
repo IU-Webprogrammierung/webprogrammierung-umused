@@ -1,0 +1,58 @@
+/* Wrapper & Einbettung */
+.slider-section { padding: 2rem; background:#fff; margin-bottom:4rem; }
+.slider--radio { position: relative; padding: 0 1rem; }
+
+/* Viewport/Bahn: 3 Slides nebeneinander, per transform schieben */
+.slider--radio .slider__viewport{
+  display:flex;
+  gap:1.5rem;
+  width:100%;
+  /* Jede Karte nimmt 90% Breite ein (Luft links/rechts) */
+  scroll-behavior:smooth; /* für Barrierefreiheit bei Fokus/Labels */
+  transition: transform .4s ease;
+}
+
+/* Slides (Cards) */
+.slider--radio .slider-card{
+  flex: 0 0 90%;
+  background:#fff;
+  border-radius:16px;
+  padding:1rem;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+  display:flex; flex-direction:column; gap:.75rem;
+}
+@media (min-width:1024px){
+  .slider--radio .slider-card{ flex-basis:45%; } /* 2 sichtbar */
+}
+@media (max-width:768px){
+  .slider--radio .slider-card{ flex-basis:85%; } /* mehr Rand auf Mobile */
+}
+
+/* Medien */
+.slider-card__media{ aspect-ratio:4/3; border-radius:12px; overflow:hidden; margin-bottom:1rem; }
+.slider-card__media img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Pfeil-UI unten rechts */
+.slider-nav{ margin-top:.5rem; display:flex; justify-content:flex-end; }
+.slider-nav .nav{ display:none; gap:.5rem; }
+
+.slider-nav .prev, .slider-nav .next{
+  display:inline-grid; place-items:center;
+  width:40px; height:40px; border-radius:999px;
+  background:rgba(0,0,0,.08);
+  color:var(--primary-color);
+  font-size:1.25rem; font-weight:600; line-height:1;
+  cursor:pointer; user-select:none;
+}
+.slider-nav .prev:hover, .slider-nav .next:hover{ background:rgba(0,0,0,.15); }
+
+/* --- Logik: transform abhängig vom :checked --- */
+#r1:checked ~ .slider__viewport{ transform: translateX(0%); }
+#r2:checked ~ .slider__viewport{ transform: translateX(calc(-100% - 1.5rem)); }
+/* -100% für eine volle Slide-Breite, -1.5rem für das gap (Desktop/Mobile variiert kaum sichtbar) */
+#r3:checked ~ .slider__viewport{ transform: translateX(calc(-200% - 3rem)); }
+
+/* Sichtbarkeit der passenden Pfeil-Kombination */
+#r1:checked ~ .slider-nav .nav--1{ display:flex; }
+#r2:checked ~ .slider-nav .nav--2{ display:flex; }
+#r3:checked ~ .slider-nav .nav--3{ display:flex; }

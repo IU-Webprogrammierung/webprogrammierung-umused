@@ -1,0 +1,126 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laufbahn Animation</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+/* Ränder weg, aber KEIN height:100% auf html/body */
+html, body { margin:0; padding:0; }
+body { overflow-x:hidden; font-family:system-ui, sans-serif; }
+
+:root { --spacer-h: 250vh; } /* Dauer des Laufs/Scrollens */
+
+header.hero{
+  position:sticky; top:0; height:100vh; overflow:hidden; background:#fff;
+}
+.hero-spacer{ height:var(--spacer-h); }
+
+.hero .overlay{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+
+.lane{
+  fill:none; stroke:#000; stroke-width:0.2; stroke-linecap:round;
+  vector-effect:non-scaling-stroke;
+}
+
+
+</style>
+</head>
+
+
+<section id="runner-section">
+  <header class="hero" id="hero">
+    <svg class="overlay" viewBox="0 0 640 431.274" preserveAspectRatio="xMidYMid slice">
+      <!-- deine zwei Bahnlinien -->
+  <path id="lane1" class="lane" d="M651.5 72.5C544 162.333 247.3 338.9 -79.5 326.5" stroke="#000" stroke-width="1" fill="none" stroke-linecap="round"/>
+    <path id="lane2" class="lane" d="M673.5 139C566 228.833 269.3 405.4 -57.5 393" stroke="#000" stroke-width="1" fill="none" stroke-linecap="round"/>
+    <path id="lane3" class="lane" d="M697 205.5C589.5 295.333 292.8 471.9 -34 459.5" stroke="#000" stroke-width="1" fill="none" stroke-linecap="round"/>
+    <path id="lane4" class="lane" d="M783.5 253.5C676 343.333 379.3 519.9 52.5 507.5" stroke="#000" stroke-width="1" fill="none" stroke-linecap="round"/>
+
+    
+<!-- Runner: Crosshair minimal -->
+<!-- Runner: Crosshair ultra-thin -->
+<g id="runner" style="pointer-events:none; vector-effect:non-scaling-stroke">
+  <line x1="-14" y1="0" x2="14" y2="0" stroke="#111" stroke-width="0.6" stroke-linecap="round"/>
+  <line x1="0" y1="-14" x2="0" y2="14" stroke="#111" stroke-width="0.6" stroke-linecap="round"/>
+  <circle cx="0" cy="0" r="1.2" fill="#111"/>
+</g>
+
+    </svg>
+  </header>
+  <!-- Scrollstrecke, während der Header klebt -->
+  <div class="hero-spacer" aria-hidden="true"></div>
+</section>
+
+
+<!-- ▼ Runner: Top-Down flat, zentriert um (0,0) -->
+
+
+
+ <script>
+(() => {
+  const section = document.getElementById('runner-section');
+  const hero    = document.getElementById('hero');
+  const svg     = hero.querySelector('svg.overlay');
+  const lane1   = svg.querySelector('#lane1');
+  const lane2   = svg.querySelector('#lane2');
+  const runner  = svg.querySelector('#runner');
+
+  let L1=0, L2=0;
+  let targetT=0, currentT=0;
+  const SMOOTH = 0.10;
+
+  function initLengths(){ L1 = lane1.getTotalLength(); L2 = lane2.getTotalLength(); }
+
+  function ptTan(path, len, d=1){
+    const p1 = path.getPointAtLength(len);
+    const p2 = path.getPointAtLength(Math.min(path.getTotalLength(), len+d));
+    return {x:p1.x, y:p1.y, tx:p2.x-p1.x, ty:p2.y-p1.y};
+  }
+
+  // Fortschritt nur innerhalb der Runner-Section (Header ist sticky währenddessen)
+  function progressFromScroll(){
+    const start = section.offsetTop;
+    const end   = start + section.offsetHeight - window.innerHeight; // Ende der „Pinned“-Phase
+    const y = Math.min(Math.max(window.pageYOffset - start, 0), Math.max(end - start, 0));
+    return (end > start) ? y / (end - start) : 0; // 0..1
+  }
+
+  // erzwingt links→rechts, egal wie Pfade gezeichnet wurden
+  function normalizeLeftToRight(t){
+    const startX = (lane1.getPointAtLength(0).x + lane2.getPointAtLength(0).x)/2;
+    const endX   = (lane1.getPointAtLength(L1).x + lane2.getPointAtLength(L2).x)/2;
+    return (startX > endX) ? (1 - t) : t;
+  }
+
+  function onScroll(){ targetT = progressFromScroll(); }
+
+  function animate(){
+    currentT += (targetT - currentT) * SMOOTH;
+    const t = normalizeLeftToRight(currentT);
+
+    const a = ptTan(lane1, t*L1);
+    const b = ptTan(lane2, t*L2);
+
+    const x = (a.x + b.x)/2;
+    const y = (a.y + b.y)/2;
+    const angle = Math.atan2(a.ty + b.ty, a.tx + b.tx) * 180 / Math.PI;
+
+    runner.setAttribute('transform', `translate(${x}, ${y}) rotate(${angle})`);
+    requestAnimationFrame(animate);
+  }
+
+  // init
+  initLengths();
+  window.addEventListener('resize', initLengths);
+  window.addEventListener('scroll', onScroll, {passive:true});
+  requestAnimationFrame(animate);
+})();
+</script>
+     
+
+
+
+<section class="content">
+  <h1>Nächster Abschnitt</h1>
+  <p>Hier geht es weiter, sobald der Lauf abgeschlossen ist.</p>
+</section>
