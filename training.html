@@ -6,6 +6,8 @@
         <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <title>Mein Weg zum Halbmarathon</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/training.css" />
+        <script src="js/training.js" defer></script>
     <script src="js/loader.js" defer></script>
   </head>
 
@@ -90,25 +92,48 @@
 
     <div class="training-step__text">
       <h3>Intervalltraining</h3>
-        <p>Intensive Abschnitte mit Pausen.</p>
-        <p>Perfekt für Tempo & Herz-Kreislauf-System.</p>
-      </div>
+      <p>Intensive Abschnitte mit Pausen.</p>
+      <p>Perfekt für Tempo & Herz-Kreislauf-System.</p>
     </div>
-    </article>
+  </div>
 
-  <!-- Regeneration -->
-  <article class="training-step" id="regeneration">
-    <div class="training-step__content">
-      <div class="training-step__illustration" aria-hidden="true">
-        <img src="img/regeneration-icon.svg" alt="">
-      </div>
-      <div class="training-step__text">
-      <h3>Regeneration</h3>
-        <p>Yoga, Dehnen & aktive Erholung.</p>
-        <p>Nur wer regeneriert, kann Fortschritte machen.</p>
-      </div>
+  <div class="interval-heart" aria-hidden="true">
+    <img src="img/heart-interval.svg" alt="">
+  </div>
+</article>
+
+
+
+<!-- Regeneration -->
+<article class="training-step" id="regeneration">
+  <div class="training-step__content">
+        <div class="training-step__illustration regeneration-spiral" aria-hidden="true">
+<svg viewBox="0 0 260 160" class="reg-spiral" preserveAspectRatio="none">
+  <defs>
+    <!-- Vertikaler Verlauf: unten gelb, oben grün -->
+    <linearGradient id="regenGradient"
+                    x1="0" y1="160"
+                    x2="0" y2="0"
+                    gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f6d365" />  <!-- unten: warmes Gelb -->
+      <stop offset="100%" stop-color="#a8ff78" /> <!-- oben: frisches Grün -->
+    </linearGradient>
+  </defs>
+
+  <path d="M55.8441 142.52C115.511 153.854 219.744 167.22 159.344 130.02C83.8441 83.5204 24.3441 89.0204 22.8441 98.0204C21.3441 107.02 212.344 146.52 200.344 116.02C188.344 85.5204 27.8441 51.0204 14.8441 53.5204C1.84408 56.0204 194.844 108.52 200.344 85.5203C205.844 62.5203 -5.15595 16.5203 4.84406 24.5203C14.8441 32.5203 244.844 69.0204 190.344 53.5204C135.844 38.0204 -52.6559 -3.97965 22.8441 6.02035C98.3441 16.0204 121.344 15.0204 155.844 10.5204" />
+</svg>
+
     </div>
-    </article>
+    <div class="training-step__text">
+      <h3>Regeneration</h3>
+      <p>Yoga, Dehnen & aktive Erholung.</p>
+      <p>Nur wer regeneriert, kann Fortschritte machen.</p>
+    </div>
+
+
+  </div>
+</article>
+
 
   <!-- Ernährung -->
   <article class="training-step" id="ernaehrung">

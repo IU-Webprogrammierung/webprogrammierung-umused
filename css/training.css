@@ -1,0 +1,132 @@
+.training-step {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+
+  opacity: 1;
+  transform: translateY(0);
+  will-change: transform, opacity;
+}
+
+.intervall-ekg {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.ekg-line {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ekg-line path {
+  fill: none;
+  stroke: #e53935;         /* rotes EKG */
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+
+  /* wird per JS gesetzt, aber initial sicherheitshalber: */
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+/* Training-Journey: etwas weniger Seitenpadding,
+   damit das EKG wirklich an den Rand kann */
+.training-journey {
+  padding: 2rem 0;
+}
+
+/* Im Intervall-Abschnitt: Content untereinander statt nebeneinander */
+#intervall .training-step__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.0rem;
+}
+
+/* EKG über die volle Viewport-Breite zentrieren */
+.intervall-ekg {
+  width: 100vw;                  /* volle Browserbreite */
+  margin-left: 50%;
+  transform: translateX(-50%);   /* zentriert relativ zum Content */
+}
+
+/* SVG etwas höher machen, wenn du magst */
+.ekg-line {
+  display: block;
+  width: 100%;
+  height: 70px;
+}
+
+/* Intervall-Step: Content normal, Herz ist Overlay */
+.interval-heart {
+  position: fixed;
+  top: 50%;
+  right: -15vw;              /* 40% der Breite außerhalb → ca. 60% sichtbar */
+  width: 50vw;               /* Größe anpassen */
+  max-width: 520px;
+  transform: translateY(-50%); /* vertikal zentriert */
+  opacity: 0;                /* Start: unsichtbar */
+  pointer-events: none;      /* nichts blockieren */
+  z-index: -1;               /* hinter dem Inhalt, ggf. auf 0/1 stellen wenn nötig */
+}
+
+.interval-heart img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Regeneration: Text + Spirale untereinander / nebeneinander */
+#regeneration .training-step__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+@media (min-width: 768px) {
+  #regeneration .training-step__content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+/* Spirale groß, aber nicht übertrieben */
+.regeneration-spiral {
+  flex: 1;
+  max-width: 560px;
+}
+
+.reg-spiral {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.reg-spiral path {
+  fill: none;
+  stroke: url(#regenGradient);
+  stroke-width: 12;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  /* Standard: sichtbar, JS überschreibt dann */
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+}
+
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  .training-step {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
