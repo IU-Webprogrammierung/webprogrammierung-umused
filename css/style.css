@@ -120,7 +120,7 @@ header nav a:focus {
 .visual-break {
   width: 100%;                     /* statt 100vw */
   min-height: 100svh;              /* statt fixed height */
-  background: url("/img/line.JPG") center/cover no-repeat;
+  background: url("../img/line.JPG") center/cover no-repeat;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -137,7 +137,7 @@ header nav a:focus {
 .about-hero {
   width: 100%;                     /* statt 100vw */
   min-height: 100svh;              /* statt fixed height */
-  background: url("/img/path.svg") center/cover no-repeat;
+  background: url("../img/path.svg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
