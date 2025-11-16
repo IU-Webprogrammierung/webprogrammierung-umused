@@ -50,10 +50,10 @@
     <!-- State -->
     <input type="radio" name="slide" id="r1" checked hidden>
     <input type="radio" name="slide" id="r2" hidden>
-    <input type="radio" name="slide" id="r3" hidden>
 
     <!-- Viewport/Bahn -->
     <div class="slider__viewport">
+      <!-- 1 -->
       <article class="slider-card">
         <div class="slider-card__media">
           <img src="img/karte.jpg.webp" alt="Laufstrecke durch die Berliner Innenstadt">
@@ -65,6 +65,7 @@
         </div>
       </article>
 
+      <!-- 2 -->
       <article class="slider-card">
         <div class="slider-card__media">
           <img src="img/shoe.svg" alt="Meine Lieblingslaufschuhe">
@@ -76,6 +77,7 @@
         </div>
       </article>
 
+      <!-- 3 -->
       <article class="slider-card">
         <div class="slider-card__media">
           <img src="img/airpods.svg" alt="Kopfhörer fürs Laufen">
@@ -88,17 +90,15 @@
       </article>
     </div>
 
-    <!-- EIN Pfeil-UI unten rechts, dynamisch per :checked -->
+    <!-- Navigation -->
     <div class="slider-nav">
+      <!-- Zustand 1: nur nach rechts -->
       <div class="nav nav--1">
         <label class="next" for="r2" aria-label="Nächste Karte">›</label>
       </div>
+      <!-- Zustand 2: nur nach links -->
       <div class="nav nav--2">
         <label class="prev" for="r1" aria-label="Vorherige Karte">‹</label>
-        <label class="next" for="r3" aria-label="Nächste Karte">›</label>
-      </div>
-      <div class="nav nav--3">
-        <label class="prev" for="r2" aria-label="Vorherige Karte">‹</label>
       </div>
     </div>
   </div>

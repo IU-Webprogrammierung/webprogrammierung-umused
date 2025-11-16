@@ -13,24 +13,53 @@
 }
 
 /* Slides (Cards) */
+/* Slides */
 .slider--radio .slider-card{
-  flex: 0 0 90%;
+  flex: 0 0 55%;
   background:#fff;
   border-radius:16px;
+  border-color: aqua;
+  border: 1px solid;
   padding:1rem;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);
-  display:flex; flex-direction:column; gap:.75rem;
-}
-@media (min-width:1024px){
-  .slider--radio .slider-card{ flex-basis:45%; } /* 2 sichtbar */
-}
-@media (max-width:768px){
-  .slider--radio .slider-card{ flex-basis:85%; } /* mehr Rand auf Mobile */
+  box-shadow:0 0px 0px rgba(0,0,0,.05);
+  display:flex;
+  flex-direction:column;
+  gap:.75rem;
 }
 
-/* Medien */
-.slider-card__media{ aspect-ratio:4/3; border-radius:12px; overflow:hidden; margin-bottom:1rem; }
-.slider-card__media img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+@media (min-width:1024px){
+  .slider--radio .slider-card{ flex-basis:40%; }
+}
+
+@media (max-width:768px){
+  .slider--radio .slider-card{ flex-basis:80%; }
+}
+
+/* Bildbereich */
+.slider-card__media{
+  width: 100%;
+  height: 260px;              /* einheitliche Bildhöhe */
+  border-radius: 0px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;       /* leichtes Grau als Hintergrund, optional */
+}
+
+
+.slider-card__media img{
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;   /* wichtig: nicht cover */
+  display: block;
+}
+
+
+
 
 /* Pfeil-UI unten rechts */
 .slider-nav{ margin-top:.5rem; display:flex; justify-content:flex-end; }
@@ -47,12 +76,19 @@
 .slider-nav .prev:hover, .slider-nav .next:hover{ background:rgba(0,0,0,.15); }
 
 /* --- Logik: transform abhängig vom :checked --- */
-#r1:checked ~ .slider__viewport{ transform: translateX(0%); }
-#r2:checked ~ .slider__viewport{ transform: translateX(calc(-100% - 1.5rem)); }
-/* -100% für eine volle Slide-Breite, -1.5rem für das gap (Desktop/Mobile variiert kaum sichtbar) */
-#r3:checked ~ .slider__viewport{ transform: translateX(calc(-200% - 3rem)); }
+
+/* 1. Zustand – Start */
+#r1:checked ~ .slider__viewport{
+  transform: translateX(0);
+}
+
+/* 2. Zustand – nach rechts geschoben,
+   Karte 2 + 3 sichtbar, 1 ist raus */
+#r2:checked ~ .slider__viewport{
+  transform: translateX(calc(-35% - 0.75rem));
+}
 
 /* Sichtbarkeit der passenden Pfeil-Kombination */
 #r1:checked ~ .slider-nav .nav--1{ display:flex; }
 #r2:checked ~ .slider-nav .nav--2{ display:flex; }
-#r3:checked ~ .slider-nav .nav--3{ display:flex; }
+
