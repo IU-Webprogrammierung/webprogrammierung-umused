@@ -5,6 +5,17 @@ document.addEventListener('DOMContentLoaded', function () {
   const prefersReduced = window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // 🔵 Dauerlauf: Weg-Linie
+  const dauerStep = document.getElementById('dauerlauf');
+  const dauerPath = dauerStep ? dauerStep.querySelector('.dauerlauf-path path') : null;
+  let dauerLength = 0;
+
+  if (dauerPath) {
+    dauerLength = dauerPath.getTotalLength();
+    dauerPath.style.strokeDasharray = dauerLength;
+    dauerPath.style.strokeDashoffset = dauerLength; // startet "unsichtbar"
+  }
+
   // 🔴 Intervall: EKG-Linie
   const ekgStep = document.getElementById('intervall');
   const ekgPath = ekgStep ? ekgStep.querySelector('.ekg-line path') : null;
@@ -32,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Bei reduzierter Bewegung: alles sichtbar, keine Animation
   if (prefersReduced) {
+    if (dauerPath) dauerPath.style.strokeDashoffset = 0;
     if (ekgPath) ekgPath.style.strokeDashoffset = 0;
     if (regenPath) regenPath.style.strokeDashoffset = 0;
     if (intervalHeart) {
@@ -64,6 +76,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
       step.style.opacity = opacity.toString();
       step.style.transform = 'translateY(' + translateY + 'px)';
+
+      // 🔵 Dauerlauf: Weg zeichnen
+      if (step.id === 'dauerlauf' && dauerPath && dauerLength > 0) {
+        const start = viewportHeight;
+        const end = -rect.height;
+        const total = start - end;
+
+        let dauerProgress = (start - rect.top) / total; // 0 → 1 über den eigenen Bereich
+        if (dauerProgress < 0) dauerProgress = 0;
+        if (dauerProgress > 1) dauerProgress = 1;
+
+        const drawOffset = dauerLength * (1 - dauerProgress);
+        dauerPath.style.strokeDashoffset = drawOffset;
+      }
 
       // 🔴 Intervall: EKG + Herz
       if (step.id === 'intervall') {

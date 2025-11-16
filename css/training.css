@@ -51,7 +51,7 @@
 .intervall-ekg {
   width: 100vw;                  /* volle Browserbreite */
   margin-left: 50%;
-  transform: translateX(-50%);   /* zentriert relativ zum Content */
+  transform: translateX(-60%);   /* zentriert relativ zum Content */
 }
 
 /* SVG etwas höher machen, wenn du magst */
@@ -100,6 +100,8 @@
 .regeneration-spiral {
   flex: 1;
   max-width: 560px;
+  margin-left: -10%;
+  transform: translateX(-0%);   /* zentriert relativ zum Content */
 }
 
 .reg-spiral {
@@ -111,7 +113,7 @@
 .reg-spiral path {
   fill: none;
   stroke: url(#regenGradient);
-  stroke-width: 12;
+  stroke-width: 6;
   stroke-linecap: round;
   stroke-linejoin: round;
 
@@ -119,6 +121,37 @@
   stroke-dasharray: none;
   stroke-dashoffset: 0;
 }
+
+
+/* Dauerlauf: Linie oben, Text darunter */
+#dauerlauf .training-step__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;  /* WICHTIG: nicht mehr center */
+  gap: 0rem;
+  padding-left: 2rem;       /* Abstand links */
+  padding-right: 2rem;      /* optional, entspricht deinem sonstigen Layout */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+/* Linie über die gesamte Viewport-Breite */
+.dauerlauf-path-wrapper {
+  width: 100vw;
+  margin-left: calc(20% - 5rem);  /* verschiebt die Linie korrekt, trotz padding-left */
+  transform: translateX(-50%);
+  order: -1;
+}
+
+
+/* SVG-Höhe ähnlich wie EKG */
+.dauerlauf-path {
+  display: block;
+  width: 100%;
+  height: 270px;
+}
+
 
 
 

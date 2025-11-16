@@ -51,19 +51,39 @@
     Scrolle nach unten – Schritt für Schritt durch die wichtigsten Bausteine meines Lauftrainings.
   </p>
 
-  <!-- Dauerlauf -->
-  <article class="training-step" id="dauerlauf">
-    <div class="training-step__content">
-      <div class="training-step__illustration" aria-hidden="true">
-        <img src="img/dauerlauf-icon.svg" alt="">
-      </div>
-      <div class="training-step__text">
-      <h3>Dauerlauf</h3>
-        <p>Ruhige Läufe im Wohlfühltempo.</p>
-        <p>Sie bilden das Fundament für meine Ausdauer.</p>
-      </div>
+<!-- Dauerlauf -->
+<article class="training-step" id="dauerlauf">
+  <div class="training-step__content">
+     <div class="training-step__illustration dauerlauf-path-wrapper" aria-hidden="true">
+      <svg viewBox="0 0 850 332" class="dauerlauf-path" preserveAspectRatio="none">
+        <defs>
+          <!-- Verlauf von links (blau) nach rechts (lila) -->
+          <linearGradient id="dauerlaufGradient"
+                          x1="0" y1="232"
+                          x2="850" y2="232"
+                          gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#51CBFF" />
+            <stop offset="100%" stop-color="#9FA9FF" />
+          </linearGradient>
+        </defs>
+
+        <path d="M35 223C103 261 144.7 229 175.5 229C214 229 209 260.5 299.5 259C390 257.5 309 216 391 216C435 216 466.5 236 571 236C675.5 236 622.5 206 665.5 206C708.5 206 653 226 791 216"
+              stroke="url(#dauerlaufGradient)"
+              stroke-width="5"
+              stroke-linecap="round"
+              fill="none" />
+      </svg>
     </div>
-    </article>
+    <div class="training-step__text">
+      <h3>Dauerlauf</h3>
+      <p>Ruhige Läufe im Wohlfühltempo.</p>
+      <p>Sie bilden das Fundament für meine Ausdauer.</p>
+    </div>
+
+   
+  </div>
+</article>
+
 
 <!-- Intervalltraining -->
 <article class="training-step" id="intervall">
