@@ -45,24 +45,27 @@
 </section>
 
 <section class="slider-section">
-  <h2>Highlights</h2>
+  <h2>Equipment</h2>
 
   <div class="slider slider--radio">
     <!-- State -->
     <input type="radio" name="slide" id="r1" checked hidden>
     <input type="radio" name="slide" id="r2" hidden>
+    <input type="radio" name="slide" id="r3" hidden>
 
     <!-- Viewport/Bahn -->
     <div class="slider__viewport">
       <!-- 1 -->
       <article class="slider-card">
         <div class="slider-card__media">
-          <img src="img/karte.jpg.webp" alt="Laufstrecke durch die Berliner Innenstadt">
+          <img src="img/band.svg" alt="Laufstrecke durch die Berliner Innenstadt">
         </div>
         <div class="slider-card__content">
-          <h3 class="slider-card__title">Lieblingsort</h3>
-          <p class="slider-card__subline">Stadt, Parks & Abendsonne</p>
-          <p class="slider-card__body">Am späten Nachmittag durch die Stadt – Architektur, Parks, Menschen im Alltag.</p>
+          <h3 class="slider-card__title">Lieblingsband</h3>
+          <p class="slider-card__subline">Leicht und sicher</p>
+          <p class="slider-card__body">
+            Mit meinem Laufband von Nike behalte ich beim Training immer die Kontrolle.
+          </p>
         </div>
       </article>
 
@@ -74,7 +77,9 @@
         <div class="slider-card__content">
           <h3 class="slider-card__title">Lieblingsschuhe</h3>
           <p class="slider-card__subline">ASICS GT-1000</p>
-          <p class="slider-card__body">Leicht, stabil und vielseitig – perfekt für Asphalt und Waldwege.</p>
+          <p class="slider-card__body">
+            Leicht, stabil und vielseitig – perfekt für Asphalt und Waldwege.
+          </p>
         </div>
       </article>
 
@@ -84,26 +89,61 @@
           <img src="img/airpods.svg" alt="Kopfhörer fürs Laufen">
         </div>
         <div class="slider-card__content">
-          <h3 class="slider-card__title">Ausrüstung</h3>
+          <h3 class="slider-card__title">Musik</h3>
           <p class="slider-card__subline">AirPods Pro & Armband</p>
-          <p class="slider-card__body">Musik & Nike Lean Armband – frei und konzentriert laufen.</p>
+          <p class="slider-card__body">
+            Musik & Nike Lean Armband – frei und konzentriert laufen.
+          </p>
         </div>
       </article>
     </div>
 
     <!-- Navigation -->
-    <div class="slider-nav">
-      <!-- Zustand 1: nur nach rechts -->
-      <div class="nav nav--1">
-        <label class="next" for="r2" aria-label="Nächste Karte">›</label>
-      </div>
-      <!-- Zustand 2: nur nach links -->
-      <div class="nav nav--2">
-        <label class="prev" for="r1" aria-label="Vorherige Karte">‹</label>
-      </div>
+    <div class="slider-nav" aria-label="Highlights-Slider Navigation">
+  <!-- Zustand 1: nur nach rechts -->
+  <div class="nav nav--1">
+    <label class="next"
+           for="r2"
+           role="button"
+           tabindex="0"
+           aria-label="Nächste Karte">
+      ›
+    </label>
+  </div>
+
+  <!-- Zustand 2: links & rechts -->
+  <div class="nav nav--2">
+    <label class="prev"
+           for="r1"
+           role="button"
+           tabindex="0"
+           aria-label="Vorherige Karte">
+      ‹
+    </label>
+    <label class="next"
+           for="r3"
+           role="button"
+           tabindex="0"
+           aria-label="Nächste Karte">
+      ›
+    </label>
+  </div>
+
+  <!-- Zustand 3: nur nach links -->
+  <div class="nav nav--3">
+    <label class="prev"
+           for="r2"
+           role="button"
+           tabindex="0"
+           aria-label="Vorherige Karte">
+      ‹
+      </label>
     </div>
   </div>
+
+  </div>
 </section>
+
 
 
 

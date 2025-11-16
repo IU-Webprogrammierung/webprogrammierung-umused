@@ -13,82 +13,109 @@
 }
 
 /* Slides (Cards) */
-/* Slides */
 .slider--radio .slider-card{
   flex: 0 0 55%;
   background:#fff;
   border-radius:16px;
-  border-color: aqua;
-  border: 1px solid;
-  padding:0rem;
-  box-shadow:0 0px 0px rgba(0,0,0,.05);
+  border: 1px solid aqua;
+  padding:0;
+  box-shadow:0 0 0 rgba(0,0,0,.05);
   display:flex;
   flex-direction:column;
-  gap:0.75rem;
+  gap:.75rem;
 }
-
 
 @media (min-width:1024px){
   .slider--radio .slider-card{ flex-basis:40%; }
 }
 
-@media (max-width:768px){
-  .slider--radio .slider-card{ flex-basis:80%; }
-}
-
-/* Bildbereich */
-.slider-card__media{
-  width: 100%;
-  height: 260px;              /* einheitliche Bildhöhe */
-  border-radius: 0px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;       /* leichtes Grau als Hintergrund, optional */
-}
-
-
-.slider-card__media img{
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;   /* wichtig: nicht cover */
-  display: block;
-}
-
-
-
-
-/* Pfeil-UI unten rechts */
-.slider-nav{ margin-top:.5rem; display:flex; justify-content:flex-end; }
-.slider-nav .nav{ display:none; gap:.5rem; }
-
-.slider-nav .prev, .slider-nav .next{
-  display:inline-grid; place-items:center;
-  width:40px; height:40px; border-radius:999px;
-  background:rgba(0,0,0,.08);
-  color:var(--primary-color);
-  font-size:1.25rem; font-weight:600; line-height:1;
-  cursor:pointer; user-select:none;
-}
-.slider-nav .prev:hover, .slider-nav .next:hover{ background:rgba(0,0,0,.15); }
-
-/* --- Logik: transform abhängig vom :checked --- */
-
-/* 1. Zustand – Start */
+/* --- Logik Desktop: 3 States --- */
 #r1:checked ~ .slider__viewport{
   transform: translateX(0);
 }
 
-/* 2. Zustand – nach rechts geschoben,
-   Karte 2 + 3 sichtbar, 1 ist raus */
 #r2:checked ~ .slider__viewport{
+  /* Karte 2 rutscht an Stelle von Karte 1, 1 & 3 schauen rein */
   transform: translateX(calc(-35% - 0.75rem));
 }
 
-/* Sichtbarkeit der passenden Pfeil-Kombination */
+#r3:checked ~ .slider__viewport{
+  /* Karte 3 rutscht an Stelle von Karte 2, 2 schaut links rein */
+  transform: translateX(calc(-70% - 1.5rem));
+}
+
+/* Pfeil-UI unten rechts */
+.slider-nav{
+  margin-top:2.5rem;
+  display:flex;
+  justify-content:flex-end;
+}
+
+/* <<< das hat gefehlt */
+.slider-nav .nav{
+  display:none;
+  gap:1.5rem;
+}
+
+/* Buttons selbst */
+.slider-nav .prev,
+.slider-nav .next{
+  display:inline-grid;
+  place-items:center;
+  width:28px;
+  height:28px;
+  border-radius:99px;
+  background:var(--primary-color);
+  color:#fff;
+  font-size:1.5rem;
+  font-weight:700;
+  line-height:0;
+  cursor:pointer;
+  user-select:none;
+  box-shadow:0 2px 2px rgba(0,0,0,0.15);
+  border:none;
+}
+
+/* Hover / Fokus */
+.slider-nav .prev:hover,
+.slider-nav .next:hover{
+  transform: translateY(-1px) scale(1.03);
+  box-shadow:0 2px 2px rgba(0,0,0,.2);
+}
+
+.slider-nav .prev:focus-visible,
+.slider-nav .next:focus-visible{
+  outline:1px solid #000;
+  outline-offset:1px;
+}
+
+/* Sichtbarkeit je nach Radio-State */
 #r1:checked ~ .slider-nav .nav--1{ display:flex; }
 #r2:checked ~ .slider-nav .nav--2{ display:flex; }
+#r3:checked ~ .slider-nav .nav--3{ display:flex; }
 
+
+
+@media (max-width: 768px){
+
+  .slider--radio .slider-card{
+    flex: 0 0 95%;  /* eine Karte ~90% breit */
+  }
+
+  /* State 1: Karte 1 voll, Karte 2 halb rechts */
+  #r1:checked ~ .slider__viewport{
+    transform: translateX(0);
+  }
+
+  /* State 2: um genau eine Kartenbreite + Gap verschoben
+     → Karte 2 übernimmt den „Slot“ von Karte 1 */
+  #r2:checked ~ .slider__viewport{
+    transform: translateX(calc(-95% - 1.5rem));
+  }
+
+  /* State 3: noch eine Kartenbreite + Gap weiter
+     → Karte 3 übernimmt den Slot, Karte 2 schaut links rein */
+  #r3:checked ~ .slider__viewport{
+    transform: translateX(calc(-190% - 3rem));
+  }
+}
