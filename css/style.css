@@ -358,6 +358,58 @@ section {
   background: linear-gradient(135deg, #2e86c1 50%, #f4f4f4 50%);
 }
 }
+/* Trainingsplan-Layout */
+.plan {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.3fr);
+  gap: 2rem;              /* Abstand zwischen linker Spalte und Tabelle */
+  align-items: start;
+  padding: 0 2rem;
+}
+
+/* Linke Seite: Überschrift + Text als Block */
+.plan-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;            /* Abstand zwischen h2 und p */
+  max-width: 36rem;
+}
+
+/* Optionale Feinanpassung für Typo */
+.plan-text h2 {
+  margin: 0;
+}
+
+.plan-text p {
+  margin: 0;
+}
+
+/* Rechte Seite: Tabelle */
+.plan table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.plan th,
+.plan td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.plan th {
+  font-weight: 600;
+  background: #f5faff;
+  border-bottom: 2px solid #cfeaff;
+}
+
+/* Mobile: untereinander */
+@media (max-width: 768px) {
+  .plan {
+    grid-template-columns: 1fr;
+  }
+}
 
 
 
