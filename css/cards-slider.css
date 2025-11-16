@@ -25,8 +25,16 @@
   gap:.75rem;
 }
 
+.slider-card__media{
+  display: flex;
+  align-items: center;     /* vertikal zentriert */
+  justify-content: center; /* horizontal zentriert */
+}
+
+
+
 @media (min-width:1024px){
-  .slider--radio .slider-card{ flex-basis:40%; }
+  .slider--radio .slider-card{ flex-basis:60%; }
 }
 
 /* --- Logik Desktop: 3 States --- */
@@ -36,12 +44,12 @@
 
 #r2:checked ~ .slider__viewport{
   /* Karte 2 rutscht an Stelle von Karte 1, 1 & 3 schauen rein */
-  transform: translateX(calc(-35% - 0.75rem));
+  transform: translateX(calc(-60% - 0.75rem));
 }
 
 #r3:checked ~ .slider__viewport{
   /* Karte 3 rutscht an Stelle von Karte 2, 2 schaut links rein */
-  transform: translateX(calc(-70% - 1.5rem));
+  transform: translateX(calc(-120% - 1.5rem));
 }
 
 /* Pfeil-UI unten rechts */
