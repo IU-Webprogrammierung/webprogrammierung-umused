@@ -5,47 +5,54 @@ document.addEventListener('DOMContentLoaded', function () {
   const prefersReduced = window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // 🔵 Dauerlauf: Weg-Linie
+  const SCROLL_FACTOR =3.0; 
+
+  // --- Initialisierung der Pfade ---
   const dauerStep = document.getElementById('dauerlauf');
   const dauerPath = dauerStep ? dauerStep.querySelector('.dauerlauf-path path') : null;
   let dauerLength = 0;
-
   if (dauerPath) {
     dauerLength = dauerPath.getTotalLength();
     dauerPath.style.strokeDasharray = dauerLength;
-    dauerPath.style.strokeDashoffset = dauerLength; // startet "unsichtbar"
+    dauerPath.style.strokeDashoffset = dauerLength;
   }
 
-  // 🔴 Intervall: EKG-Linie
   const ekgStep = document.getElementById('intervall');
   const ekgPath = ekgStep ? ekgStep.querySelector('.ekg-line path') : null;
   let ekgLength = 0;
-
   if (ekgPath) {
     ekgLength = ekgPath.getTotalLength();
     ekgPath.style.strokeDasharray = ekgLength;
     ekgPath.style.strokeDashoffset = ekgLength;
   }
-
-  // ❤️ Intervall: Herz-Overlay
   const intervalHeart = document.querySelector('.interval-heart');
 
-  // 🌿 Regeneration: Spirale
   const regenStep = document.getElementById('regeneration');
   const regenPath = regenStep ? regenStep.querySelector('.reg-spiral path') : null;
   let regenLength = 0;
-
   if (regenPath) {
     regenLength = regenPath.getTotalLength();
     regenPath.style.strokeDasharray = regenLength;
     regenPath.style.strokeDashoffset = regenLength;
   }
 
-  // Bei reduzierter Bewegung: alles sichtbar, keine Animation
+  const eggStep = document.getElementById('ernaehrung');
+  const eggOutline = eggStep ? eggStep.querySelector('.egg-outline') : null;
+  const eggYolk = eggStep ? eggStep.querySelector('.egg-yolk') : null;
+  let eggOutlineLength = 0;
+  if (eggOutline) {
+    eggOutlineLength = eggOutline.getTotalLength();
+    eggOutline.style.strokeDasharray = eggOutlineLength;
+    eggOutline.style.strokeDashoffset = eggOutlineLength;
+  }
+
+  // Reduced Motion Fallback
   if (prefersReduced) {
     if (dauerPath) dauerPath.style.strokeDashoffset = 0;
     if (ekgPath) ekgPath.style.strokeDashoffset = 0;
     if (regenPath) regenPath.style.strokeDashoffset = 0;
+    if (eggOutline) eggOutline.style.strokeDashoffset = 0;
+    if (eggYolk) eggYolk.style.opacity = 1;
     if (intervalHeart) {
       intervalHeart.style.opacity = 1;
       intervalHeart.style.transform = 'translateX(0) translateY(-50%)';
@@ -53,99 +60,123 @@ document.addEventListener('DOMContentLoaded', function () {
     return;
   }
 
+  // ============================================================
+  // HIER HATTE DIE FUNKTION GEFEHLT
+  // ============================================================
   function updateSteps() {
     const viewportHeight = window.innerHeight;
-    const viewportCenter = viewportHeight / 2;
+    const viewportCenterAbs = window.scrollY + (viewportHeight / 2);
 
     steps.forEach(step => {
       const rect = step.getBoundingClientRect();
-      const stepCenter = rect.top + rect.height / 2;
+      
+      // Berechnungen für die SVG-Logik später
+      const stepTopAbs = rect.top + window.scrollY;
+      const stepCenterAbs = stepTopAbs + (step.offsetHeight / 2);
 
-      const distance = Math.abs(viewportCenter - stepCenter);
-      const maxDistance = viewportHeight * 2.0;
+      /* ================================
+         1) NEU: Plateau-Fade / Translate
+         ================================ */
+      
+      // 1.0 = ganz unten am Rand, 0.0 = ganz oben am Rand
+      const centerPercent = (rect.top + rect.height / 2) / viewportHeight;
 
-      let progress = 1 - distance / maxDistance;
-      if (progress < 0) progress = 0;
-      if (progress > 1) progress = 1;
+      // Plateau-Definition:
+      const startFadeIn = 2.95; // Erscheint unten
+      const endFadeIn = 2.0;   // Voll sichtbar
+      const startFadeOut = 0.20; // Beginnt oben zu verschwinden
+      const endFadeOut = -0.10;  // Ganz weg (über dem Screen)
 
-      const eased = progress * progress;
+      let opacity = 0;
 
-      // Allgemeiner Effekt für alle Steps
-      const opacity = 0.05 + eased * 1;
-      const translateY = (1 - eased) * 30;
+      if (centerPercent > startFadeIn) {
+        opacity = 0; // Noch unterhalb
+      } else if (centerPercent > endFadeIn) {
+        // Einfaden unten
+        opacity = 1 - (centerPercent - endFadeIn) / (startFadeIn - endFadeIn);
+      } else if (centerPercent > startFadeOut) {
+        // PLATEAU: Mitte voll sichtbar
+        opacity = 1;
+      } else if (centerPercent > endFadeOut) {
+        // Ausfaden oben
+        opacity = (centerPercent - endFadeOut) / (startFadeOut - endFadeOut);
+      } else {
+        opacity = 0; // Ganz oben weg
+      }
 
-      step.style.opacity = opacity.toString();
-      step.style.transform = 'translateY(' + translateY + 'px)';
+      // Sanfte Bewegung von unten
+      let translateY = 0;
+      if (centerPercent > endFadeIn) {
+          translateY = (centerPercent - endFadeIn) * 200; 
+      }
 
-      // 🔵 Dauerlauf: Weg zeichnen
-      if (step.id === 'dauerlauf' && dauerPath && dauerLength > 0) {
-        const start = viewportHeight;
-        const end = -rect.height;
-        const total = start - end;
+      step.style.opacity = opacity.toFixed(2);
+      step.style.transform = 'translateY(' + translateY.toFixed(1) + 'px)';
 
-        let dauerProgress = (start - rect.top) / total; // 0 → 1 über den eigenen Bereich
-        if (dauerProgress < 0) dauerProgress = 0;
-        if (dauerProgress > 1) dauerProgress = 1;
+      /* ==========================================
+         2) SVG Zeichnen-Logik
+         ========================================== */
+      
+      const delta = viewportCenterAbs - stepCenterAbs;
+      const halfRange = (viewportHeight * SCROLL_FACTOR) / 2;
 
-        const drawOffset = dauerLength * (1 - dauerProgress);
+      let sectionProgress = (delta + halfRange) / (2 * halfRange);
+      if (sectionProgress < 0) sectionProgress = 0;
+      if (sectionProgress > 1) sectionProgress = 1;
+
+      const easedSection = sectionProgress;
+
+      // --- Spezielle Animationen ---
+
+      // 🔵 Dauerlauf
+      if (step.id === 'dauerlauf' && dauerPath) {
+        const drawOffset = dauerLength * (1 - easedSection);
         dauerPath.style.strokeDashoffset = drawOffset;
       }
 
-      // 🔴 Intervall: EKG + Herz
-      if (step.id === 'intervall') {
-        if (ekgPath && ekgLength > 0) {
-          const start = viewportHeight;
-          const end = -rect.height;
-          const total = start - end;
+      // 🔴 Intervall
+      if (step.id === 'intervall' && ekgPath) {
+        const drawOffset = ekgLength * (1 - easedSection);
+        ekgPath.style.strokeDashoffset = drawOffset;
 
-          let ekgProgress = (start - rect.top) / total;
-          if (ekgProgress < 0) ekgProgress = 0;
-          if (ekgProgress > 1) ekgProgress = 1;
-
-          const drawOffset = ekgLength * (1 - ekgProgress);
-          ekgPath.style.strokeDashoffset = drawOffset;
-
-          if (intervalHeart) {
-            const heartEase = ekgProgress * ekgProgress;
-            const heartOpacity = heartEase;
-            const slide = (1 - heartEase) * 80;
-
-            intervalHeart.style.opacity = heartOpacity;
-            intervalHeart.style.transform =
-              'translateX(' + (-slide) + 'px) translateY(-50%)';
-          }
+        if (intervalHeart) {
+          intervalHeart.style.opacity = easedSection;
+          intervalHeart.style.transform = `translateX(${easedSection * 20}px) translateY(-50%)`; 
         }
       }
 
-      // 🌿 Regeneration: Spirale
-      if (step.id === 'regeneration' && regenPath && regenLength > 0) {
-        const start = viewportHeight;
-        const end = -rect.height;
-        const total = start - end;
-
-        let regenProgress = (start - rect.top) / total;
-        if (regenProgress < 0) regenProgress = 0;
-        if (regenProgress > 1) regenProgress = 1;
-
-        const drawOffset = regenLength * (1 - regenProgress);
+      // 🌿 Regeneration
+      if (step.id === 'regeneration' && regenPath) {
+        const drawOffset = regenLength * (1 - easedSection);
         regenPath.style.strokeDashoffset = drawOffset;
       }
-    });
-  }
+
+      // 🥚 Ernährung
+      if (step.id === 'ernaehrung') {
+        if (eggOutline) {
+          const outlineProg = Math.min(sectionProgress / 0.6, 1);
+          eggOutline.style.strokeDashoffset = eggOutlineLength * (1 - outlineProg);
+        }
+        if (eggYolk) {
+          const yolkProg = Math.max((sectionProgress - 0.4) / 0.6, 0);
+          eggYolk.style.opacity = yolkProg;
+        }
+      }
+    }); // Ende forEach
+  } // Ende updateSteps
 
   let ticking = false;
-  function onScroll() {
+  window.addEventListener('scroll', () => {
     if (!ticking) {
-      window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(() => {
         updateSteps();
         ticking = false;
       });
       ticking = true;
     }
-  }
-
-  window.addEventListener('scroll', onScroll);
+  });
   window.addEventListener('resize', updateSteps);
-
+  
+  // Einmal initial aufrufen
   updateSteps();
 });

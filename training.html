@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"></script>
     <title>Mein Weg zum Halbmarathon</title>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/training.css" />
-        <script src="js/training.js" defer></script>
+    <script src="js/training.js" defer></script>
     <script src="js/loader.js" defer></script>
   </head>
 
@@ -15,174 +17,204 @@
     <header>
     </header>
 
-<main>
-  <!-- Hero -->
-  <section class="hero">
-  <h1>Training für den Halbmarathon</h1>
-  <h2>Disziplin, Motivation und Freude an Bewegung</h2>
-  <img src="../img/runningsunset.png" alt="Läufer auf einer Straße bei Sonnenuntergang">
-</section>
+    <main>
+      <!-- Hero -->
+      <section class="hero" aria-labelledby="hero-title">
+        <h1 id="hero-title">Training für den Halbmarathon</h1>
+        <h2>Disziplin, Motivation und Freude an Bewegung</h2>
+        <!-- Pfad ggf. anpassen: hier angenommen, dass training.html im Projektroot liegt -->
+        <img src="img/runningsunset.png" alt="Läufer auf einer Straße bei Sonnenuntergang">
+      </section>
 
+      <!-- Trainingsplan -->
+      <section class="plan">
+        <div class="plan-text">
+          <h2>Mein Trainingsplan</h2>
+          <p>
+            Ich trainiere aktuell viermal pro Woche – mit einem Mix aus Dauerläufen,
+            Intervalltraining und Regeneration. Das ist mein typischer Wochenplan:
+          </p>
+        </div>
 
-  <!-- Trainingsplan -->
-<section class="plan">
-  <div class="plan-text">
-    <h2>Mein Trainingsplan</h2>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Tag</th>
+              <th scope="col">Einheit</th>
+              <th scope="col">Ziel</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Montag</td><td>Locker laufen (5 km)</td><td>Regeneration</td></tr>
+            <tr><td>Mittwoch</td><td>Intervalle (4 × 800 m)</td><td>Schnelligkeit</td></tr>
+            <tr><td>Freitag</td><td>Ruhiger Lauf (6 km)</td><td>Grundlagenausdauer</td></tr>
+            <tr><td>Sonntag</td><td>Langer Lauf (12–15 km)</td><td>Ausdauer &amp; mentale Stärke</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+<section class="testhero" aria-label="Die Bausteine meines Trainings">
+  <div class="testhero-content"> <h2>Die Bausteine meines Trainings</h2>
     <p>
-      Ich trainiere aktuell viermal pro Woche – mit einem Mix aus Dauerläufen,
-      Intervalltraining und Regeneration. Das ist mein typischer Wochenplan:
+      Scrolle nach unten – Schritt für Schritt durch die wichtigsten Bausteine meines Lauftrainings.
     </p>
   </div>
-
-  <table>
-    <tr><th>Tag</th><th>Einheit</th><th>Ziel</th></tr>
-    <tr><td>Montag</td><td>Locker laufen (5 km)</td><td>Regeneration</td></tr>
-    <tr><td>Mittwoch</td><td>Intervalle (4 × 800 m)</td><td>Schnelligkeit</td></tr>
-    <tr><td>Freitag</td><td>Ruhiger Lauf (6 km)</td><td>Grundlagenausdauer</td></tr>
-    <tr><td>Sonntag</td><td>Langer Lauf (12–15 km)</td><td>Ausdauer & mentale Stärke</td></tr>
-  </table>
 </section>
-
-
-
-<section class="training-journey" aria-label="Die Bausteine meines Lauftrainings">
-  <h2>Die Bausteine meines Trainings</h2>
-  <p class="training-journey__intro">
-    Scrolle nach unten – Schritt für Schritt durch die wichtigsten Bausteine meines Lauftrainings.
-  </p>
-
-<!-- Dauerlauf -->
-<article class="training-step" id="dauerlauf">
-  <div class="training-step__content">
-     <div class="training-step__illustration dauerlauf-path-wrapper" aria-hidden="true">
-      <svg viewBox="0 0 850 332" class="dauerlauf-path" preserveAspectRatio="none">
-        <defs>
-          <!-- Verlauf von links (blau) nach rechts (lila) -->
-          <linearGradient id="dauerlaufGradient"
-                          x1="0" y1="232"
-                          x2="850" y2="232"
-                          gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#51CBFF" />
-            <stop offset="100%" stop-color="#9FA9FF" />
-          </linearGradient>
-        </defs>
-
-        <path d="M35 223C103 261 144.7 229 175.5 229C214 229 209 260.5 299.5 259C390 257.5 309 216 391 216C435 216 466.5 236 571 236C675.5 236 622.5 206 665.5 206C708.5 206 653 226 791 216"
-              stroke="url(#dauerlaufGradient)"
-              stroke-width="5"
-              stroke-linecap="round"
-              fill="none" />
-      </svg>
-    </div>
-    <div class="training-step__text">
-      <h3>Dauerlauf</h3>
-      <p>Ruhige Läufe im Wohlfühltempo.</p>
-      <p>Sie bilden das Fundament für meine Ausdauer.</p>
-    </div>
-
    
-  </div>
-</article>
+        <!-- Dauerlauf -->
+        <article class="training-step" id="dauerlauf">
+          <div class="training-step__content">
+            <div class="training-step__illustration dauerlauf-path-wrapper" aria-hidden="true">
+              <svg viewBox="0 0 850 332" class="dauerlauf-path" preserveAspectRatio="none">
+                <defs>
+                  <!-- Verlauf von links (blau) nach rechts (lila) -->
+                  <lineargradient id="dauerlaufGradient"
+                                  x1="0" y1="232"
+                                  x2="850" y2="232"
+                                  gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#51CBFF" />
+                    <stop offset="100%" stop-color="#9FA9FF" />
+                  </lineargradient>
+                </defs>
 
+                <path d="M35 223C103 261 144.7 229 175.5 229C214 229 209 260.5 299.5 259C390 257.5 309 216 391 216C435 216 466.5 236 571 236C675.5 236 622.5 206 665.5 206C708.5 206 653 226 791 216"
+                      stroke="url(#dauerlaufGradient)"
+                      stroke-width="13"
+                      stroke-linecap="round"
+                      fill="none" />
+              </svg>
+            </div>
+            <div class="training-step__text">
+              <h3>Dauerlauf</h3>
+              <p>Ruhige Läufe im Wohlfühltempo.</p>
+              <p>Sie bilden das Fundament für meine Ausdauer.</p>
+            </div>
+          </div>
+        </article>
 
-<!-- Intervalltraining -->
-<article class="training-step" id="intervall">
-  <div class="training-step__content">
-    <div class="training-step__illustration intervall-ekg" aria-hidden="true">
-      <svg viewBox="0 0 400 80" class="ekg-line" preserveAspectRatio="none">
-        <path d="M0 40 
-                 L40 40 
-                 L60 10 
-                 L80 70 
-                 L100 40 
-                 L140 40 
-                 L160 20 
-                 L180 60 
-                 L200 40 
-                 L240 40 
-                 L260 15 
-                 L280 65 
-                 L300 40 
-                 L340 40 
-                 L360 30 
-                 L380 50 
-                 L400 40" />
-      </svg>
-    </div>
+        <!-- Intervalltraining -->
+        <article class="training-step" id="intervall">
+          <div class="training-step__content">
+            <div class="training-step__illustration intervall-ekg" aria-hidden="true">
+              <svg viewBox="0 0 400 80" class="ekg-line" preserveAspectRatio="none">
+                <path d="M0 40 
+                         L40 40 
+                         L60 10 
+                         L80 70 
+                         L100 40 
+                         L140 40 
+                         L160 20 
+                         L180 60 
+                         L200 40 
+                         L240 40 
+                         L260 15 
+                         L280 65 
+                         L300 40 
+                         L340 40 
+                         L360 30 
+                         L380 50 
+                         L400 40" />
+              </svg>
+            </div>
 
-    <div class="training-step__text">
-      <h3>Intervalltraining</h3>
-      <p>Intensive Abschnitte mit Pausen.</p>
-      <p>Perfekt für Tempo & Herz-Kreislauf-System.</p>
-    </div>
-  </div>
+            <div class="training-step__text">
+              <h3>Intervalltraining</h3>
+              <p>Intensive Abschnitte mit Pausen.</p>
+              <p>Perfekt für Tempo &amp; Herz-Kreislauf-System.</p>
+            </div>
+          </div>
 
-  <div class="interval-heart" aria-hidden="true">
-    <img src="img/heart-interval.svg" alt="">
-  </div>
-</article>
+          <div class="interval-heart" aria-hidden="true">
+            <img src="img/heart-interval.svg" alt="Stilisiertes Herz als Symbol für das Herz-Kreislauf-System">
+          </div>
+        </article>
 
+        <!-- Regeneration -->
+        <article class="training-step" id="regeneration">
+          <div class="training-step__content">
+            <div class="training-step__illustration regeneration-spiral" aria-hidden="true">
+              <svg viewBox="0 0 230 160" class="reg-spiral" preserveAspectRatio="none">
+                <defs>
+                  <!-- Vertikaler Verlauf: unten gelb, oben grün -->
+                  <lineargradient id="regenGradient"
+                                  x1="2" y1="170"
+                                  x2="0" y2="65"
+                                  gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#f6d365" />
+                    <stop offset="100%" stop-color="#a8ff78" />
+                  </lineargradient>
+                </defs>
 
+                <path d="M55.8441 142.52C115.511 153.854 219.744 167.22 159.344 130.02C83.8441 83.5204 24.3441 89.0204 22.8441 98.0204C21.3441 107.02 212.344 146.52 200.344 116.02C188.344 85.5204 27.8441 51.0204 14.8441 53.5204C1.84408 56.0204 194.844 108.52 200.344 85.5203C205.844 62.5203 -5.15595 16.5203 4.84406 24.5203C14.8441 32.5203 244.844 69.0204 190.344 53.5204C135.844 38.0204 -52.6559 -3.97965 22.8441 6.02035C98.3441 16.0204 121.344 15.0204 155.844 10.5204"
+                      stroke="url(#regenGradient)" />
+              </svg>
+            </div>
+            <div class="training-step__text">
+              <h3>Regeneration</h3>
+              <p>Yoga, Dehnen &amp; aktive Erholung.</p>
+              <p>Nur wer regeneriert, kann Fortschritte machen.</p>
+            </div>
+          </div>
+        </article>
 
-<!-- Regeneration -->
-<article class="training-step" id="regeneration">
-  <div class="training-step__content">
-        <div class="training-step__illustration regeneration-spiral" aria-hidden="true">
-<svg viewBox="0 0 260 160" class="reg-spiral" preserveAspectRatio="none">
-  <defs>
-    <!-- Vertikaler Verlauf: unten gelb, oben grün -->
-    <linearGradient id="regenGradient"
-                    x1="0" y1="160"
-                    x2="0" y2="0"
-                    gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#f6d365" />  <!-- unten: warmes Gelb -->
-      <stop offset="100%" stop-color="#a8ff78" /> <!-- oben: frisches Grün -->
-    </linearGradient>
-  </defs>
+        <!-- Ernährung -->
+        <article class="training-step" id="ernaehrung">
+          <div class="training-step__content">
+           
+            <div class="training-step__illustration nutrition-egg" aria-hidden="true">
+  <svg viewBox="0 190 288 70" class="egg-svg" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <linearGradient id="eggOutlineGradientNew" x1="88" y1="231" x2="125" y2="231" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#B4B4B4"/>
+        <stop offset="1" stop-color="#EBEBEB"/>
+      </linearGradient>
 
-  <path d="M55.8441 142.52C115.511 153.854 219.744 167.22 159.344 130.02C83.8441 83.5204 24.3441 89.0204 22.8441 98.0204C21.3441 107.02 212.344 146.52 200.344 116.02C188.344 85.5204 27.8441 51.0204 14.8441 53.5204C1.84408 56.0204 194.844 108.52 200.344 85.5203C205.844 62.5203 -5.15595 16.5203 4.84406 24.5203C14.8441 32.5203 244.844 69.0204 190.344 53.5204C135.844 38.0204 -52.6559 -3.97965 22.8441 6.02035C98.3441 16.0204 121.344 15.0204 155.844 10.5204" />
-</svg>
+      <linearGradient id="eggYolkGradientNew" x1="121" y1="218" x2="175" y2="218" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#FFD35B"/>
+        <stop offset="1" stop-color="#FF9F2A"/>
+      </linearGradient>
 
-    </div>
-    <div class="training-step__text">
-      <h3>Regeneration</h3>
-      <p>Yoga, Dehnen & aktive Erholung.</p>
-      <p>Nur wer regeneriert, kann Fortschritte machen.</p>
-    </div>
+      <linearGradient id="eggYolkStrokeGradientNew" x1="129" y1="221" x2="141" y2="221" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#B4B4B4"/>
+        <stop offset="1" stop-color="#EBEBEB"/>
+      </linearGradient>
+    </defs>
 
+    <path class="egg-outline"
+          d="M136.32 194.5C114.72 193.7 69.5506 212.79 64.5001 232.5C61.2436 245.208 89.4999 241.5 97.9999 243C106.5 244.5 126.32 242.029 136.32 240.029C146.32 238.029 152.82 237.529 160.32 240.029C167.82 242.529 182.82 241.529 196.82 240.029C210.82 238.529 219.82 226.529 222.32 218.529C224.82 210.529 227 207.5 214 204C201 200.5 182.82 199.529 169.82 201.529C156.82 203.529 163.32 195.5 136.32 194.5Z"
+          stroke="url(#eggOutlineGradientNew)"
+          stroke-width="3"
+          stroke-linecap="round"
+          fill="none" />
 
-  </div>
-</article>
+    <path class="egg-yolk"
+          d="M168.769 221.012C160.349 223.344 118.12 229.669 121.156 218.972C123.847 209.491 146.215 211.104 161.251 211.104C176.287 211.104 179.294 218.098 168.769 221.012Z"
+          fill="url(#eggYolkGradientNew)"
+          stroke="url(#eggYolkStrokeGradientNew)"
+          stroke-width="0.3"
+          stroke-linecap="round" />
+  </svg>
+</div>
 
+            <div class="training-step__text">
+              <h3>Ernährung</h3>
+              <p>Ausgewogen mit Obst, Vollkorn &amp; Proteinen.</p>
+              <p>Essen ist Treibstoff für Körper und Kopf.</p>
+            </div>
+          </div>
+        </article>
+      </section>
 
-  <!-- Ernährung -->
-  <article class="training-step" id="ernaehrung">
-    <div class="training-step__content">
-      <div class="training-step__illustration">
-        <img src="img/ernaehrung.jpg" alt="Gesundes Frühstück mit Haferflocken, Obst und Wasser">
-      </div>
-      <div class="training-step__text">
-        <h3>Ernährung</h3>
-        <p>Ausgewogen mit Obst, Vollkorn & Proteinen.</p>
-        <p>Essen ist Treibstoff für Körper und Kopf.</p>
-      </div>
-  </div>
-  </article>
+      <section class="progress">
+        <h2>Mein Fortschritt</h2>
+        <p>Aktuell laufe ich regelmäßig 15 Kilometer. Bis zum Halbmarathon fehlen nur noch 6 km – das Ziel rückt näher!</p>
+        <div class="progressbar">
+          <div class="progress-fill" style="width: 70%;"></div>
+        </div>
+      </section>
 
-</section>
+    </main>
 
-
-
-
-<section class="progress">
-  <h2>Mein Fortschritt</h2>
-  <p>Aktuell laufe ich regelmäßig 15 Kilometer. Bis zum Halbmarathon fehlen nur noch 6 km – das Ziel rückt näher!</p>
-  <div class="progressbar">
-    <div class="progress-fill" style="width: 70%;"></div>
-  </div>
-</section>
-
-</main>
     <footer>
     </footer>
   </body>

@@ -1,77 +1,134 @@
-.training-step {
-  min-height: 100vh;
+/* ============ Grundlayout für alle Steps ============ */
+
+
+/* CSS Änderung */
+.testhero {
   display: flex;
-  align-items: center;
+  align-items: center;      /* Zentriert den Text vertikal schön */
+  justify-content: center;
+  min-height: 100vh;        /* Füllt genau einen Bildschirm */
+  background-color: #fff;   /* WICHTIG: Deckt nachfolgende Elemente ab */
+  position: relative;
+  z-index: 10;              /* Liegt über den sticky Elementen */
+  padding: 2rem;
+  text-align: center;       /* Text zentrieren */
+}
+
+.testhero-content {
+  max-width: 800px;
+}
+
+/* Jeder Step ist hoch (für Scroll + Animation) */
+.training-step {
+  position: relative;
+  min-height: 200vh;
   box-sizing: border-box;
-
-  opacity: 1;
-  transform: translateY(0);
-  will-change: transform, opacity;
 }
 
-.intervall-ekg {
+
+
+/* Text-Ebene über den Illustrationen */
+.training-step__text {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* Inhalt klebt im Viewport, links ausgerichtet */
+.training-step__content {
+  position: sticky;
+  top: 50vh;                 /* „Höhe“ im Viewport – kannst du noch tweaken */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 2rem;           /* Text startet bei 2rem vom linken Rand */
+  box-sizing: border-box;
   width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
 }
 
-.ekg-line {
+/* Optional: mobile etwas kompakter */
+@media (max-width: 767px) {
+  .training-step__content {
+    flex-direction: column;
+    align-items: flex-start;
+    top: 20vh;
+  }
+}
+
+/* ============ Dauerlauf ============ */
+
+#dauerlauf {
+  min-height: 200vh;
+}
+
+/* Dauerlauf: Linie oben, Text darunter – wie bisher */
+#dauerlauf .training-step__content {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0rem;
+}
+
+/* Linie über gesamte Viewport-Breite, links bündig */
+.dauerlauf-path-wrapper {
+  width: 100vw;
+  margin-left: calc(-2rem);      /* gleicht padding-left: 2rem aus → bis an den Rand */
+  transform: none;
+  order: -1;                     /* Linie über dem Text */
+}
+
+.dauerlauf-path {
   display: block;
   width: 100%;
-  height: auto;
+  height: 270px;
 }
 
-.ekg-line path {
-  fill: none;
-  stroke: #e53935;         /* rotes EKG */
-  stroke-width: 3;
-  stroke-linejoin: round;
-  stroke-linecap: round;
+/* ============ Intervall ============ */
 
-  /* wird per JS gesetzt, aber initial sicherheitshalber: */
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-}
-
-/* Training-Journey: etwas weniger Seitenpadding,
-   damit das EKG wirklich an den Rand kann */
-.training-journey {
-  padding: 2rem 0;
-}
-
-/* Im Intervall-Abschnitt: Content untereinander statt nebeneinander */
 #intervall .training-step__content {
-  display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 1.0rem;
 }
 
-/* EKG über die volle Viewport-Breite zentrieren */
+/* EKG über die volle Viewport-Breite, links bündig */
 .intervall-ekg {
-  width: 100vw;                  /* volle Browserbreite */
-  margin-left: 50%;
-  transform: translateX(-60%);   /* zentriert relativ zum Content */
+  margin-left: calc(-2rem);      /* bis ganz an den Rand */
+  transform: none;
 }
 
-/* SVG etwas höher machen, wenn du magst */
+/* EKG-Höhe */
 .ekg-line {
   display: block;
   width: 100%;
   height: 70px;
 }
 
-/* Intervall-Step: Content normal, Herz ist Overlay */
+.ekg-line path {
+  fill: none;
+  stroke: #e53935;
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+/* Textblock neben dem EKG */
+#intervall .training-step__text {
+  max-width: 28rem;
+}
+
+/* Herz bleibt wie gehabt rechts im Viewport */
 .interval-heart {
   position: fixed;
   top: 50%;
-  right: -15vw;              /* 40% der Breite außerhalb → ca. 60% sichtbar */
-  width: 50vw;               /* Größe anpassen */
+  right: -15vw;
+  width: 50vw;
   max-width: 520px;
-  transform: translateY(-50%); /* vertikal zentriert */
-  opacity: 0;                /* Start: unsichtbar */
-  pointer-events: none;      /* nichts blockieren */
-  z-index: -1;               /* hinter dem Inhalt, ggf. auf 0/1 stellen wenn nötig */
+  transform: translateY(-50%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .interval-heart img {
@@ -80,28 +137,19 @@
   height: auto;
 }
 
-/* Regeneration: Text + Spirale untereinander / nebeneinander */
+/* ============ Regeneration ============ */
+
 #regeneration .training-step__content {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
 }
 
-@media (min-width: 768px) {
-  #regeneration .training-step__content {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-}
-
-/* Spirale groß, aber nicht übertrieben */
+/* Spirale links, bis an den Rand */
 .regeneration-spiral {
   flex: 1;
   max-width: 560px;
-  margin-left: -10%;
-  transform: translateX(-0%);   /* zentriert relativ zum Content */
+  margin-left: calc(-2rem);
+  transform: none;
 }
 
 .reg-spiral {
@@ -112,54 +160,134 @@
 
 .reg-spiral path {
   fill: none;
-  stroke: url(#regenGradient);
+  stroke: url(#regenGradient);   /* Tipp: ID im SVG checken */
   stroke-width: 6;
   stroke-linecap: round;
   stroke-linejoin: round;
-
-  /* Standard: sichtbar, JS überschreibt dann */
   stroke-dasharray: none;
   stroke-dashoffset: 0;
 }
 
-
-/* Dauerlauf: Linie oben, Text darunter */
-#dauerlauf .training-step__content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;  /* WICHTIG: nicht mehr center */
-  gap: 0rem;
-  padding-left: 2rem;       /* Abstand links */
-  padding-right: 2rem;      /* optional, entspricht deinem sonstigen Layout */
-  width: 100%;
-  box-sizing: border-box;
+/* Text rechts daneben */
+#regeneration .training-step__text {
+  max-width: 28rem;
 }
 
+/* ============ Ernährung ============ */
 
-/* Linie über die gesamte Viewport-Breite */
-.dauerlauf-path-wrapper {
-  width: 100vw;
-  margin-left: calc(20% - 5rem);  /* verschiebt die Linie korrekt, trotz padding-left */
-  transform: translateX(-50%);
-  order: -1;
+#ernaehrung .training-step__content {
+  flex-direction: row;
+  align-items: center;
 }
 
+/* Ei links, wie die Spirale bei Regeneration */
+.nutrition-egg {
+  flex: 1;
+  max-width: 600px;
+  margin-left: calc(-2rem);      /* Bild an den linken Rand holen */
+}
 
-/* SVG-Höhe ähnlich wie EKG */
-.dauerlauf-path {
+/* Textblock rechts daneben */
+#ernaehrung .training-step__text {
+  max-width: 28rem;
+}
+
+/* SVG im Ei */
+.egg-svg {
   display: block;
   width: 100%;
-  height: 270px;
+  height: auto;
+}
+
+/* Eigelb: Start unsichtbar, wird per JS eingeblendet */
+.egg-yolk {
+  opacity: 0;
 }
 
 
+/* ===================== */
+/* Desktop: SVG hinter Text */
+/* ===================== */
+
+@media (min-width: 768px) {
+
+  /* Alle SVG-Illustrationen max 30% der Bildschirmbreite */
+  .training-step__illustration {
+    max-width: 70vw;   /* hier begrenzt du die SVG-Größe */
+    width: 90vw;       /* optional, sorgt für einheitliche Skalierung */
+  }
+
+  .training-step__illustration svg {
+    width: 100%;
+    height: auto;
+  }
+}
 
 
+  /* alle Illustrationen aus dem Flow nehmen und hinter den Text legen */
+  .training-step__illustration {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100vw;
+    margin: 0;             /* alte margin-left-Einstellungen neutralisieren */
+    pointer-events: none;
+    z-index: 0;            /* unter dem Text */
+  }
 
-@media (prefers-reduced-motion: reduce) {
-  .training-step {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
+  .training-step__illustration svg {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Textblock bleibt links mit 2rem (kommt ja von padding im Content),
+     bekommt aber eine sinnvolle Breite */
+  .training-step__text {
+    max-width: 28rem;
+  }
+
+  /* Feintuning je Abschnitt */
+
+  /* Dauerlauf: Linie eher oben statt mittig */
+  #dauerlauf .training-step__illustration {
+    top: 0;
+    transform: translateY(0);
+  }
+
+  /* Intervall: EKG links, Herz bleibt extra fixiert wie bisher */
+  #intervall .training-step__illustration {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* Regeneration & Ernährung: Spirale / Ei links hinter dem Text */
+  #regeneration .training-step__illustration,
+  #ernaehrung   .training-step__illustration {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+
+/* ===================== */
+/* Mobile: SVG wieder im Flow */
+/* ===================== */
+
+@media (max-width: 767px) {
+  .training-step__content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .training-step__illustration {
+    position: static;
+    width: 100%;
+    margin: 0 0 1.5rem 0;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .training-step__text {
+    max-width: 100%;
   }
 }
