@@ -17,16 +17,13 @@
     <header>
     </header>
 
-    <main>
-      <!-- Hero -->
+<main>
       <section class="hero" aria-labelledby="hero-title">
         <h1 id="hero-title">Training für den Halbmarathon</h1>
         <h2>Disziplin, Motivation und Freude an Bewegung</h2>
-        <!-- Pfad ggf. anpassen: hier angenommen, dass training.html im Projektroot liegt -->
         <img src="img/runningsunset.png" alt="Läufer auf einer Straße bei Sonnenuntergang">
       </section>
 
-      <!-- Trainingsplan -->
       <section class="plan">
         <div class="plan-text">
           <h2>Mein Trainingsplan</h2>
@@ -53,157 +50,119 @@
         </table>
       </section>
 
-<section class="testhero" aria-label="Die Bausteine meines Trainings">
-  <div class="testhero-content"> <h2>Die Bausteine meines Trainings</h2>
-    <p>
-      Scrolle nach unten – Schritt für Schritt durch die wichtigsten Bausteine meines Lauftrainings.
-    </p>
-  </div>
-</section>
+      <section class="testhero" aria-label="Die Bausteine meines Trainings">
+        <div class="testhero-content"> 
+          <h2>Die Bausteine meines Trainings</h2>
+          <p>Scrolle nach unten – Schritt für Schritt durch die wichtigsten Bausteine meines Lauftrainings.</p>
+        </div>
+      </section>
    
-        <!-- Dauerlauf -->
-        <article class="training-step" id="dauerlauf">
-          <div class="training-step__content">
-            <div class="training-step__illustration dauerlauf-path-wrapper" aria-hidden="true">
-              <svg viewBox="0 0 850 332" class="dauerlauf-path" preserveAspectRatio="none">
-                <defs>
-                  <!-- Verlauf von links (blau) nach rechts (lila) -->
-                  <lineargradient id="dauerlaufGradient"
-                                  x1="0" y1="232"
-                                  x2="850" y2="232"
-                                  gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stop-color="#51CBFF" />
-                    <stop offset="100%" stop-color="#9FA9FF" />
-                  </lineargradient>
-                </defs>
-
-                <path d="M35 223C103 261 144.7 229 175.5 229C214 229 209 260.5 299.5 259C390 257.5 309 216 391 216C435 216 466.5 236 571 236C675.5 236 622.5 206 665.5 206C708.5 206 653 226 791 216"
-                      stroke="url(#dauerlaufGradient)"
-                      stroke-width="13"
-                      stroke-linecap="round"
-                      fill="none" />
-              </svg>
-            </div>
-            <div class="training-step__text">
-              <h3>Dauerlauf</h3>
-              <p>Ruhige Läufe im Wohlfühltempo.</p>
-              <p>Sie bilden das Fundament für meine Ausdauer.</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- Intervalltraining -->
-        <article class="training-step" id="intervall">
-          <div class="training-step__content">
-            <div class="training-step__illustration intervall-ekg" aria-hidden="true">
-              <svg viewBox="0 0 400 80" class="ekg-line" preserveAspectRatio="none">
-                <path d="M0 40 
-                         L40 40 
-                         L60 10 
-                         L80 70 
-                         L100 40 
-                         L140 40 
-                         L160 20 
-                         L180 60 
-                         L200 40 
-                         L240 40 
-                         L260 15 
-                         L280 65 
-                         L300 40 
-                         L340 40 
-                         L360 30 
-                         L380 50 
-                         L400 40" />
-              </svg>
+      <article class="training-step" id="dauerlauf">
+        <div class="sticky-wrapper">
+          <div class="step-card">
+            
+            <div class="training-step__content">
+              <div class="training-step__illustration dauerlauf-path-wrapper" aria-hidden="true">
+                <svg viewBox="0 0 850 332" class="dauerlauf-path" preserveAspectRatio="none">
+                  <defs>
+                    <lineargradient id="dauerlaufGradient" x1="0" y1="232" x2="850" y2="232" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#51CBFF" />
+                      <stop offset="100%" stop-color="#9FA9FF" />
+                    </lineargradient>
+                  </defs>
+                  <path d="M35 223C103 261 144.7 229 175.5 229C214 229 209 260.5 299.5 259C390 257.5 309 216 391 216C435 216 466.5 236 571 236C675.5 236 622.5 206 665.5 206C708.5 206 653 226 791 216"
+                        stroke="url(#dauerlaufGradient)" stroke-width="13" stroke-linecap="round" fill="none" />
+                </svg>
+              </div>
+              <div class="training-step__text">
+                <h3>Dauerlauf</h3>
+                <p>Ruhige Läufe im Wohlfühltempo.</p>
+                <p>Sie bilden das Fundament für meine Ausdauer.</p>
+              </div>
             </div>
 
-            <div class="training-step__text">
-              <h3>Intervalltraining</h3>
-              <p>Intensive Abschnitte mit Pausen.</p>
-              <p>Perfekt für Tempo &amp; Herz-Kreislauf-System.</p>
+          </div> </div> </article>
+
+      <article class="training-step" id="intervall">
+        <div class="sticky-wrapper"> <div class="step-card">      <div class="training-step__content">
+              <div class="training-step__illustration intervall-ekg" aria-hidden="true">
+                <svg viewBox="0 0 400 80" class="ekg-line" preserveAspectRatio="none">
+                  <path d="M0 40 L40 40 L60 10 L80 70 L100 40 L140 40 L160 20 L180 60 L200 40 L240 40 L260 15 L280 65 L300 40 L340 40 L360 30 L380 50 L400 40" />
+                </svg>
+              </div>
+
+              <div class="training-step__text">
+                <h3>Intervalltraining</h3>
+                <p>Intensive Abschnitte mit Pausen.</p>
+                <p>Perfekt für Tempo &amp; Herz-Kreislauf-System.</p>
+              </div>
             </div>
-          </div>
 
-          <div class="interval-heart" aria-hidden="true">
-            <img src="img/heart-interval.svg" alt="Stilisiertes Herz als Symbol für das Herz-Kreislauf-System">
-          </div>
-        </article>
-
-        <!-- Regeneration -->
-        <article class="training-step" id="regeneration">
-          <div class="training-step__content">
-            <div class="training-step__illustration regeneration-spiral" aria-hidden="true">
-              <svg viewBox="0 0 230 160" class="reg-spiral" preserveAspectRatio="none">
-                <defs>
-                  <!-- Vertikaler Verlauf: unten gelb, oben grün -->
-                  <lineargradient id="regenGradient"
-                                  x1="2" y1="170"
-                                  x2="0" y2="65"
-                                  gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stop-color="#f6d365" />
-                    <stop offset="100%" stop-color="#a8ff78" />
-                  </lineargradient>
-                </defs>
-
-                <path d="M55.8441 142.52C115.511 153.854 219.744 167.22 159.344 130.02C83.8441 83.5204 24.3441 89.0204 22.8441 98.0204C21.3441 107.02 212.344 146.52 200.344 116.02C188.344 85.5204 27.8441 51.0204 14.8441 53.5204C1.84408 56.0204 194.844 108.52 200.344 85.5203C205.844 62.5203 -5.15595 16.5203 4.84406 24.5203C14.8441 32.5203 244.844 69.0204 190.344 53.5204C135.844 38.0204 -52.6559 -3.97965 22.8441 6.02035C98.3441 16.0204 121.344 15.0204 155.844 10.5204"
-                      stroke="url(#regenGradient)" />
-              </svg>
+            <div class="interval-heart" aria-hidden="true">
+              <img src="img/heart-interval.svg" alt="Herz">
             </div>
-            <div class="training-step__text">
-              <h3>Regeneration</h3>
-              <p>Yoga, Dehnen &amp; aktive Erholung.</p>
-              <p>Nur wer regeneriert, kann Fortschritte machen.</p>
+
+          </div> </div> </article>
+
+      <article class="training-step" id="regeneration">
+        <div class="sticky-wrapper"> <div class="step-card">      <div class="training-step__content">
+              <div class="training-step__illustration regeneration-spiral" aria-hidden="true">
+                <svg viewBox="0 0 230 160" class="reg-spiral" preserveAspectRatio="none">
+                  <defs>
+                    <lineargradient id="regenGradient" x1="2" y1="170" x2="0" y2="65" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#f6d365" />
+                      <stop offset="100%" stop-color="#a8ff78" />
+                    </lineargradient>
+                  </defs>
+                  <path d="M55.8441 142.52C115.511 153.854 219.744 167.22 159.344 130.02C83.8441 83.5204 24.3441 89.0204 22.8441 98.0204C21.3441 107.02 212.344 146.52 200.344 116.02C188.344 85.5204 27.8441 51.0204 14.8441 53.5204C1.84408 56.0204 194.844 108.52 200.344 85.5203C205.844 62.5203 -5.15595 16.5203 4.84406 24.5203C14.8441 32.5203 244.844 69.0204 190.344 53.5204C135.844 38.0204 -52.6559 -3.97965 22.8441 6.02035C98.3441 16.0204 121.344 15.0204 155.844 10.5204"
+                        stroke="url(#regenGradient)" />
+                </svg>
+              </div>
+              <div class="training-step__text">
+                <h3>Regeneration</h3>
+                <p>Yoga, Dehnen &amp; aktive Erholung.</p>
+                <p>Nur wer regeneriert, kann Fortschritte machen.</p>
+              </div>
             </div>
-          </div>
-        </article>
 
-        <!-- Ernährung -->
-        <article class="training-step" id="ernaehrung">
-          <div class="training-step__content">
-           
-            <div class="training-step__illustration nutrition-egg" aria-hidden="true">
-  <svg viewBox="0 190 288 70" class="egg-svg" preserveAspectRatio="xMidYMid meet">
-    <defs>
-      <linearGradient id="eggOutlineGradientNew" x1="88" y1="231" x2="125" y2="231" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#B4B4B4"/>
-        <stop offset="1" stop-color="#EBEBEB"/>
-      </linearGradient>
+          </div> </div> </article>
 
-      <linearGradient id="eggYolkGradientNew" x1="121" y1="218" x2="175" y2="218" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#FFD35B"/>
-        <stop offset="1" stop-color="#FF9F2A"/>
-      </linearGradient>
-
-      <linearGradient id="eggYolkStrokeGradientNew" x1="129" y1="221" x2="141" y2="221" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#B4B4B4"/>
-        <stop offset="1" stop-color="#EBEBEB"/>
-      </linearGradient>
+      <article class="training-step" id="ernaehrung">
+        <div class="sticky-wrapper"> <div class="step-card">      <div class="training-step__content">
+              <div class="training-step__illustration nutrition-egg" aria-hidden="true">
+<svg viewBox="0 0 793 650" class="egg-svg" preserveAspectRatio="xMidYMax slice">
+        <defs>
+      <mask id="foodRevealMask">
+        <rect id="food-reveal-rect" x="0" y="0" width="1000" height="1000" fill="white" />
+      </mask>
+      
+      <clippath id="clip0_124_36">
+        <rect width="793" height="650" fill="white"/>
+      </clippath>
     </defs>
 
-    <path class="egg-outline"
-          d="M136.32 194.5C114.72 193.7 69.5506 212.79 64.5001 232.5C61.2436 245.208 89.4999 241.5 97.9999 243C106.5 244.5 126.32 242.029 136.32 240.029C146.32 238.029 152.82 237.529 160.32 240.029C167.82 242.529 182.82 241.529 196.82 240.029C210.82 238.529 219.82 226.529 222.32 218.529C224.82 210.529 227 207.5 214 204C201 200.5 182.82 199.529 169.82 201.529C156.82 203.529 163.32 195.5 136.32 194.5Z"
-          stroke="url(#eggOutlineGradientNew)"
-          stroke-width="3"
-          stroke-linecap="round"
-          fill="none" />
-
-    <path class="egg-yolk"
-          d="M168.769 221.012C160.349 223.344 118.12 229.669 121.156 218.972C123.847 209.491 146.215 211.104 161.251 211.104C176.287 211.104 179.294 218.098 168.769 221.012Z"
-          fill="url(#eggYolkGradientNew)"
-          stroke="url(#eggYolkStrokeGradientNew)"
-          stroke-width="0.3"
-          stroke-linecap="round" />
+    <g clip-path="url(#clip0_124_36)" mask="url(#foodRevealMask)">
+      <path d="M400.182 170C413.782 135.6 405.849 23.6667 400.182 -28L423.682 -4.5C424.015 47.6667 428 137.5 414.5 173C408.092 189.85 386.201 234.5 376 264C366.318 292 365.182 299 392.182 315C417.991 330.294 425.682 302.5 439.182 282C452.682 261.5 484.682 265 528.182 282C571.682 299 562.682 378 554.182 416C545.682 454 440.182 600.5 365.182 525.5C290.182 450.5 292.48 486.639 300.182 498.5C307 509 387.182 592 396.182 611C403.382 626.2 410.849 662 413.682 678C407.015 679.667 392.382 677 387.182 653C380.682 623 325.182 575.5 281.182 519C245.982 473.8 284.515 455.167 308.182 451.5C367.5 440 396.482 441.4 405.682 405C417.101 359.822 400.422 347.672 365.923 322.54L365.182 322C330.182 296.5 383.182 213 400.182 170Z" fill="#FFAB9E" stroke="#FFAB9E" stroke-width="13"/>
+      
+      <path d="M468.5 437.5C468.1 422.7 474.852 404.322 490.5 404C506.366 403.674 509.5 421.5 513.5 437.5C517.5 453.5 503.62 462.291 490.5 462C477.644 461.715 468.9 452.3 468.5 437.5Z" fill="white"/>
+      <path d="M497 424.5C493.319 422.692 490.251 422.844 486.5 424.5C479.001 427.809 475.979 439.439 482 445C486.734 449.372 493.591 449.174 498.5 445C504.615 439.8 504.205 428.039 497 424.5Z" fill="#FFD771"/>
+      <path d="M411.433 456.5C408.621 452.273 420.433 427.5 420.433 427.5L476.039 311.324C482.28 306.311 497.504 312.549 498.433 320.5C498.433 320.5 471.933 404 441.933 433.5C430.747 444.5 416.323 463.853 411.433 456.5Z" fill="#FF5D34"/>
+      <path d="M480.53 319.295C480.863 310.128 481.03 291.295 479.03 289.295C476.53 286.795 482.53 279.795 485.03 283.295C486.57 285.451 487.731 295.768 488.044 303.839C489.046 296.113 490.685 286.485 491.53 284.795C493.03 281.795 500.03 278.795 500.03 283.295C500.03 285.873 499.209 293.045 498.038 299.266C500.951 291.211 503.83 283.581 505.53 284.795C509.03 287.295 509.53 304.795 505.53 307.795C501.53 310.795 492.53 321.795 486.53 321.795C481.73 321.795 480.53 320.128 480.53 319.295Z" fill="#0CA95D"/>
+      <path d="M371.439 465.6C368.833 464.152 370.353 459.93 371.439 458C371.801 458.241 372.525 459.158 372.525 460.895C372.525 463.066 373.973 463.066 376.145 465.6C378.317 468.133 382.299 462.343 387.367 465.6C392.435 468.857 396.417 465.6 405.105 469.58C413.793 473.561 422.119 475.732 427.549 478.989C432.979 482.246 436.237 498.531 436.961 505.407C437.685 512.283 428.273 519.521 417.051 527.12C405.829 534.72 393.455 524.99 385.195 514.454C378.702 506.172 378.317 492.017 378.317 488.398C378.317 484.78 371.439 476.456 371.439 473.199C371.439 469.942 374.697 467.409 371.439 465.6Z" fill="#CAF095"/>
+    </g>
   </svg>
 </div>
 
-            <div class="training-step__text">
-              <h3>Ernährung</h3>
-              <p>Ausgewogen mit Obst, Vollkorn &amp; Proteinen.</p>
-              <p>Essen ist Treibstoff für Körper und Kopf.</p>
+
+              
+              <div class="training-step__text">
+                <h3>Ernährung</h3>
+                <p>Ausgewogen mit Obst, Vollkorn &amp; Proteinen.</p>
+                <p>Essen ist Treibstoff für Körper und Kopf.</p>
+              </div>
             </div>
-          </div>
-        </article>
-      </section>
+
+          </div> </div> </article>
 
       <section class="progress">
         <h2>Mein Fortschritt</h2>
@@ -212,7 +171,6 @@
           <div class="progress-fill" style="width: 70%;"></div>
         </div>
       </section>
-
     </main>
 
     <footer>

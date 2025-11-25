@@ -1,293 +1,332 @@
-/* ============ Grundlayout für alle Steps ============ */
+/* ============ Grundlayout & Card System ============ */
 
+/* Wir geben dem Body die helle Hintergrundfarbe (aus deinen Variablen),
+   damit sich die weißen Karten abheben */
 
-/* CSS Änderung */
+/* Der Intro-Bereich */
 .testhero {
   display: flex;
-  align-items: center;      /* Zentriert den Text vertikal schön */
+  align-items: center;
   justify-content: center;
-  min-height: 100vh;        /* Füllt genau einen Bildschirm */
-  background-color: #fff;   /* WICHTIG: Deckt nachfolgende Elemente ab */
+  min-height: 100vh;
+  background-color: #fff;
   position: relative;
-  z-index: 10;              /* Liegt über den sticky Elementen */
+  z-index: 10;
   padding: 2rem;
-  text-align: center;       /* Text zentrieren */
+  text-align: center;
 }
 
 .testhero-content {
   max-width: 800px;
 }
 
-/* Jeder Step ist hoch (für Scroll + Animation) */
+/* ============ DIE SCROLL-STRUKTUR ============ */
+
+/* 1. Die "Rennstrecke" (Der Step selbst) */
+/* Das ist der unsichtbare Container, der die Scrollhöhe bestimmt (500vh) */
 .training-step {
   position: relative;
-  min-height: 200vh;
+  min-height: 500vh;     /* Sehr hoch für lange, ruhige Animation */
+  margin-bottom: 0;      /* Kein Abstand, da wir Faden */
+  padding-bottom: 0;
   box-sizing: border-box;
+  z-index: 5;
 }
 
-
-
-/* Text-Ebene über den Illustrationen */
-.training-step__text {
-  position: relative;
-  z-index: 1;
-}
-
-
-/* Inhalt klebt im Viewport, links ausgerichtet */
-.training-step__content {
+/* 2. Der Sticky-Wrapper (Hält die Karte im Bild) */
+/* Dieser Container muss im HTML um die .step-card gelegt werden */
+.sticky-wrapper {
   position: sticky;
-  top: 50vh;                 /* „Höhe“ im Viewport – kannst du noch tweaken */
+  top: 0;
+  height: 100vh;         /* Füllt den Viewport */
+  width: 100%;
+  display: flex;
+  align-items: center;   /* Zentriert die Karte vertikal */
+  justify-content: center; /* Zentriert die Karte horizontal */
+  pointer-events: none;  /* Lässt Scroll-Events durch */
+  overflow: visible;
+}
+
+/* 3. Die Karte (Das visuelle Design) */
+.step-card {
+  position: relative;
+  width: 90%;            /* Breite der Karte */
+  max-width: 2100px;     /* Maximale Breite (Desktop) */
+  height: 70vh;          /* Fixe Höhe der Karte */
+  background-color: #fff;
+  border-radius: 32px;   /* Große runde Ecken wie im Design */
+  /* Sanfter Schatten für Tiefe */
+  box-shadow: 0 20px 40px rgba(19, 39, 57, 0.08); 
+  overflow: hidden;      /* WICHTIG: Schneidet Animationen am Rand ab! */
+  display: flex;
+  pointer-events: auto;  /* Interaktion im Inneren erlaubt */
+  
+  /* Startzustand für JS (wird vom Script überschrieben) */
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+/* ============ INHALT INNERHALB DER KARTE ============ */
+
+/* Der Content füllt jetzt einfach die Karte aus */
+.training-step__content {
+  position: relative;
+  top: auto;             /* Reset der alten Sticky-Logik */
+  width: 100%;
+  height: 100%;
+  padding: 0 4rem;       /* Innenabstand in der Karte */
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between; /* Text und Bild trennen */
   gap: 2rem;
-  padding: 0 2rem;           /* Text startet bei 2rem vom linken Rand */
   box-sizing: border-box;
-  width: 100%;
 }
 
-/* Optional: mobile etwas kompakter */
-@media (max-width: 767px) {
-  .training-step__content {
-    flex-direction: column;
-    align-items: flex-start;
-    top: 20vh;
-  }
+/* Text-Ebene */
+.training-step__text {
+  position: relative;
+  z-index: 2;            /* Text liegt ÜBER der Illustration */
+  flex: 1;
+  max-width: 400px;      /* Begrenzung der Textbreite */
 }
 
-/* ============ Dauerlauf ============ */
-
-#dauerlauf {
-  min-height: 200vh;
+/* Überschriften und Text im Step */
+.training-step__text h3 {
+  margin-top: 0;
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
-/* Dauerlauf: Linie oben, Text darunter – wie bisher */
-#dauerlauf .training-step__content {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0rem;
-}
+/* ============ ILLUSTRATIONEN / SVGs ============ */
 
-/* Linie über gesamte Viewport-Breite, links bündig */
-.dauerlauf-path-wrapper {
-  width: 100vw;
-  margin-left: calc(-2rem);      /* gleicht padding-left: 2rem aus → bis an den Rand */
+/* Container für SVGs: Absolut positioniert in der Karte */
+.training-step__illustration {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;           /* Füllt die ganze Karte */
+  height: 100%;
+  margin: 0;
   transform: none;
-  order: -1;                     /* Linie über dem Text */
+  pointer-events: none;
+  z-index: 1;            /* Liegt UNTER dem Text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.training-step__illustration svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* Sorgt dafür, dass SVGs den Platz füllen, aber Proportionen wahren */
+  /* Bei manchen SVGs kann man auch preserveAspectRatio im HTML nutzen */
+}
+
+
+/* ============ SPEZIFISCHE STEP ANPASSUNGEN ============ */
+
+/* --- 1. Dauerlauf --- */
+#dauerlauf .training-step__content {
+  /* Beim Dauerlauf ist der Text links, die Linie geht durch */
+  flex-direction: row; 
+}
+
+.dauerlauf-path-wrapper {
+  width: 120%; /* Linie darf breiter sein als die Karte */
+  left: -10%;  /* Zentrieren des Überstands */
+  top: 10%;    /* Etwas nach unten schieben */
 }
 
 .dauerlauf-path {
-  display: block;
-  width: 100%;
-  height: 270px;
+  height: auto; 
+  max-height: 100%;
 }
 
-/* ============ Intervall ============ */
-
-#intervall .training-step__content {
-  flex-direction: row;
-  align-items: center;
-}
-
-/* EKG über die volle Viewport-Breite, links bündig */
+/* --- 2. Intervall --- */
+/* Das EKG */
 .intervall-ekg {
-  margin-left: calc(-2rem);      /* bis ganz an den Rand */
-  transform: none;
-}
-
-/* EKG-Höhe */
-.ekg-line {
-  display: block;
+    position: center;
+    top: 50%;
   width: 100%;
-  height: 70px;
+  height: 190px;
+  opacity: 0.1;/* <--
+  opacity: 0.1; /* EKG etwas dezenter im Hintergrund */
+  
 }
 
 .ekg-line path {
   fill: none;
   stroke: #e53935;
   stroke-width: 3;
-  stroke-linejoin: round;
   stroke-linecap: round;
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
+  stroke-linejoin: round;
+  /* Dasharray wird per JS gesetzt */
 }
 
-/* Textblock neben dem EKG */
-#intervall .training-step__text {
-  max-width: 28rem;
-}
-
-/* Herz bleibt wie gehabt rechts im Viewport */
+/* Das Herz */
+/* WICHTIG: Nicht mehr 'fixed', sondern absolute IN der Karte */
 .interval-heart {
-  position: fixed;
+  position: absolute;
   top: 50%;
-  right: -15vw;
-  width: 50vw;
-  max-width: 520px;
+  right: -0%;        /* Rechts in der Karte positioniert */
+  width: 100;      /* Feste Größe oder % */
+  max-width: 30%;
   transform: translateY(-50%);
-  opacity: 0;
+  opacity: 0;        /* Startet unsichtbar */
   pointer-events: none;
-  z-index: -1;
+  z-index: 1;
 }
 
-.interval-heart img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* ============ Regeneration ============ */
-
-#regeneration .training-step__content {
-  flex-direction: row;
-  align-items: center;
-}
-
-/* Spirale links, bis an den Rand */
+/* --- 3. Regeneration --- */
 .regeneration-spiral {
-  flex: 1;
-  max-width: 560px;
-  margin-left: calc(-2rem);
-  transform: none;
-}
-
-.reg-spiral {
-  display: block;
-  width: 100%;
-  height: auto;
+  /* Die Spirale soll hinter dem Text liegen, eher links/mittig */
+  width: 80%;
+  left: 10%;
+  opacity: 0.8;
 }
 
 .reg-spiral path {
   fill: none;
-  stroke: url(#regenGradient);   /* Tipp: ID im SVG checken */
+  stroke: url(#regenGradient);
   stroke-width: 6;
   stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: none;
-  stroke-dashoffset: 0;
 }
 
-/* Text rechts daneben */
-#regeneration .training-step__text {
-  max-width: 28rem;
-}
-
-/* ============ Ernährung ============ */
-
-#ernaehrung .training-step__content {
-  flex-direction: row;
-  align-items: center;
-}
-
-/* Ei links, wie die Spirale bei Regeneration */
 .nutrition-egg {
-  flex: 1;
-  max-width: 600px;
-  margin-left: calc(-2rem);      /* Bild an den linken Rand holen */
+  position: absolute; /* Sicherstellen, dass er absolut in der Karte liegt */
+  top: 0;
+  bottom: 0;          /* Zieht ihn explizit bis nach ganz unten */
+  height: 100%;       /* Volle Höhe erzwingen */
+  z-index: 0;
+  
+  /* Flexbox hilft, das SVG sauber auszurichten und Lücken zu killen */
+  display: flex;
+  align-items: flex-end; /* Drückt den Inhalt an den unteren Rand */
+  justify-content: center;
 }
 
-/* Textblock rechts daneben */
-#ernaehrung .training-step__text {
-  max-width: 28rem;
-}
-
-/* SVG im Ei */
-.egg-svg {
-  display: block;
+/* WICHTIG: Das SVG selbst muss den Wrapper komplett füllen */
+.nutrition-egg svg.egg-svg {
+  display: block;      /* Verhindert den typischen "Text-Rand" unten */
   width: 100%;
-  height: auto;
+  height: 100%;        /* Füllt den Wrapper komplett aus */
+  
+  /* Dein Attribut im HTML (slice) regelt dann, wie es beschnitten wird.
+     Aber dafür muss das SVG erstmal den Platz haben. */
 }
 
-/* Eigelb: Start unsichtbar, wird per JS eingeblendet */
-.egg-yolk {
-  opacity: 0;
+
+/* ============ RESPONSIVE / MOBILE ============ */
+
+@media (max-width: 900px) {
+  /* Tablet/Kleinere Desktops: Karte etwas höher */
+  .step-card {
+    height: 75vh;
+    padding: 0;
+  }
+  .training-step__content {
+    padding: 0 2rem;
+  }
 }
 
-
-/* ===================== */
-/* Desktop: SVG hinter Text */
-/* ===================== */
-
-@media (min-width: 768px) {
-
-  /* Alle SVG-Illustrationen max 30% der Bildschirmbreite */
-  .training-step__illustration {
-    max-width: 70vw;   /* hier begrenzt du die SVG-Größe */
-    width: 90vw;       /* optional, sorgt für einheitliche Skalierung */
+@media (max-width: 768px) {
+  /* Mobile Layout */
+  
+  .step-card {
+    width: 95%;        /* Fast volle Breite */
+    height: 85vh;      /* Karte wird höher für den Content */
+    border-radius: 24px;
+    flex-direction: column; /* Content untereinander */
   }
 
-  .training-step__illustration svg {
+  .training-step__content {
+    flex-direction: column-reverse; /* Text unten, Bild oben */
+    padding: 2rem 1.5rem;
+    justify-content: flex-end; /* Text nach unten drücken */
+    gap: 1rem;
+    text-align: center; /* Text zentrieren mobil */
+  }
+
+  .training-step__text {
+    flex: 0 0 auto;    /* Text nimmt sich den Platz den er braucht */
     width: 100%;
-    height: auto;
+    max-width: 100%;
+    /* Optional: Halbtransparenter Hintergrund für Lesbarkeit */
+    background: rgba(255, 255, 255, 0.85);
+    padding: 1rem;
+    border-radius: 16px;
+    backdrop-filter: blur(5px);
   }
-}
 
-
-  /* alle Illustrationen aus dem Flow nehmen und hinter den Text legen */
+  /* Illustrationen mobil */
   .training-step__illustration {
     position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 100vw;
-    margin: 0;             /* alte margin-left-Einstellungen neutralisieren */
-    pointer-events: none;
-    z-index: 0;            /* unter dem Text */
-  }
-
-  .training-step__illustration svg {
-    width: 100%;
-    height: auto;
-  }
-
-  /* Textblock bleibt links mit 2rem (kommt ja von padding im Content),
-     bekommt aber eine sinnvolle Breite */
-  .training-step__text {
-    max-width: 28rem;
-  }
-
-  /* Feintuning je Abschnitt */
-
-  /* Dauerlauf: Linie eher oben statt mittig */
-  #dauerlauf .training-step__illustration {
     top: 0;
-    transform: translateY(0);
-  }
-
-  /* Intervall: EKG links, Herz bleibt extra fixiert wie bisher */
-  #intervall .training-step__illustration {
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  /* Regeneration & Ernährung: Spirale / Ei links hinter dem Text */
-  #regeneration .training-step__illustration,
-  #ernaehrung   .training-step__illustration {
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-
-/* ===================== */
-/* Mobile: SVG wieder im Flow */
-/* ===================== */
-
-@media (max-width: 767px) {
-  .training-step__content {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .training-step__illustration {
-    position: static;
+    height: 60%;       /* Bild nimmt obere 60% der Karte ein */
     width: 100%;
-    margin: 0 0 1.5rem 0;
-    transform: none;
-    pointer-events: auto;
+    align-items: center;
+    opacity: 1;
   }
+  
+  /* Spezielle Anpassungen mobil */
+  .interval-heart {
+    right: 50%;
+    left: auto;
+    transform: translate(50%, -50%); /* Zentriert oben */
+    top: 30%;
+    width: 120px;
+  }
+  
+  .dauerlauf-path-wrapper {
+    top: 0;
+    height: 50%;
+  }
+}
 
-  .training-step__text {
-    max-width: 100%;
+/* RESPONSIVE ANPASSUNG (Desktop/Tablet) */
+@media (min-width: 769px) {
+  #ernaehrung .nutrition-egg {
+    width: 55%; 
+    left: auto;
+    right: 0;      /* Rechts andocken */
+    top: 0;
+    bottom: 0;     /* Auch hier: Zwingend bis unten */
+    height: 100%;
   }
+}
+
+/* RESPONSIVE ANPASSUNG (Mobile) */
+@media (max-width: 768px) {
+  .nutrition-egg {
+    width: 100%;
+    left: 0;
+    /* Mobil darf es oben sein, füllt aber auch alles aus */
+  }
+}
+
+#regeneration .step-card {
+  background: linear-gradient(135deg, #f0fff4 0%, #fffde7 100%);
+  /* Optional: Damit der Schatten auf dem hellen Grund nicht zu hart wirkt */
+  box-shadow: 0 20px 40px rgba(168, 255, 120, 0.1);
+}
+
+#intervall .step-card {
+  background: linear-gradient(135deg, #FF7F7F 0%, #FFDDDD 100%);
+  /* Optional: Damit der Schatten auf dem hellen Grund nicht zu hart wirkt */
+  box-shadow: 0 20px 40px rgba(168, 255, 120, 0.1);
+}
+
+#dauerlauf .step-card {
+  background: linear-gradient(135deg, #e6f7ff 0%, #f4f2ff 100%);
+  /* Ein bläulicher Schatten lässt die Karte "schweben" */
+  box-shadow: 0 20px 40px rgba(81, 203, 255, 0.1);
+}
+
+
+#ernaehrung .step-card {
+  background: linear-gradient(135deg, #FFF0EB 0%, #FFF9E6 100%);
+  /* Ein farblich passender, warmer Schatten (leicht rötlich/orange) */
+  box-shadow: 0 20px 40px rgba(255, 171, 158, 0.2);
 }
