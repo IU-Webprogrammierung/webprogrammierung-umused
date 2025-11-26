@@ -2,13 +2,12 @@
 .slider-section { padding: 2rem; background:#fff; margin-bottom:4rem; }
 .slider--radio { position: relative; padding: 0 0rem; }
 
-/* Viewport/Bahn: 3 Slides nebeneinander, per transform schieben */
+/* Viewport/Bahn: 3 Slides nebeneinander */
 .slider--radio .slider__viewport{
   display:flex;
   gap:1.5rem;
   width:100%;
-  /* Jede Karte nimmt 90% Breite ein (Luft links/rechts) */
-  scroll-behavior:smooth; /* für Barrierefreiheit bei Fokus/Labels */
+  scroll-behavior:smooth;
   transition: transform .4s ease;
 }
 
@@ -27,8 +26,8 @@
 
 .slider-card__media{
   display: flex;
-  align-items: center;     /* vertikal zentriert */
-  justify-content: center; /* horizontal zentriert */
+  align-items: center;    
+  justify-content: center; 
 }
 
 
@@ -59,13 +58,11 @@
   justify-content:flex-end;
 }
 
-/* <<< das hat gefehlt */
 .slider-nav .nav{
   display:none;
   gap:1.5rem;
 }
 
-/* Buttons selbst */
 .slider-nav .prev,
 .slider-nav .next{
   display:inline-grid;
@@ -97,7 +94,6 @@
   outline-offset:1px;
 }
 
-/* Sichtbarkeit je nach Radio-State */
 #r1:checked ~ .slider-nav .nav--1{ display:flex; }
 #r2:checked ~ .slider-nav .nav--2{ display:flex; }
 #r3:checked ~ .slider-nav .nav--3{ display:flex; }
@@ -107,7 +103,7 @@
 @media (max-width: 768px){
 
   .slider--radio .slider-card{
-    flex: 0 0 95%;  /* eine Karte ~90% breit */
+    flex: 0 0 95%;  
   }
 
   /* State 1: Karte 1 voll, Karte 2 halb rechts */
