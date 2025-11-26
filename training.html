@@ -164,13 +164,42 @@
 
           </div> </div> </article>
 
-      <section class="progress">
-        <h2>Mein Fortschritt</h2>
-        <p>Aktuell laufe ich regelmäßig 15 Kilometer. Bis zum Halbmarathon fehlen nur noch 6 km – das Ziel rückt näher!</p>
-        <div class="progressbar">
-          <div class="progress-fill" style="width: 70%;"></div>
-        </div>
-      </section>
+<section class="progress" aria-labelledby="progress-heading">
+  <div class="progress-card-wrapper">
+    
+    <h2 id="progress-heading">Mein Fortschritt</h2>
+    <p>Der Weg ist das Ziel: Aktuell stehe ich bei stabilen 15 Kilometern.</p>
+
+    <div class="progress-container">
+      
+      <div class="progress-labels" aria-hidden="true">
+        <span class="label-start">0 km</span>
+        <span class="label-goal">21.1 km 🏁</span>
+      </div>
+
+      <div class="progress-track"
+           role="progressbar"
+           aria-valuenow="15"
+           aria-valuemin="0"
+           aria-valuemax="21.1"
+           aria-label="Trainingsfortschritt"
+           aria-valuetext="15 von 21,1 Kilometern geschafft">
+        
+        <div class="progress-fill" style="width: 0%;" data-width="71%">
+   
+   <span class="label-current" aria-hidden="true">
+     <strong>15 km</strong>
+   </span>
+   <div class="progress-dot"></div>
+
+</div>
+        
+      </div>
+
+    </div>
+
+  </div>
+</section>
     </main>
 
     <footer>

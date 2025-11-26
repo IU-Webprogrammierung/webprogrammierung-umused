@@ -20,6 +20,123 @@
   max-width: 800px;
 }
 
+/* ============ PROGRESS SECTION (ARIA VERSION) ============ */
+
+.progress {
+  min-height: 100vh;
+  padding: 2rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Hintergrund passend zum Body */
+  background-color: var(--secondary-color, #F0F5FA); 
+}
+
+/* Die Karte */
+.progress-card-wrapper {
+  background: white;
+  width: 90%;
+  height: 20%;
+  max-width: 1800px;
+  max-height: 1500px;
+  padding: 2rem;
+  border-radius: 32px;
+  box-shadow: 0 20px 40px rgba(19, 39, 57, 0.08);
+  text-align: center;
+}
+
+.progress-card-wrapper h2 {
+  color: var(--primary-color, #132739);
+  margin-bottom: 0.5rem;
+}
+
+.progress-card-wrapper p {
+  color: #666;
+  margin-bottom: 3rem; /* Platz nach unten für Labels */
+}
+
+/* Labels Zeile (Start / Ziel) */
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #888;
+  font-weight: 500;
+  padding: 0 4px; /* Ausgleich für den runden Rand der Bar */
+}
+
+/* Der graue Hintergrund-Balken (Track) */
+.progress-track {
+  position: relative;
+  height: 24px;
+  background-color: #EBF2F7; /* Helles Grau-Blau */
+  border-radius: 99px;
+  /* overflow: visible ist wichtig, damit Labels rausstehen können */
+  overflow: visible; 
+}
+
+/* Der farbige Füllstand */
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #51CBFF 0%, #132739 100%);
+  border-radius: 99px;
+  position: relative;
+  
+  /* NEU: Transition sorgt für die Animation */
+  /* Der Balken braucht 1.5 Sekunden um zu wachsen */
+  transition: width 1.5s cubic-bezier(0.2, 1, 0.3, 1);
+  
+  /* Wir starten bei 0 (wird im HTML gesetzt, aber hier zur Sicherheit) */
+  width: 0; 
+}
+
+/* Der "Dot" am Ende */
+.progress-dot {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(50%, -50%); /* Zentriert auf der Kante */
+  width: 32px;
+  height: 32px;
+  background-color: #fff;
+  border: 4px solid #132739;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 2;
+}
+
+/* Das schwebende Label "15 km" */
+.label-current {
+  position: absolute;
+  right: 0;
+  /* Positioniert es über dem Dot */
+  bottom: 140%; 
+  transform: translateX(50%); /* Zentriert zum Dot */
+  
+  color: var(--primary-color, #132739);
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+.label-current strong {
+  display: block;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* Mobile Anpassung */
+@media (max-width: 600px) {
+  .progress-card-wrapper {
+    padding: 2rem 1.5rem;
+  }
+  
+  /* Auf Handy Label etwas kleiner */
+  .label-current strong {
+    font-size: 1.2rem;
+  }
+}
+
 /* ============ DIE SCROLL-STRUKTUR ============ */
 
 /* 1. Die "Rennstrecke" (Der Step selbst) */

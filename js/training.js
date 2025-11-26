@@ -240,4 +240,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Starten
   requestAnimationFrame(render);
+
+// ============================================================
+  // PROGRESS BAR TRIGGER
+  // ============================================================
+  
+  const progressSection = document.querySelector('.progress');
+  const progressFill = document.querySelector('.progress-fill');
+
+  if (progressSection && progressFill) {
+    
+    const observerOptions = {
+      root: null,   // null = Viewport
+      threshold: 0.2 // Animation startet, wenn 20% des Bereichs sichtbar sind
+    };
+
+    const progressObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Element ist sichtbar -> Zielbreite auslesen und setzen
+          const targetWidth = progressFill.getAttribute('data-width');
+          progressFill.style.width = targetWidth;
+        } else {
+          // Element ist nicht mehr sichtbar -> Zurücksetzen auf 0
+          // (Damit es beim nächsten Mal wieder animiert)
+          progressFill.style.width = '0%';
+        }
+      });
+    }, observerOptions);
+
+    progressObserver.observe(progressSection);
+  }
+
 });
