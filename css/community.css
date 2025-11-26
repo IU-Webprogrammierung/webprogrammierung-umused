@@ -12,65 +12,65 @@
 
 /* --- HERO (Full Image Card) --- */
 .hero-community {
-  padding: 2rem; /* Abstand zum Rand (wie bei den anderen Sections) */
-  /* Wenn du willst, dass es bis ganz an den Rand geht, setze padding auf 0 */
+  padding: 2rem; 
+
 }
 
 .hero-wrapper {
   position: relative;
   width: 100%;
-  height: 60vh;           /* Höhe: 60% des Bildschirms. Anpassbar (z.B. 500px) */
-  min-height: 400px;      /* Mindesthöhe, damit es nicht zu klein wird */
-  border-radius: 32px;    /* Deine Standard-Rundung */
-  overflow: hidden;       /* Damit das Bild an den Ecken abgeschnitten wird */
+  height: 60vh;           
+  min-height: 400px;     
+  border-radius: 32px;  
+  overflow: hidden;  
   box-shadow: 0 20px 40px rgba(19, 39, 57, 0.15);
   
-  /* Flexbox zentriert den Text im Bild */
+
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
 }
 
-/* Das Bild im Hintergrund */
+
 .hero-bg-img {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;      /* Bild füllt alles aus, nichts verzerrt */
+  object-fit: cover;    
   z-index: 0;
 }
 
-/* Der dunkle Schleier (Overlay) */
+
 .hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3); /* 30% Schwarz für Kontrast */
+  background: rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
 
 /* Der Text */
 .hero-content {
   position: relative;
-  z-index: 2;             /* Über dem Bild und Overlay */
+  z-index: 2;          
   padding: 2rem;
   max-width: 800px;
 }
 
 .hero-content h1 {
-  color: #fff;            /* Weißer Text auf Bild */
-  font-size: 3rem;        /* Schön groß */
+  color: #fff;        
+  font-size: 3rem;        
   margin-bottom: 0.5rem;
-  text-shadow: 0 4px 10px rgba(0,0,0,0.3); /* Schatten für Lesbarkeit */
+  text-shadow: 0 4px 10px rgba(0,0,0,0.3); 
 }
 
 .hero-content h2 {
-  color: #f0f0f0;         /* Helles Grau/Weiß */
+  color: #f0f0f0;    
   font-size: 1.5rem;
   font-weight: 500;
   text-shadow: 0 2px 5px rgba(0,0,0,0.3);
@@ -231,13 +231,13 @@
   color: #888;
 }
 
-/* Farben für die Tiles beim Hover (Optional) */
+
 .social-tile.insta:hover { color: #E1306C; }
 .social-tile.strava:hover { color: #FC4C02; }
 .social-tile.facebook:hover { color: #1877F2; }
 
 
-/*  KONTAKT FORMULAR */
+
 .contact-card {
   background: #fff;
   border-radius: 32px;
