@@ -1,18 +1,215 @@
-/* ============ Grundlayout & Card System ============ */
+/* =========================================
+   1. GRUNDLAGEN & PAGE SETUP
+   ========================================= */
 
-/* Wir geben dem Body die helle Hintergrundfarbe (aus deinen Variablen),
-   damit sich die weißen Karten abheben */
+/* Heller Hintergrund für die gesamte Seite, damit weiße Karten wirken */
+body {
+  background-color: var(--secondary-color, #F0F5FA);
+  overflow-x: hidden; /* Verhindert horizontales Scrollen */
+}
 
-/* Der Intro-Bereich */
+/* =========================================
+   2. HERO SECTION
+   ========================================= */
+
+.hero-training {
+  padding: 2rem; 
+  /* Mobil etwas weniger Padding */
+}
+
+.hero-wrapper {
+  position: relative;
+  width: 100%;
+  height: 60vh;           
+  min-height: 400px;     
+  border-radius: 32px;  
+  overflow: hidden;  
+  box-shadow: 0 20px 40px rgba(19, 39, 57, 0.15);
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;    
+  z-index: 0;
+}
+
+/* Verlauf von transparent zu dunkel für bessere Lesbarkeit */
+.hero-overlay-gradient {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 1;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;          
+  padding: 2rem;
+  max-width: 800px;
+}
+
+/* Kleine Animation beim Laden des Heroes */
+.fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 1s ease-out forwards;
+  transform: translateY(20px);
+}
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-content h1 {
+  color: #fff;        
+  font-size: 3rem;        
+  margin-bottom: 0.5rem;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+}
+
+.hero-content h2 {
+  color: #f0f0f0;    
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* =========================================
+   3. TRAININGSPLAN (KARTE & TABELLE)
+   ========================================= */
+
+.plan-section {
+  padding: 2rem;
+  justify-content: center;
+  margin-top: 0rem; /* Layering-Effekt über den Hero */
+  position: relative;
+  z-index: 10;
+}
+
+.plan-card {
+  background: #fff;
+  width: 100%;
+  max-width: 1600px;
+  border-radius: 32px;
+  box-shadow: 0 20px 40px rgba(19, 39, 57, 0.08);
+  padding: 3rem;
+  
+  display: grid;
+  grid-template-columns: 1fr 1.5fr; /* Links Text, Rechts Tabelle */
+  gap: 4rem;
+  align-items: start;
+}
+
+/* Linke Seite: Intro */
+.plan-intro h2 {
+  font-size: 2rem;
+  color: var(--primary-color, #132739);
+  margin-bottom: 1rem;
+}
+
+.plan-intro p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.plan-stats {
+  display: flex;
+  gap: 2rem;
+}
+.stat strong {
+  display: block;
+  font-size: 2rem;
+  color: var(--primary-color, #132739);
+  line-height: 1;
+}
+.stat span {
+  font-size: 0.9rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Rechte Seite: Tabelle */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+}
+
+.modern-table th {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #888;
+  padding: 1rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.modern-table td {
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid #f5f5f5;
+  color: var(--primary-color, #132739);
+  vertical-align: middle;
+}
+
+.modern-table tbody tr:hover td {
+  background-color: #f9fbfd;
+}
+
+.modern-table .day {
+  font-weight: 600;
+}
+
+.modern-table small {
+  display: block;
+  color: #888;
+  margin-top: 4px;
+  font-size: 0.85rem;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.badge-regen { background: #f0fff4; color: #0CA95D; }
+.badge-speed { background: #fff0eb; color: #FF5D34; }
+.badge-base  { background: #e6f7ff; color: #0091ff; }
+.badge-mental{ background: #f4f2ff; color: #6e56cf; }
+
+
+/* =========================================
+   4. INTRO TEXT SECTION
+   ========================================= */
+
 .testhero {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  background-color: #fff;
+  min-height: 60vh;
+  background-color: transparent; /* Kein weißer Block mehr nötig */
   position: relative;
   z-index: 10;
-  padding: 2rem;
+  padding: 4rem 2rem;
   text-align: center;
 }
 
@@ -20,214 +217,101 @@
   max-width: 800px;
 }
 
-/* ============ PROGRESS SECTION (ARIA VERSION) ============ */
-
-.progress {
-  min-height: 100vh;
-  padding: 2rem 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* Hintergrund passend zum Body */
-  background-color: var(--secondary-color, #F0F5FA); 
-}
-
-/* Die Karte */
-.progress-card-wrapper {
-  background: white;
-  width: 90%;
-  height: 20%;
-  max-width: 1800px;
-  max-height: 1500px;
-  padding: 2rem;
-  border-radius: 32px;
-  box-shadow: 0 20px 40px rgba(19, 39, 57, 0.08);
-  text-align: center;
-}
-
-.progress-card-wrapper h2 {
+.testhero-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
   color: var(--primary-color, #132739);
-  margin-bottom: 0.5rem;
 }
 
-.progress-card-wrapper p {
-  color: #666;
-  margin-bottom: 3rem; /* Platz nach unten für Labels */
-}
 
-/* Labels Zeile (Start / Ziel) */
-.progress-labels {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  color: #888;
-  font-weight: 500;
-  padding: 0 4px; /* Ausgleich für den runden Rand der Bar */
-}
+/* =========================================
+   5. SCROLL STEPS SYSTEM (Die Karten)
+   ========================================= */
 
-/* Der graue Hintergrund-Balken (Track) */
-.progress-track {
-  position: relative;
-  height: 24px;
-  background-color: #EBF2F7; /* Helles Grau-Blau */
-  border-radius: 99px;
-  /* overflow: visible ist wichtig, damit Labels rausstehen können */
-  overflow: visible; 
-}
-
-/* Der farbige Füllstand */
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #51CBFF 0%, #132739 100%);
-  border-radius: 99px;
-  position: relative;
-  
-  /* NEU: Transition sorgt für die Animation */
-  /* Der Balken braucht 1.5 Sekunden um zu wachsen */
-  transition: width 1.5s cubic-bezier(0.2, 1, 0.3, 1);
-  
-  /* Wir starten bei 0 (wird im HTML gesetzt, aber hier zur Sicherheit) */
-  width: 0; 
-}
-
-/* Der "Dot" am Ende */
-.progress-dot {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translate(50%, -50%); /* Zentriert auf der Kante */
-  width: 32px;
-  height: 32px;
-  background-color: #fff;
-  border: 4px solid #132739;
-  border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  z-index: 2;
-}
-
-/* Das schwebende Label "15 km" */
-.label-current {
-  position: absolute;
-  right: 0;
-  /* Positioniert es über dem Dot */
-  bottom: 140%; 
-  transform: translateX(50%); /* Zentriert zum Dot */
-  
-  color: var(--primary-color, #132739);
-  font-size: 1.1rem;
-  white-space: nowrap;
-}
-
-.label-current strong {
-  display: block;
-  font-size: 1.4rem;
-  line-height: 1;
-}
-
-/* Mobile Anpassung */
-@media (max-width: 600px) {
-  .progress-card-wrapper {
-    padding: 2rem 1.5rem;
-  }
-  
-  /* Auf Handy Label etwas kleiner */
-  .label-current strong {
-    font-size: 1.2rem;
-  }
-}
-
-/* ============ DIE SCROLL-STRUKTUR ============ */
-
-/* 1. Die "Rennstrecke" (Der Step selbst) */
-/* Das ist der unsichtbare Container, der die Scrollhöhe bestimmt (500vh) */
+/* Die "Rennstrecke" (Unsichtbar, nur für Scroll-Länge) */
 .training-step {
   position: relative;
-  min-height: 500vh;     /* Sehr hoch für lange, ruhige Animation */
-  margin-bottom: 0;      /* Kein Abstand, da wir Faden */
+  min-height: 500vh;     
+  margin-bottom: 0;      
   padding-bottom: 0;
   box-sizing: border-box;
   z-index: 5;
+  /* Hardwarebeschleunigung für smootheres Rendering */
+  transform: translate3d(0,0,0);
 }
 
-/* 2. Der Sticky-Wrapper (Hält die Karte im Bild) */
-/* Dieser Container muss im HTML um die .step-card gelegt werden */
+/* Der Sticky-Wrapper (Zentriert die Karte im Viewport) */
 .sticky-wrapper {
   position: sticky;
   top: 0;
-  height: 100vh;         /* Füllt den Viewport */
+  height: 100vh;         
   width: 100%;
   display: flex;
-  align-items: center;   /* Zentriert die Karte vertikal */
-  justify-content: center; /* Zentriert die Karte horizontal */
-  pointer-events: none;  /* Lässt Scroll-Events durch */
+  align-items: center;   
+  justify-content: center; 
+  pointer-events: none;  
   overflow: visible;
 }
 
-/* 3. Die Karte (Das visuelle Design) */
+/* Die Karte selbst */
 .step-card {
   position: relative;
-  width: 90%;            /* Breite der Karte */
-  max-width: 2100px;     /* Maximale Breite (Desktop) */
-  height: 70vh;          /* Fixe Höhe der Karte */
+  width: 90%;            
+  max-width: 1100px;     
+  height: 70vh;          
   background-color: #fff;
-  border-radius: 32px;   /* Große runde Ecken wie im Design */
-  /* Sanfter Schatten für Tiefe */
+  border-radius: 32px;   
   box-shadow: 0 20px 40px rgba(19, 39, 57, 0.08); 
-  overflow: hidden;      /* WICHTIG: Schneidet Animationen am Rand ab! */
+  overflow: hidden;      
   display: flex;
-  pointer-events: auto;  /* Interaktion im Inneren erlaubt */
+  pointer-events: auto;  
   
-  /* Startzustand für JS (wird vom Script überschrieben) */
+  /* Startzustand für JS */
   opacity: 0;
   transform: translateY(50px);
+  will-change: transform, opacity;
 }
 
-/* ============ INHALT INNERHALB DER KARTE ============ */
-
-/* Der Content füllt jetzt einfach die Karte aus */
+/* Content Layout in der Karte */
 .training-step__content {
   position: relative;
-  top: auto;             /* Reset der alten Sticky-Logik */
   width: 100%;
   height: 100%;
-  padding: 0 4rem;       /* Innenabstand in der Karte */
+  padding: 0 4rem;       
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between; /* Text und Bild trennen */
+  justify-content: space-between; 
   gap: 2rem;
   box-sizing: border-box;
 }
 
-/* Text-Ebene */
+/* Text Styling */
 .training-step__text {
   position: relative;
-  z-index: 2;            /* Text liegt ÜBER der Illustration */
+  z-index: 2;            
   flex: 1;
-  max-width: 400px;      /* Begrenzung der Textbreite */
+  max-width: 400px;      
 }
 
-/* Überschriften und Text im Step */
 .training-step__text h3 {
   margin-top: 0;
   font-size: 2rem;
   margin-bottom: 1rem;
+  color: var(--primary-color, #132739);
 }
 
-/* ============ ILLUSTRATIONEN / SVGs ============ */
-
-/* Container für SVGs: Absolut positioniert in der Karte */
+/* SVG Wrapper Basis */
 .training-step__illustration {
   position: absolute;
   left: 0;
   top: 0;
-  width: 100%;           /* Füllt die ganze Karte */
+  width: 100%;           
   height: 100%;
   margin: 0;
   transform: none;
   pointer-events: none;
-  z-index: 1;            /* Liegt UNTER dem Text */
+  z-index: 1;            
   display: flex;
   align-items: center;
   justify-content: center;
@@ -237,23 +321,28 @@
   width: 100%;
   height: 100%;
   display: block;
-  /* Sorgt dafür, dass SVGs den Platz füllen, aber Proportionen wahren */
-  /* Bei manchen SVGs kann man auch preserveAspectRatio im HTML nutzen */
 }
 
 
-/* ============ SPEZIFISCHE STEP ANPASSUNGEN ============ */
+/* =========================================
+   6. INDIVIDUELLE STEPS (Hintergründe & SVGs)
+   ========================================= */
 
-/* --- 1. Dauerlauf --- */
+/* --- 1. DAUERLAUF --- */
+#dauerlauf .step-card {
+  /* Himmelsblau Verlauf */
+  background: linear-gradient(135deg, #e6f7ff 0%, #f4f2ff 100%);
+  box-shadow: 0 20px 40px rgba(81, 203, 255, 0.1);
+}
+
 #dauerlauf .training-step__content {
-  /* Beim Dauerlauf ist der Text links, die Linie geht durch */
   flex-direction: row; 
 }
 
 .dauerlauf-path-wrapper {
-  width: 120%; /* Linie darf breiter sein als die Karte */
-  left: -10%;  /* Zentrieren des Überstands */
-  top: 10%;    /* Etwas nach unten schieben */
+  width: 120%; 
+  left: -10%;  
+  top: 10%;    
 }
 
 .dauerlauf-path {
@@ -261,16 +350,25 @@
   max-height: 100%;
 }
 
-/* --- 2. Intervall --- */
-/* Das EKG */
+
+/* --- 2. INTERVALL --- */
+#intervall .step-card {
+  /* Rötlicher Verlauf (Herz/Puls) */
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
+  box-shadow: 0 20px 40px rgba(229, 57, 53, 0.1);
+}
+
 .intervall-ekg {
-    position: center;
-    top: 50%;
   width: 100%;
-  height: 190px;
-  opacity: 0.1;/* <--
-  opacity: 0.1; /* EKG etwas dezenter im Hintergrund */
-  
+  display: flex;
+  align-items: center;
+}
+
+.ekg-line {
+  display: block;
+  width: 100%;
+  height: 40px; /* Dezentere Höhe */
+  opacity: 0.3; /* Dezenter */
 }
 
 .ekg-line path {
@@ -279,26 +377,29 @@
   stroke-width: 3;
   stroke-linecap: round;
   stroke-linejoin: round;
-  /* Dasharray wird per JS gesetzt */
 }
 
-/* Das Herz */
-/* WICHTIG: Nicht mehr 'fixed', sondern absolute IN der Karte */
 .interval-heart {
   position: absolute;
   top: 50%;
-  right: -0%;        /* Rechts in der Karte positioniert */
-  width: 100;      /* Feste Größe oder % */
+  right: 10%;        
+  width: 200px;      
   max-width: 30%;
   transform: translateY(-50%);
-  opacity: 0;        /* Startet unsichtbar */
+  opacity: 0;        
   pointer-events: none;
   z-index: 1;
 }
 
-/* --- 3. Regeneration --- */
+
+/* --- 3. REGENERATION --- */
+#regeneration .step-card {
+  /* Grün/Gelb Verlauf */
+  background: linear-gradient(135deg, #f0fff4 0%, #fffde7 100%);
+  box-shadow: 0 20px 40px rgba(168, 255, 120, 0.1);
+}
+
 .regeneration-spiral {
-  /* Die Spirale soll hinter dem Text liegen, eher links/mittig */
   width: 80%;
   left: 10%;
   opacity: 0.8;
@@ -311,139 +412,313 @@
   stroke-linecap: round;
 }
 
+
+/* --- 4. ERNÄHRUNG --- */
+#ernaehrung .step-card {
+  /* Warmer Pfirsich/Creme Verlauf */
+  background: linear-gradient(135deg, #FFF0EB 0%, #FFF9E6 100%);
+  box-shadow: 0 20px 40px rgba(255, 171, 158, 0.2);
+}
+
 .nutrition-egg {
-  position: absolute; /* Sicherstellen, dass er absolut in der Karte liegt */
+  position: absolute;
   top: 0;
-  bottom: 0;          /* Zieht ihn explizit bis nach ganz unten */
-  height: 100%;       /* Volle Höhe erzwingen */
+  bottom: 0;
+  height: 100%;
   z-index: 0;
   
-  /* Flexbox hilft, das SVG sauber auszurichten und Lücken zu killen */
   display: flex;
-  align-items: flex-end; /* Drückt den Inhalt an den unteren Rand */
+  align-items: flex-end; /* Unten andocken */
   justify-content: center;
 }
 
-/* WICHTIG: Das SVG selbst muss den Wrapper komplett füllen */
 .nutrition-egg svg.egg-svg {
-  display: block;      /* Verhindert den typischen "Text-Rand" unten */
+  display: block;
   width: 100%;
-  height: 100%;        /* Füllt den Wrapper komplett aus */
-  
-  /* Dein Attribut im HTML (slice) regelt dann, wie es beschnitten wird.
-     Aber dafür muss das SVG erstmal den Platz haben. */
+  height: 100%;
 }
 
 
-/* ============ RESPONSIVE / MOBILE ============ */
+/* =========================================
+   7. PROGRESS SECTION
+   ========================================= */
 
-@media (max-width: 900px) {
-  /* Tablet/Kleinere Desktops: Karte etwas höher */
-  .step-card {
-    height: 75vh;
-    padding: 0;
+.progress {
+  min-height: 80vh;
+  padding: 4rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent; 
+}
+
+.progress-card-wrapper {
+  background: white;
+  width: 100%;
+  max-width: 900px;
+  padding: 3rem;
+  border-radius: 32px;
+  box-shadow: 0 20px 40px rgba(19, 39, 57, 0.08);
+  text-align: center;
+}
+
+.progress-card-wrapper h2 {
+  color: var(--primary-color, #132739);
+  margin-bottom: 0.5rem;
+}
+
+.progress-card-wrapper p {
+  color: #666;
+  margin-bottom: 3rem;
+}
+
+/* Labels */
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #888;
+  font-weight: 500;
+  padding: 0 4px;
+}
+
+/* Track */
+.progress-track {
+  position: relative;
+  height: 24px;
+  background-color: #EBF2F7;
+  border-radius: 99px;
+  overflow: visible; 
+}
+
+/* Fill */
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #51CBFF 0%, #132739 100%);
+  border-radius: 99px;
+  position: relative;
+  width: 0; /* Startet bei 0, wird per JS gesetzt */
+  transition: width 1.5s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+/* Dot */
+.progress-dot {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(50%, -50%);
+  width: 32px;
+  height: 32px;
+  background-color: #fff;
+  border: 4px solid #132739;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 2;
+}
+
+/* Label current */
+.label-current {
+  position: absolute;
+  right: 0;
+  bottom: 140%; 
+  transform: translateX(50%);
+  color: var(--primary-color, #132739);
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+.label-current strong {
+  display: block;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+
+/* =========================================
+   8. MEDIA QUERIES & RESPONSIVE
+   ========================================= */
+
+/* Desktop & Tablet: Ernährung SVG rechts andocken */
+@media (min-width: 769px) {
+  #ernaehrung .nutrition-egg {
+    width: 55%; 
+    left: auto;
+    right: 0;      
+    top: 0;
+    bottom: 0;     
+    height: 100%;
   }
-  .training-step__content {
-    padding: 0 2rem;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 900px) {
+  .plan-card {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem;
+  }
+  .plan-section {
+    margin-top: 1rem;
+    padding: 1rem;
   }
 }
 
 @media (max-width: 768px) {
-  /* Mobile Layout */
+  /* Hero Mobile */
+  .hero-training { padding: 1rem; }
+  .hero-wrapper { height: 50vh; border-radius: 20px; }
+  .hero-content h1 { font-size: 2rem; }
   
+  /* Cards Mobile */
   .step-card {
-    width: 95%;        /* Fast volle Breite */
-    height: 85vh;      /* Karte wird höher für den Content */
+    width: 95%;
+    height: 85vh;
     border-radius: 24px;
-    flex-direction: column; /* Content untereinander */
+    flex-direction: column;
   }
 
+  /* Content Mobile */
   .training-step__content {
-    flex-direction: column-reverse; /* Text unten, Bild oben */
+    flex-direction: column-reverse; /* Text unten */
     padding: 2rem 1.5rem;
-    justify-content: flex-end; /* Text nach unten drücken */
+    justify-content: flex-end;
     gap: 1rem;
-    text-align: center; /* Text zentrieren mobil */
+    text-align: center;
   }
 
   .training-step__text {
-    flex: 0 0 auto;    /* Text nimmt sich den Platz den er braucht */
+    flex: 0 0 auto;
     width: 100%;
-    max-width: 100%;
-    /* Optional: Halbtransparenter Hintergrund für Lesbarkeit */
     background: rgba(255, 255, 255, 0.85);
     padding: 1rem;
     border-radius: 16px;
     backdrop-filter: blur(5px);
   }
 
-  /* Illustrationen mobil */
+  /* SVG Mobile allgemein */
   .training-step__illustration {
     position: absolute;
     top: 0;
-    height: 60%;       /* Bild nimmt obere 60% der Karte ein */
-    width: 100%;
-    align-items: center;
+    height: 60%;
     opacity: 1;
   }
   
-  /* Spezielle Anpassungen mobil */
-  .interval-heart {
-    right: 50%;
-    left: auto;
-    transform: translate(50%, -50%); /* Zentriert oben */
-    top: 30%;
-    width: 120px;
-  }
-  
-  .dauerlauf-path-wrapper {
-    top: 0;
-    height: 50%;
-  }
-}
-
-/* RESPONSIVE ANPASSUNG (Desktop/Tablet) */
-@media (min-width: 769px) {
-  #ernaehrung .nutrition-egg {
-    width: 55%; 
-    left: auto;
-    right: 0;      /* Rechts andocken */
-    top: 0;
-    bottom: 0;     /* Auch hier: Zwingend bis unten */
-    height: 100%;
-  }
-}
-
-/* RESPONSIVE ANPASSUNG (Mobile) */
-@media (max-width: 768px) {
+  /* Ernährung Mobile (wieder volle Breite) */
   .nutrition-egg {
     width: 100%;
     left: 0;
-    /* Mobil darf es oben sein, füllt aber auch alles aus */
+  }
+  
+  /* Progress Mobile */
+  .progress-card-wrapper {
+    padding: 2rem 1.5rem;
+  }
+  .label-current strong { font-size: 1.2rem; }
+}
+
+
+/* =========================================
+   9. REDUCED MOTION (Barrierefreiheit)
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  
+  .training-step {
+    min-height: auto !important; /* Kein langes Scrollen */
+    margin-bottom: 2rem !important;
+  }
+  
+  .sticky-wrapper {
+    position: static !important;
+    height: auto !important;
+    padding: 2rem 0;
+  }
+  
+  .step-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .progress-fill {
+    transition: none !important;
+    width: 71% !important; /* Fallback Wert */
+  }
+  
+  .fade-in-up {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }
 
-#regeneration .step-card {
-  background: linear-gradient(135deg, #f0fff4 0%, #fffde7 100%);
-  /* Optional: Damit der Schatten auf dem hellen Grund nicht zu hart wirkt */
-  box-shadow: 0 20px 40px rgba(168, 255, 120, 0.1);
-}
+/* ============ MOBILE TABLE OPTIMIZATION ============ */
 
-#intervall .step-card {
-  background: linear-gradient(135deg, #FF7F7F 0%, #FFDDDD 100%);
-  /* Optional: Damit der Schatten auf dem hellen Grund nicht zu hart wirkt */
-  box-shadow: 0 20px 40px rgba(168, 255, 120, 0.1);
-}
+@media (max-width: 700px) {
+  
+  /* 1. Kopfzeile ausblenden (Brauchen wir mobil nicht) */
+  .modern-table thead {
+    display: none;
+  }
 
-#dauerlauf .step-card {
-  background: linear-gradient(135deg, #e6f7ff 0%, #f4f2ff 100%);
-  /* Ein bläulicher Schatten lässt die Karte "schweben" */
-  box-shadow: 0 20px 40px rgba(81, 203, 255, 0.1);
-}
+  /* 2. Jede Zeile wird ein Block (wie eine Karte) */
+  .modern-table tbody tr {
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Wichtig für Positionierung des Badges */
+    padding: 1.25rem 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  /* Letzte Linie entfernen */
+  .modern-table tbody tr:last-child {
+    border-bottom: none;
+  }
 
+  /* 3. Zellen-Reset: Kein Tabellenverhalten mehr */
+  .modern-table td {
+    display: block;
+    padding: 0 !important;
+    border: none !important;
+    width: auto;
+  }
 
-#ernaehrung .step-card {
-  background: linear-gradient(135deg, #FFF0EB 0%, #FFF9E6 100%);
-  /* Ein farblich passender, warmer Schatten (leicht rötlich/orange) */
-  box-shadow: 0 20px 40px rgba(255, 171, 158, 0.2);
+  /* --- ZELLE 1: WOCHENTAG (Montag) --- */
+  .modern-table td:nth-child(1) {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #999;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    letter-spacing: 1px;
+  }
+
+  /* --- ZELLE 2: EINHEIT (Der Haupttext) --- */
+  .modern-table td:nth-child(2) {
+    font-size: 1.1rem;
+    padding-right: 20px !important; /* Etwas Platz lassen */
+  }
+  
+  /* Die kleine Beschreibung unter der Einheit */
+  .modern-table td:nth-child(2) small {
+    font-size: 0.95rem;
+    color: #666;
+    margin-top: 4px;
+  }
+
+  /* --- ZELLE 3: BADGE (Fokus) --- */
+  /* Wir schieben den Badge nach oben rechts in die Ecke */
+  .modern-table td:nth-child(3) {
+    position: absolute;
+    top: 1.25rem; /* Gleiche Höhe wie Padding oben */
+    right: 0;
+  }
+  
+  /* Badge etwas kleiner machen mobil */
+  .badge {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+  }
 }
