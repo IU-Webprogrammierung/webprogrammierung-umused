@@ -86,7 +86,7 @@ p {
 /* HERO-BEREICH */
 .hero {
   width: 100%;                     /* statt 100vw */
-  min-height: 100svh;              /* statt fixed height */
+  min-height: 95svh;              /* statt fixed height */
   background: url("../img/hero.jpeg") center/cover no-repeat;
   display: inline-flex;
   flex-direction: column;
@@ -143,12 +143,14 @@ p {
 
 .visual-break {
   width: 100%;                     /* statt 100vw */
-  min-height: 100svh;              /* statt fixed height */
+  max-height: 95svh;              /* statt fixed height */
+  min-height: 95svh;              /* statt fixed height */
+
   background: url("../img/line.JPG") center/cover no-repeat;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-   padding: 2rem;
+  padding: 2rem;
   padding-bottom: 1rem;
 }
 
@@ -244,6 +246,7 @@ p {
   padding: 2rem;
   align-items: flex-start;  /* oder 'start' */
   justify-items: start;
+  min-height: 95svh;    
 }
 
 
@@ -264,6 +267,8 @@ p {
   background: #fff;
   text-align: left;             /* Text linksbündig für Card-Content */
   margin-bottom: 4rem;
+  max-height: 95svh;              /* statt fixed height */
+  min-height: 95svh;              /* statt fixed height */
 }
 
 .card-grid {
