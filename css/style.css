@@ -40,37 +40,61 @@ p {
   color: var(--text-light);
   margin-bottom: 1rem;
 }
-/* HEADER mit FLEXBOX */
-header {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 1rem 0;
-}
+/* ============ HEADER (Card Style) ============ */
 
-header nav ul {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-  list-style: none;
-}
 
-header nav a {
-  color: white;
+/* Logo Anpassung */
+.site-header .logo {
+  color: var(--primary-color, #132739); /* Dunkelblau statt Weiß */
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.5px;
 }
 
-header nav a:hover,
-header nav a:focus {
-  text-decoration: underline;
+/* Navigation Container (Desktop) */
+.site-header .nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0rem;
 }
+
+/* Links Styling */
+.site-header .nav a {
+  color: var(--primary-color, #132739); /* Dunkelblau statt Weiß */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  
+  /* Optional: Kleiner Hover-Effekt (Pill-Shape) */
+  padding: 0.6rem 1.2rem;
+  border-radius: 99px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.site-header .nav a:hover,
+.site-header .nav a:focus {
+  background-color: var(--secondary-color, #F0F5FA); /* Helles Grau beim Hover */
+  color: var(--primary-color);
+  text-decoration: none; /* Unterstrich weg, dafür Button-Look */
+}
+
+
 
 /* HERO-BEREICH */
 .hero {
-  text-align: center;
-   padding: 2rem;
-  background: linear-gradient(to bottom, #eef5fb, #fff);
+  width: 100%;                     /* statt 100vw */
+  min-height: 100svh;              /* statt fixed height */
+  background: url("../img/hero.jpeg") center/cover no-repeat;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0rem;
+  padding-bottom: 1rem;
+  margin-top: -4rem;
 }
 
 .hero img {
@@ -141,16 +165,26 @@ header nav a:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 0rem;
   padding-bottom: 1rem;
+  margin-top: -4rem;
 }
 
+
 .motivation {
-  width: 100%;                     /* statt 100vw */
-  min-height: 100svh;              /* statt fixed height */
+  width: 100%;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  /* HIER IST DIE ÄNDERUNG: */
+  /* 1. Das Bild (SVG) oben, inkl. Positionierung (center/cover) */
+  /* 2. Der Verlauf (Gradient) darunter */
+  background: 
+    url("../img/portait.svg") center/cover no-repeat,
+    linear-gradient(135deg, #E8FF55 0%, #E8FF55 100%);
+    
   padding: 2rem;
   padding-bottom: 1rem;
 }
@@ -436,15 +470,32 @@ footer a:hover {
 }
 
 /* ============ Header / Navigation ============ */
+
 .site-header {
-  position: sticky; top: 0; z-index: 1200;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 1rem;
-  background-color: var(--primary-color);
-  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  
+  /* ÄNDERUNG: Statt width: 100% nutzen wir auto + margins */
+  width: auto; 
+  margin: 0 2rem; /* 0 oben/unten, 2rem links/rechts */
+  
+  /* DESIGN: Weiß, Schatten, Runde Ecken unten */
+  background-color: var(--primary-color, #132739); 
+  border-radius: 0 0 32px 32px; 
+  box-shadow: 0 10px 30px rgba(19, 39, 57, 0.08);
+  
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 3rem; 
+  box-sizing: border-box;
 }
 
-.site-header .logo { color:#fff; text-decoration:none; font-weight:700; }
+.site-header .logo {
+  color:#fff;
+  text-decoration:none; font-weight:700; }
 
 /* Desktop-Default: Burger verstecken, Nav normal sichtbar */
 .hamburger { 
@@ -481,6 +532,15 @@ footer a:hover {
 /* ============ Mobile: Off-Canvas ============ */
 @media (max-width: 768px) {
   .hamburger { display: inline-flex; }
+
+  .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  
+  /* ÄNDERUNG: Statt width: 100% nutzen wir auto + margins */
+  width: auto; 
+  margin: 0 2rem; /* 0 oben/unten, 2rem links/rechts */ }
 
   .site-header .nav {
     position: fixed; top: 0; right: 0; height: 100vh;
