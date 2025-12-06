@@ -86,100 +86,56 @@ body {
    3. TRAININGSPLAN (KARTE & TABELLE)
    ========================================= */
 
-.plan-section {
-  padding: 2rem;
-  justify-content: center;
-  margin-top: 0rem; /* Layering-Effekt über den Hero */
-  position: relative;
-  z-index: 10;
-}
-
+/* Ersetze .plan-card in training.css */
 .plan-card {
-  background: #fff;
+  background: var(--bg-card); /* Variabler Hintergrund */
   width: 100%;
   max-width: 1600px;
   border-radius: 32px;
-  box-shadow: 0 20px 40px rgba(19, 39, 57, 0.08);
+  box-shadow: var(--shadow-soft);
   padding: 3rem;
+  border: 1px solid var(--border-color);
   
   display: grid;
-  grid-template-columns: 1fr 1.5fr; /* Links Text, Rechts Tabelle */
+  grid-template-columns: 1fr 1.5fr; 
   gap: 4rem;
   align-items: start;
 }
 
-/* Linke Seite: Intro */
 .plan-intro h2 {
-  font-size: 2rem;
-  color: var(--primary-color, #132739);
-  margin-bottom: 1rem;
+  color: var(--text-main);
 }
 
-.plan-intro p {
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-}
-
-.plan-stats {
-  display: flex;
-  gap: 2rem;
-}
 .stat strong {
-  display: block;
-  font-size: 2rem;
-  color: var(--primary-color, #132739);
-  line-height: 1;
-}
-.stat span {
-  font-size: 0.9rem;
-  color: #888;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  color: var(--text-main);
 }
 
-/* Rechte Seite: Tabelle */
-.table-wrapper {
-  width: 100%;
-  overflow-x: auto;
-}
-
-.modern-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  text-align: left;
-}
-
+/* Tabelle anpassen */
 .modern-table th {
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #888;
-  padding: 1rem;
-  border-bottom: 2px solid #f0f0f0;
+  color: var(--text-muted);
+  border-bottom: 2px solid var(--border-color);
 }
 
 .modern-table td {
-  padding: 1.25rem 1rem;
-  border-bottom: 1px solid #f5f5f5;
-  color: var(--primary-color, #132739);
-  vertical-align: middle;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .modern-table tbody tr:hover td {
-  background-color: #f9fbfd;
+  /* Im Darkmode heller, im Lightmode dunkler */
+  background-color: var(--border-color); 
 }
 
-.modern-table .day {
-  font-weight: 600;
+/* Die Steps Cards auch anpassen */
+.step-card {
+  background-color: var(--bg-card);
+  box-shadow: var(--shadow-soft);
+  /* ... Rest ... */
 }
 
-.modern-table small {
-  display: block;
-  color: #888;
-  margin-top: 4px;
-  font-size: 0.85rem;
+/* Text im Step */
+.training-step__text h3 {
+  color: var(--text-main);
 }
 
 /* Badges */

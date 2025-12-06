@@ -1,15 +1,54 @@
 // js/loader.js
+
 $(function () {
-  // Header laden
+  // 1. Theme SOFORT setzen (bevor Header lädt), damit die Seite nicht flackert
+  applySavedTheme();
+
+  // 2. Header laden
   $("header").load("components/header.html", function () {
-    initHeader(); // <-- Menü aktivieren, wenn Header fertig geladen ist
+    // Diese Funktionen erst starten, wenn das HTML da ist:
+    initHeader(); 
+    initThemeListeners(); // <-- Hier den Button aktivieren
   });
 
-  // Footer laden (optional, keine Extra-Init nötig)
+  // 3. Footer laden
   $("footer").load("components/footer.html");
 });
 
-// Hamburger / Off-Canvas-Logik
+/* --- FUNKTIONEN --- */
+
+function applySavedTheme() {
+  const html = document.documentElement;
+  const savedTheme = localStorage.getItem('theme');
+  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  if (savedTheme) {
+    html.setAttribute('data-theme', savedTheme);
+  } else if (systemPrefersDark) {
+    html.setAttribute('data-theme', 'dark');
+  }
+}
+
+function initThemeListeners() {
+  const toggleBtn = document.getElementById('theme-toggle');
+  const html = document.documentElement;
+
+  if (toggleBtn) {
+    // Status des Buttons initial setzen (optional, falls Icon wechseln soll)
+    // z.B. toggleBtn.checked = html.getAttribute('data-theme') === 'dark';
+
+    toggleBtn.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  } else {
+    console.warn("Theme-Toggle Button nicht gefunden (vielleicht ID im HTML prüfen?)");
+  }
+}
+
 function initHeader() {
   const btn = document.querySelector('.hamburger');
   const nav = document.getElementById('mainnav');
@@ -35,15 +74,18 @@ function initHeader() {
 
   btn.addEventListener('click', toggleMenu);
   backdrop.addEventListener('click', closeMenu);
+  
+  // Event Delegation für Links im Menü (besser als direkt auf nav)
   nav.addEventListener('click', (e) => {
     if (e.target.closest('a')) closeMenu();
   });
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeMenu();
   });
 
-  // Zustand zurücksetzen, wenn wieder größer
+  // Zustand zurücksetzen bei Resize
   const mq = window.matchMedia('(min-width: 769px)');
-  const handle = () => { if (mq.matches) closeMenu(); };
-  mq.addEventListener ? mq.addEventListener('change', handle) : mq.addListener(handle);
+  const handle = (e) => { if (e.matches) closeMenu(); }; // e.matches ist sicherer
+  mq.addEventListener('change', handle);
 }

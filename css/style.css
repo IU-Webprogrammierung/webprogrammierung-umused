@@ -1,3 +1,4 @@
+/* ============ 1. RESET & BASICS ============ */
 * {
   margin: 0;
   padding: 0;
@@ -8,19 +9,65 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ============ 2. COLOR SYSTEM (THEMING) ============ */
+:root {
+  /* --- Primitive Farben (Die Palette) --- */
+  --color-brand-dark: #132739;
+  --color-brand-light: #F0F5FA;
+  --color-accent: #E67E22; /* Helles Orange für besseren Kontrast */
+  --color-white: #ffffff;
+  --color-black: #050a10;
+
+  /* --- Semantische Variablen (Standard = Light Mode) --- */
+  --bg-body: var(--color-brand-light);
+  --bg-card: var(--color-white);
+  --bg-glass: rgba(19, 39, 57, 0.85); /* Header Glas */
+  
+  --text-main: var(--color-brand-dark);
+  --text-muted: #555555;
+  --text-inverse: var(--color-white); /* Text auf dunklen Flächen */
+  
+  --border-color: rgba(19, 39, 57, 0.1);
+  --shadow-soft: 0 20px 40px rgba(19, 39, 57, 0.08);
+  
+  --accent: var(--color-accent);
+}
+
+/* --- DARK MODE OVERRIDES --- */
+[data-theme="dark"] {
+  --bg-body: #0b1116; /* Sehr dunkles Blau/Grau */
+  --bg-card: #16202a; /* Etwas helleres Dunkel für Karten */
+  --bg-glass: rgba(0, 0, 0, 0.7); /* Header dunkler */
+  
+  --text-main: #f0f5fa; /* Heller Text */
+  --text-muted: #a0aab5;
+  --text-inverse: #132739; 
+  
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.3);
+  
+  /* Akzent im Darkmode etwas heller/leuchtender machen für Kontrast */
+  --accent: #ff9f43; 
+}
+
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   line-height: 1.6;
-  color: #222;
-  background-color: #fff;
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-:root {
-  --primary-color: #F0F5FA;      /* Blau: Hauptfarbe */
-  --secondary-color: #F0F5FA;    /* Hellgrau: Hintergrund */
-  --accent-color: #5D2838;       /* Orange: Akzent */
-  --text-color: #222;
-  --text-light: #555;
+/* Globale Typo Anpassung an Theme */
+h1, h2, h3 {
+  color: var(--text-main);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  color: var(--text-muted);
+  margin-bottom: 1rem;
 }
 
 img, video {
@@ -340,95 +387,52 @@ background-image: url("../img/portait.svg");
   margin: 0 auto;            /* zentriert das Bild in seiner Spalte */
 }
 
-/* Grid */
+/* ============ CARDS ============ */
 .card-section {
   padding: 2rem;
-  background: #fff;
-  text-align: left;             /* Text linksbündig für Card-Content */
+  background: var(--bg-body); /* Passt sich jetzt an */
+  text-align: left;
   margin-bottom: 4rem;
-  max-height: 95svh;              /* statt fixed height */
-  min-height: 95svh;              /* statt fixed height */
 }
 
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
-  margin-top: 1.5rem;
-}
-
-
-/* Card-Container */
 .card {
-  background: transparent;
-  border-radius: 16px;          /* runde Gesamtecken */
-  padding: 0rem;                /* innerer Rand um Content */
-  box-shadow: none;
+  background: var(--bg-card); /* Weiß im Light, Dunkel im Dark */
+  border-radius: 16px;
+  padding: 0;
+  box-shadow: var(--shadow-soft); /* Sanfter Schatten oder Glow */
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-}
+  overflow: hidden; /* Damit Ecken sauber bleiben */
+  border: 1px solid var(--border-color); /* Feiner Rand für Dark Mode */
 
-/* Bild oben – in eigener Hülle, damit nur das Bild runde Ecken hat */
-.card__media {
-  border-radius: 12px;          /* nur das Bild runden */
-  overflow: hidden;             /* Bild darf nicht „überlaufen“ */
-  /* gewünschtes Seitenverhältnis für konsistente Höhen */
-  aspect-ratio: 4 / 3;          /* 16/10 oder 3/2 geht auch – Geschmackssache */
-}
-
-.card__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;            /* füllt die Hülle, ohne zu verzerren */
-  display: block;
-}
-
-/* Textbereich */
-.card__content { display: grid; gap: 0.25rem; }
-
-.card__title {
-  color: var(--primary-color);
-  font-size: 1.125rem;
-  line-height: 1.3;
-  margin: 0;
-}
-
-.card__subline {
-  color: var(--text-light);
-  font-size: 0.95rem;
-  margin: 0;
-}
-
-.card__body {
-  color: var(--text-color);
-  font-size: 0.95rem;
-  margin-top: 0.25rem;
-}
-
-/* Mobile: 1 Spalte */
-@media (max-width: 768px) {
-  .card-grid {
-    grid-template-columns: 1fr;
-    
-
+  &__content {
+    padding: 1.5rem;
+    display: grid;
+    gap: 0.25rem;
   }
 
-.card__media {
-  border-radius: 1rem;          /* nur das Bild runden */
-  overflow: hidden;             /* Bild darf nicht „überlaufen“ */
-  /* gewünschtes Seitenverhältnis für konsistente Höhen */
-  aspect-ratio: 4 / 3;          /* 16/10 oder 3/2 geht auch – Geschmackssache */
-}
-
-  .card__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    /* kein padding hier */
+  &__title {
+    color: var(--text-main);
+    font-size: 1.125rem;
+    line-height: 1.3;
+    margin: 0;
   }
 
+  &__subline {
+    color: var(--accent); /* Akzentfarbe nutzen */
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  &__body {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 0.25rem;
+  }
+}
 
 /* Community-Bereich */
 
@@ -475,7 +479,7 @@ section {
 .section-bg {
   background: linear-gradient(135deg, #2e86c1 50%, #f4f4f4 50%);
 }
-}
+
 /* Trainingsplan-Layout */
 .plan {
   display: grid;
@@ -555,92 +559,92 @@ footer a:hover {
 
 /* ============ HEADER (Zentrierte 'Pille') ============ */
 
+/* ============ HEADER ============ */
 .site-header {
-  /* 1. Fixiert über dem Inhalt */
   position: fixed;
   top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  max-width: 90%;
+  margin: 0;
   z-index: 1000;
 
-  /* 2. ZENTRIERUNG & BREITE */
-  left: 50%;
-  transform: translateX(-50%); /* Schiebt das Element um seine eigene Hälfte zurück -> Exakte Mitte */
-  
-  width: auto;          /* Breite passt sich dem Inhalt an */
-  max-width: 100%;       /* Damit es auf kleineren Laptops nicht den Rand berührt */
-  margin: 0;            /* Kein Margin nötig durch den Transform-Trick */
-
-  /* === GLAS DESIGN === */
-  background-color: rgba(19, 39, 57, 0.); /* Dein Blau, transparent */
-  
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(10px);
-  
+  background-color: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  
-  /* Runde Pille */
-  border-radius: 10px; 
-  
-  /* Schatten */
+  border-radius: 99px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   
-  /* Layout Innen */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 3rem;            /* Abstand zwischen Logo und Navi */
-  padding: 0.8rem 2rem; /* Innenabstand der Pille */
-  box-sizing: border-box;
-  
+  gap: 3rem;
+  padding: 0.8rem 2rem;
   transition: all 0.3s ease;
+
+  .logo {
+    color: var(--color-white); /* Logo im Header immer weiß wegen Glas */
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    white-space: nowrap;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .nav {
+    ul {
+      display: flex;
+      gap: 1rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      align-items: center; /* Wichtig für Toggle Button */
+    }
+
+    a {
+      color: var(--color-white); 
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.6rem 1.2rem;
+      border-radius: 99px;
+      white-space: nowrap;
+      border: 1px solid transparent; 
+      transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+
+      &:hover,
+      &:focus {
+        background-color: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
+        color: #ffffff !important;
+      }
+    }
+  }
 }
 
-/* Logo */
-.site-header .logo {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1.2rem;
-  white-space: nowrap; /* Verhindert Umbruch des Logos */
-  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+/* Theme Toggle Button (Neu) */
+.theme-toggle {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: white;
+  transition: all 0.2s ease;
 
-/* Navigation Container */
-.site-header .nav ul {
-  display: flex;
-  gap: 1rem; /* Abstand zwischen den Links */
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* Links Styling (Desktop) */
-.site-header .nav a {
-  color: var(--primary-color, #132739); 
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.95rem;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
   
-  padding: 0.6rem 1.2rem;
-  border-radius: 99px;
-  
-  /* WICHTIG: Platzhalter-Rahmen, damit nichts springt! */
-  border: 1px solid transparent; 
-  
-  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
-}
-
-/* Hover Effekt (Desktop) */
-.site-header .nav a:hover,
-.site-header .nav a:focus {
-  /* Hintergrund */
-  background-color: rgba(255, 255, 255, 0.15); 
-  
-  /* Jetzt wird der Rahmen sichtbar (Farbe ändern) */
-  border-color: rgba(255, 255, 255, 0.3);
-  
-  /* Text Weiß erzwingen */
-  color: #ffffff !important; 
-  text-decoration: none;
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
 }
 
 /* Standard für Desktop: Hamburger ist weg */
