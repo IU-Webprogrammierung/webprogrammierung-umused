@@ -16,7 +16,7 @@ body {
 }
 
 :root {
-  --primary-color: #132739;      /* Blau: Hauptfarbe */
+  --primary-color: #F0F5FA;      /* Blau: Hauptfarbe */
   --secondary-color: #F0F5FA;    /* Hellgrau: Hintergrund */
   --accent-color: #5D2838;       /* Orange: Akzent */
   --text-color: #222;
@@ -40,6 +40,12 @@ p {
   color: var(--text-light);
   margin-bottom: 1rem;
 }
+
+/* Wenn das Menü offen ist, darf die Seite dahinter nicht scrollen */
+body.menu-open {
+  overflow: hidden;
+}
+
 /* ============ HEADER (Card Style) ============ */
 
 
@@ -74,12 +80,20 @@ p {
   transition: background-color 0.2s, color 0.2s;
 }
 
-.site-header .nav a:hover,
-.site-header .nav a:focus {
-  background-color: var(--secondary-color, #F0F5FA); /* Helles Grau beim Hover */
-  color: var(--primary-color);
-  text-decoration: none; /* Unterstrich weg, dafür Button-Look */
-}
+/* HOVER EFFEKT (Pill Background) - KORRIGIERT */
+  .site-header .nav a:hover,
+  .site-header .nav a:focus {
+    /* Hintergrund: Leichtes Weiß */
+    background-color: rgba(255, 255, 255, 0.15); 
+    
+    /* Rahmen: Zart sichtbar */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    
+    /* WICHTIG: Text MUSS Weiß bleiben für Kontrast! */
+    color: #ffffff !important; 
+    
+    transform: scale(1.05); 
+  }
 
 
 
@@ -160,16 +174,81 @@ p {
   text-shadow: 0 0 6px rgba(0,0,0,0.7);
 }
 
+/* --- ABOUT HERO (Sternenhimmel Code) --- */
+
 .about-hero {
-  width: 100%;                     /* statt 100vw */
-  min-height: 100svh;              /* statt fixed height */
-  background: url("../img/portait.svg") center/cover no-repeat;
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  overflow: hidden; /* Wichtig, damit Sterne nicht rausgucken */
+  
+  /* 1. Der Deep Space Hintergrund (Verlauf statt Bild) */
+  /* Ein schöner dunkler Verlauf von Nachtblau zu Schwarz */
+background: linear-gradient(
+    to top, 
+    #025371 0%,   /* Warmer Pfirsich-Ton am Horizont */
+    #022943 35%,   /* Übergang zu Rosa/Rot */
+    #001A3A 50%,   /* Sattes Lila */
+    #001A3A 100%   /* Tiefes Nachtblau ganz oben */
+  );
+  
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0rem;
   padding-bottom: 1rem;
-  margin-top: -4rem;
+  margin-top: 0rem; /* Dein Margin-Fix */
+}
+
+/* Der Container für die Sterne */
+.star-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%; /* Etwas höher für Parallax-Bewegung */
+  z-index: 0;    /* Ganz hinten */
+  pointer-events: none;
+}
+
+/* Ein einzelner Stern (wird per JS erzeugt) */
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: twinkle 2s infinite ease-in-out;
+}
+
+/* Funkel-Animation */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.9; transform: scale(0.8); }
+  50% { opacity: 0.2; transform: scale(0.9); }
+}
+
+/* Ändere diesen Teil in deinem css/style.css */
+.about-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0; 
+  width: 100%;
+  height: 85%;
+  
+
+  
+background-image: url("../img/portait.svg");
+  background-image: url("../img/portait.svg");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: auto 100%;
+
+  /* --- NEU: BLENDING --- */
+  /* 'overlay' oder 'soft-light' oder 'hard-light' sind hier gut. */
+  /* Probier 'overlay' zuerst: */
+  mix-blend-mode: overlay;
+  
+  /* Falls es zu durchsichtig wird, Filter anpassen: */
+  filter: contrast(1.2) brightness(0.8);
 }
 
 
@@ -534,37 +613,39 @@ footer a:hover {
   padding: 0;
 }
 
-/* Links Styling */
+/* Links Styling (Desktop) */
 .site-header .nav a {
-  color: #fff; 
+  color: var(--primary-color, #132739); 
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 0.95rem;
+  
   padding: 0.6rem 1.2rem;
   border-radius: 99px;
-  white-space: nowrap; /* Verhindert Umbruch der Links */
-  transition: background-color 0.2s, color 0.2s;
+  
+  /* WICHTIG: Platzhalter-Rahmen, damit nichts springt! */
+  border: 1px solid transparent; 
+  
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
 
-/* Hover */
+/* Hover Effekt (Desktop) */
 .site-header .nav a:hover,
 .site-header .nav a:focus {
-  background-color: rgba(255, 255, 255, 0.15);
+  /* Hintergrund */
+  background-color: rgba(255, 255, 255, 0.15); 
+  
+  /* Jetzt wird der Rahmen sichtbar (Farbe ändern) */
+  border-color: rgba(255, 255, 255, 0.3);
+  
+  /* Text Weiß erzwingen */
+  color: #ffffff !important; 
+  text-decoration: none;
 }
 
-/* Hamburger (Desktop aus) */
+/* Standard für Desktop: Hamburger ist weg */
 .hamburger {
   display: none;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-.hamburger span {
-  display: block;
-  width: 25px;
-  height: 2px;
-  background-color: #fff;
-  margin: 5px 0;
 }
 
 /* ============ MOBILE ANPASSUNG (Fixed & Clickable) ============ */
@@ -610,20 +691,18 @@ footer a:hover {
     flex-direction: column; 
     justify-content: center;
     align-items: center;
-  
     
-    /* Abstand zwischen den beiden Strichen im geschlossenen Zustand */
+    /* Wir definieren den Abstand fix */
     gap: 8px; 
     
     pointer-events: auto; 
     z-index: 1200; 
-        background: transparent;
+    
+    background: transparent;
     border: none;
     box-shadow: none;
-    padding: 0rem; 
-    margin-right: 0rem; 
+    padding: 0.5rem; 
     cursor: pointer;
-    
     width: 48px;
     height: 48px;
   }
@@ -631,16 +710,14 @@ footer a:hover {
   /* Die Striche */
   .hamburger span {
     display: block;
-    width: 28px;      
+    width: 24px;      
     height: 2px;      
     background-color: #fff;
     border-radius: 2px;
-    margin: 0; 
     
-    /* WICHTIG: Transform-Origin auf die Mitte setzen */
+    /* WICHTIG: Drehpunkt Mitte */
     transform-origin: center;
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); 
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3); 
   }
 
   /* 3. DAS MENÜ (Vorhang von Oben) */
@@ -736,14 +813,16 @@ footer a:hover {
   
   body.menu-open { overflow: hidden; }
 
-/* Oberer Strich: Bewegt sich runter und dreht */
-  /* Rechnung: Gap (8px) / 2 + Höhe (2px) / 2 = 5px Verschiebung zur Mitte */
+/* Oberer Strich: 
+     Er muss die Hälfte des Gaps (4px) + die Hälfte seiner Höhe (1px) nach unten.
+     Also 5px. */
   body.menu-open .hamburger span:nth-child(1) { 
     transform: translateY(5px) rotate(45deg); 
   }
   
-  /* Unterer Strich: Bewegt sich hoch und dreht */
+  /* Unterer Strich: 
+     Er muss 5px nach oben. */
   body.menu-open .hamburger span:nth-child(2) { 
     transform: translateY(-5px) rotate(-45deg); 
   }
-    }
+ }
