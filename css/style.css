@@ -163,7 +163,7 @@ p {
 .about-hero {
   width: 100%;                     /* statt 100vw */
   min-height: 100svh;              /* statt fixed height */
-  background: url("../img/path.svg") center/cover no-repeat;
+  background: url("../img/portait.svg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -185,7 +185,7 @@ p {
   /* 2. Der Verlauf (Gradient) darunter */
   background: 
     url("../img/portait.svg") center/cover no-repeat,
-    linear-gradient(135deg, #E8FF55 0%, #E8FF55 100%);
+    radial-gradient(circle,rgba(225, 246, 196, 0) 20%, rgba(255, 211, 67, 1) 20%, rgba(254, 225, 154, 1) 70%);
     
   padding: 2rem;
   padding-bottom: 1rem;
@@ -474,97 +474,276 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* ============ Header / Navigation ============ */
+/* ============ HEADER (Zentrierte 'Pille') ============ */
 
 .site-header {
-  position: sticky;
-  top: 0;
+  /* 1. Fixiert über dem Inhalt */
+  position: fixed;
+  top: 2rem;
   z-index: 1000;
+
+  /* 2. ZENTRIERUNG & BREITE */
+  left: 50%;
+  transform: translateX(-50%); /* Schiebt das Element um seine eigene Hälfte zurück -> Exakte Mitte */
   
-  /* ÄNDERUNG: Statt width: 100% nutzen wir auto + margins */
-  width: auto; 
-  margin: 0 2rem; /* 0 oben/unten, 2rem links/rechts */
+  width: auto;          /* Breite passt sich dem Inhalt an */
+  max-width: 100%;       /* Damit es auf kleineren Laptops nicht den Rand berührt */
+  margin: 0;            /* Kein Margin nötig durch den Transform-Trick */
+
+  /* === GLAS DESIGN === */
+  background-color: rgba(19, 39, 57, 0.); /* Dein Blau, transparent */
   
-  /* DESIGN: Weiß, Schatten, Runde Ecken unten */
-  background-color: var(--primary-color, #132739); 
-  border-radius: 0 0 32px 32px; 
-  box-shadow: 0 10px 30px rgba(19, 39, 57, 0.08);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   
-  /* Layout */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  
+  /* Runde Pille */
+  border-radius: 10px; 
+  
+  /* Schatten */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  
+  /* Layout Innen */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 3rem; 
+  gap: 3rem;            /* Abstand zwischen Logo und Navi */
+  padding: 0.8rem 2rem; /* Innenabstand der Pille */
   box-sizing: border-box;
+  
+  transition: all 0.3s ease;
 }
 
+/* Logo */
 .site-header .logo {
-  color:#fff;
-  text-decoration:none; font-weight:700; }
-
-/* Desktop-Default: Burger verstecken, Nav normal sichtbar */
-.hamburger { 
-  -webkit-tap-highlight-color: transparent;
-  border: 0; background: transparent; padding: 8px; cursor: pointer;
-  flex-direction: column; gap: 4px; align-items: center; justify-content: center;
-  display: none;                     /* <- nur mobil sichtbar */
-}
-.hamburger span {
-  display:block; width:24px; height:2px; background:#fff;
-  transition: transform .2s ease, opacity .2s ease;
-}
-
-/* Desktop-Nav (= sichtbar, nicht off-canvas) */
-.site-header .nav {
-  position: static;
-  height: auto; width: auto;
-  transform: none;
-  background: transparent;
   color: #fff;
-  box-shadow: none;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.2rem;
+  white-space: nowrap; /* Verhindert Umbruch des Logos */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Navigation Container */
+.site-header .nav ul {
+  display: flex;
+  gap: 1rem; /* Abstand zwischen den Links */
+  list-style: none;
+  margin: 0;
   padding: 0;
 }
-.site-header .nav ul {
-  display: flex; gap: 1.5rem; list-style: none; margin: 0; padding: 0;
-  flex-direction: row;
+
+/* Links Styling */
+.site-header .nav a {
+  color: #fff; 
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 99px;
+  white-space: nowrap; /* Verhindert Umbruch der Links */
+  transition: background-color 0.2s, color 0.2s;
 }
-.site-header .nav a { color:#fff; text-decoration:none; font-weight:500; }
-.site-header .nav a:hover, .site-header .nav a:focus { text-decoration: underline; }
 
-/* Backdrop */
-.backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: none; z-index: 1100;}
+/* Hover */
+.site-header .nav a:hover,
+.site-header .nav a:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+}
 
-/* ============ Mobile: Off-Canvas ============ */
+/* Hamburger (Desktop aus) */
+.hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background-color: #fff;
+  margin: 5px 0;
+}
+
+/* ============ MOBILE ANPASSUNG (Fixed & Clickable) ============ */
 @media (max-width: 768px) {
-  .hamburger { display: inline-flex; }
-
-  .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
   
-  /* ÄNDERUNG: Statt width: 100% nutzen wir auto + margins */
-  width: auto; 
-  margin: 0 2rem; /* 0 oben/unten, 2rem links/rechts */ }
-
-  .site-header .nav {
-    position: fixed; top: 0; right: 0; height: 100vh;
-    width: 80vw; max-width: 320px;
-    z-index: 1110;
-    background: #fff; color: var(--text-color);
-    transform: translateX(100%); transition: transform .3s ease;
-    box-shadow: -12px 0 24px rgba(0,0,0,.15);
-    padding: calc(64px + 12px) 20px 20px;
+  /* 1. DER HEADER CONTAINER (eingeklappt) */
+  .site-header {
+    /* WICHTIG: Fixed, damit es beim Scrollen da bleibt! */
+    position: fixed; 
+    top: 0; left: 0; right: 0;
+    width: 100%;
+    margin: 0;
+    transform: none; 
+    
+    background: transparent; 
+    border: none; 
+    box-shadow: none; 
+    backdrop-filter: none; 
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    
+    /* Container lässt Klicks durch, damit man das Bild darunter bedienen kann */
+    pointer-events: none;
+    z-index: 1100;
   }
-  .site-header .nav ul { flex-direction: column; gap: 1rem; }
-  .site-header .nav a { color: var(--primary-color); }
 
-  body.menu-open .site-header .nav { transform: translateX(0); }
-  body.menu-open .backdrop { display: block; }
+  /* Logo klickbar machen */
+  .site-header .logo {
+    pointer-events: auto; /* Logo muss klickbar sein */
+    color: #fff; 
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5); 
+    position: relative;
+    z-index: 1200; /* Sehr hoch */
+    padding: 2rem; 
+  }
+
+  /* 2. DER HAMBURGER-BUTTON (2 Striche Version) */
+  .hamburger {
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+  
+    
+    /* Abstand zwischen den beiden Strichen im geschlossenen Zustand */
+    gap: 8px; 
+    
+    pointer-events: auto; 
+    z-index: 1200; 
+        background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0rem; 
+    margin-right: 0rem; 
+    cursor: pointer;
+    
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Die Striche */
+  .hamburger span {
+    display: block;
+    width: 28px;      
+    height: 2px;      
+    background-color: #fff;
+    border-radius: 2px;
+    margin: 0; 
+    
+    /* WICHTIG: Transform-Origin auf die Mitte setzen */
+    transform-origin: center;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3); 
+  }
+
+  /* 3. DAS MENÜ (Vorhang von Oben) */
+  .site-header .nav {
+    display: block; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 70vh; 
+    
+    /* Muss unter dem Hamburger liegen (1200), aber über dem Inhalt */
+    z-index: 1150; 
+    
+    /* Menü muss Interaktionen annehmen */
+    pointer-events: auto; 
+    
+    /* Design */
+    background-color: rgba(19, 39, 57, 0.98); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: none; 
+    
+    /* Start: Versteckt OBEN */
+    transform: translateY(-100%);
+    
+    /* Animation */
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    
+    padding: 120px 2rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }
+
+  /* Links Container */
+  .site-header .nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; 
+    align-items: center; 
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+
+  /* 4. LINKS DESIGN */
+  .site-header .nav a {
+    color: #fff;
+    font-size: 1.4rem; 
+    font-weight: 600;  
+    text-decoration: none;
+    text-align: center;
+    
+    display: inline-block; 
+    padding: 0.8rem 2rem;
+    border-radius: 99px;
+    
+    border: 1px solid transparent; 
+    background-color: transparent;
+    
+    transition: all 0.2s ease;
+  }
+  
+  /* Hover Effekt */
+  .site-header .nav a:hover,
+  .site-header .nav a:focus {
+    background-color: rgba(255, 255, 255, 0.15); 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform: scale(1.05); 
+  }
+
+  /* 5. ZUSTAND: MENÜ OFFEN */
+  body.menu-open .site-header .nav { 
+    transform: translateY(0); 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+  
+  /* Header Container interaktiv machen, wenn offen */
+  body.menu-open .site-header {
+    pointer-events: auto;
+  }
+  
+  body.menu-open .backdrop { 
+    display: block; 
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    z-index: 1140; /* Unter dem Menü */
+  }
+  
   body.menu-open { overflow: hidden; }
 
-  /* Icon zu "X" animieren */
-  body.menu-open .hamburger span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-  body.menu-open .hamburger span:nth-child(2) { opacity: 0; }
-  body.menu-open .hamburger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-}
+/* Oberer Strich: Bewegt sich runter und dreht */
+  /* Rechnung: Gap (8px) / 2 + Höhe (2px) / 2 = 5px Verschiebung zur Mitte */
+  body.menu-open .hamburger span:nth-child(1) { 
+    transform: translateY(5px) rotate(45deg); 
+  }
+  
+  /* Unterer Strich: Bewegt sich hoch und dreht */
+  body.menu-open .hamburger span:nth-child(2) { 
+    transform: translateY(-5px) rotate(-45deg); 
+  }
+    }
