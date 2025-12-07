@@ -13,7 +13,7 @@ html {
 :root {
   /* --- Primitive Farben (Die Palette) --- */
   --color-brand-dark: #132739;
-  --color-brand-light: #F0F5FA;
+  --color-brand-light: #ffffff;
   --color-accent: #E67E22; /* Helles Orange für besseren Kontrast */
   --color-white: #ffffff;
   --color-black: #050a10;
@@ -21,7 +21,7 @@ html {
   /* --- Semantische Variablen (Standard = Light Mode) --- */
   --bg-body: var(--color-brand-light);
   --bg-card: var(--color-white);
-  --bg-glass: rgba(19, 39, 57, 0.85); /* Header Glas */
+  --bg-glass: rgba(19, 39, 57, 0.15); /* Header Glas */
   
   --text-main: var(--color-brand-dark);
   --text-muted: #555555;
@@ -31,13 +31,21 @@ html {
   --shadow-soft: 0 20px 40px rgba(19, 39, 57, 0.08);
   
   --accent: var(--color-accent);
+
+  /* NEU: Das SVG für den Light Mode */
+  --motivation-bg: url('../img/motivation_bright.svg');
+
+  --motivation: #feb47b; 
+   
+
+
 }
 
 /* --- DARK MODE OVERRIDES --- */
 [data-theme="dark"] {
   --bg-body: #0b1116; /* Sehr dunkles Blau/Grau */
   --bg-card: #16202a; /* Etwas helleres Dunkel für Karten */
-  --bg-glass: rgba(0, 0, 0, 0.7); /* Header dunkler */
+  --bg-glass: rgba(0, 0, 0, 0.15); /* Header dunkler */
   
   --text-main: #f0f5fa; /* Heller Text */
   --text-muted: #a0aab5;
@@ -48,6 +56,9 @@ html {
   
   /* Akzent im Darkmode etwas heller/leuchtender machen für Kontrast */
   --accent: #ff9f43; 
+
+--motivation-bg: url('../img/motivation_dark.svg');
+  --motivation: #; 
 }
 
 body {
@@ -221,43 +232,157 @@ body.menu-open {
   text-shadow: 0 0 6px rgba(0,0,0,0.7);
 }
 
-/* --- ABOUT HERO (Sternenhimmel Code) --- */
+/* ============ ABOUT HERO (Dual Theme: Warm vs. Cold) ============ */
+
+/* ============ ABOUT HERO (Fixed & Layered) ============ */
 
 .about-hero {
   position: relative;
   width: 100%;
   min-height: 100svh;
-  overflow: hidden; /* Wichtig, damit Sterne nicht rausgucken */
-  
-  /* 1. Der Deep Space Hintergrund (Verlauf statt Bild) */
-  /* Ein schöner dunkler Verlauf von Nachtblau zu Schwarz */
-background: linear-gradient(
-    to top, 
-    #025371 0%,   /* Warmer Pfirsich-Ton am Horizont */
-    #022943 35%,   /* Übergang zu Rosa/Rot */
-    #001A3A 50%,   /* Sattes Lila */
-    #001A3A 100%   /* Tiefes Nachtblau ganz oben */
-  );
-  
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   padding-bottom: 1rem;
-  margin-top: 0rem; /* Dein Margin-Fix */
+  
+  /* Light Mode Background */
+background: linear-gradient(
+  to bottom, 
+  #ff7e5f 0%,   /* Start ganz oben */
+  #feb47b 70%,  /* Bleibt bis 70% der Höhe die gleiche Farbe (kein Verlauf) */
+  #feb47b 100%  /* Schneller Verlauf von 70% bis 100% */
+);
+  transition: background 0.5s ease;
 }
 
-/* Der Container für die Sterne */
+/* --- PORTRAIT --- */
+.about-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0; 
+  width: 100%;
+  height: 100%;
+  z-index: 200; 
+  
+  background-image: url("../img/portait.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+
+  mix-blend-mode: overlay;
+  filter: contrast(1.0);
+  transition: all 1.1s ease;
+  pointer-events: none; 
+
+  /* --- NEU: CSS MASKE FÜR DEN FADE-EFFEKT --- */
+  /* Die Maske ist ein Verlauf von oben nach unten.
+     black = voll sichtbar
+     transparent = unsichtbar
+     Die Prozentwerte steuern, wo der Übergang beginnt und endet.
+     Hier: Bis 65% der Höhe ist alles sichtbar, dann verblasst es bis 95%.
+  */
+  -webkit-mask-image: linear-gradient(to bottom, black 72%, transparent 78%);
+          mask-image: linear-gradient(to bottom, black 72%, transparent 78%);
+}
+
+
+/* Überschrift (Ganz vorne) */
+.about-hero h1 {
+  position: relative;
+  z-index: 20; /* Muss höher sein als alles andere */
+  color: var(--text-hero); 
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* --- DIE WOLKEN --- */
+
+/* Container, damit wir alle Wolken im Darkmode einfach ausblenden können */
+.clouds-wrapper {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.cloud {
+  position: absolute;
+  opacity: 0.8; 
+  /* Sanfte Schwebe-Animation */
+  animation: floatClouds 8s infinite ease-in-out alternate;
+}
+
+/* Ebene 1: HINTER dem Portrait (z-index < 10) */
+.cloud-back {
+  z-index: 3; 
+  opacity: 0.7; /* Etwas blasser */
+  filter: blur(1.5px); /* Leichte Tiefenunschärfe */
+}
+
+/* Ebene 2: VOR dem Portrait (z-index > 10) */
+.cloud-front {
+  z-index: 225; 
+  filter: brightness(1.0);
+}
+
+/* Positionierung der einzelnen Wolken */
+.c1 { top: 2%; left: 10%; width: 30rem; animation-duration: 80s; }
+.c2 { top: 5%; right: 20%; width: 30rem; animation-duration: 40s; animation-delay: -2s;}
+
+.c3 { bottom: 0%; left: -16%; width: 30rem; opacity: 0.9; animation-duration: 90s; animation-delay: -2s;}
+.c4 { bottom: 0%; right: -10%; width: 55rem; opacity: 0.6; animation-duration: 80s; animation-delay: -2s;}
+
+
+/* Animation Keyframes */
+@keyframes floatClouds {
+  0% { transform: translateY(0px) translateX(0px); }
+  100% { transform: translateY(-15px) translateX(40rem); }
+}
+
+
+/* ============ DARK MODE LOGIK ============ */
+
+/* 1. Hintergrund wird dunkel */
+[data-theme="dark"] .about-hero {
+  background: linear-gradient(
+    to top, 
+    #025371 0%,   
+    #022943 35%,   
+    #001A3A 50%,   
+    #001A3A 100%   
+  );
+}
+
+
+/* 2. Wolken ausblenden */
+[data-theme="dark"] .clouds-wrapper {
+  opacity: 0;
+}
+
+/* 3. Portrait Anpassung für Nacht */
+[data-theme="dark"] .about-hero::after {
+  mix-blend-mode: overlay;
+  filter: contrast(1.2) brightness(0.9);
+  opacity: 0.9;
+}
+
+/* 4. Sterne einblenden */
+/* Standardmäßig ausblenden im Light Mode */
+html:not([data-theme="dark"]) .star-container {
+  display: none;
+}
+/* Im Dark Mode sind sie da (da display:block Standard für div ist) */
+
+/* Deine bestehenden Stern-Klassen */
 .star-container {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 120%; /* Etwas höher für Parallax-Bewegung */
-  z-index: 0;    /* Ganz hinten */
+  top: 0; left: 0; width: 100%; height: 120%;
+  z-index: 1; /* Ganz hinten */
   pointer-events: none;
 }
 
-/* Ein einzelner Stern (wird per JS erzeugt) */
 .star {
   position: absolute;
   background: white;
@@ -266,84 +391,171 @@ background: linear-gradient(
   animation: twinkle 2s infinite ease-in-out;
 }
 
-/* Funkel-Animation */
 @keyframes twinkle {
   0%, 100% { opacity: 0.9; transform: scale(0.8); }
   50% { opacity: 0.2; transform: scale(0.9); }
 }
 
-/* Ändere diesen Teil in deinem css/style.css */
-.about-hero::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0; 
-  width: 100%;
-  height: 85%;
-  
 
-  
-background-image: url("../img/portait.svg");
-  background-image: url("../img/portait.svg");
-  background-repeat: no-repeat;
-  background-position: bottom center;
-  background-size: auto 100%;
-
-  /* --- NEU: BLENDING --- */
-  /* 'overlay' oder 'soft-light' oder 'hard-light' sind hier gut. */
-  /* Probier 'overlay' zuerst: */
-  mix-blend-mode: overlay;
-  
-  /* Falls es zu durchsichtig wird, Filter anpassen: */
-  filter: contrast(1.2) brightness(0.8);
-}
-
-
+/* ============ MOTIVATION SECTION ============ */
 .motivation {
   width: 100%;
   min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  /* HIER IST DIE ÄNDERUNG: */
-  /* 1. Das Bild (SVG) oben, inkl. Positionierung (center/cover) */
-  /* 2. Der Verlauf (Gradient) darunter */
-  background: 
-    url("../img/portait.svg") center/cover no-repeat,
-    radial-gradient(circle,rgba(225, 246, 196, 0) 20%, rgba(255, 211, 67, 1) 20%, rgba(254, 225, 154, 1) 70%);
-    
-  padding: 2rem;
-  padding-bottom: 1rem;
-}
-
-.begeisterung {
-  width: 100%;                     /* statt 100vw */
-  min-height: 100svh;              /* statt fixed height */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  padding-bottom: 1rem;
+  position: relative;
+  overflow: hidden;
+  margin-top: -12rem;
+  padding: 2rem;  
+  /* 1. EBENE: Der Himmel (Hintergrund-Verlauf) */
+  transition: background 0.5s ease;
 }
 
 
-.favorite-spot {
-  width: 100%;                     /* statt 100vw */
-  min-height: 100svh;              /* statt fixed height */
-  display: flex;
-  align-items: center;
-  background: url("../img/strecke.svg") center/cover no-repeat;
-  justify-content: center;
-  padding: 0rem;
-  padding-bottom: 0rem;
-}
 
-.favorite-spot__inner {
-  padding: 2rem;
+/* 3. EBENE: Die Landschaft (SVG) */
+.motivation::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  display: flex;
+  height: 100%; /* Oder weniger, je nach SVG-Format */
+  background-color: var(--motivation);
+  
+  /* Hier laden wir dein SVG */
+background-image: 
+    var(--motivation-bg);
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: cover; /* Oder 'contain', je nachdem wie es besser aussieht */
+  
+  z-index: 200; /* Liegt ÜBER der Sonne */
+  pointer-events: none; /* Klicks gehen durch */
+  
+[data-theme="dark"] .motivation {
+  background-image: 
+    var(--motivation-bg), 
+    radial-gradient(circle, rgba(40, 60, 80, 1) 0%, #0b1116 100%);
 }
+}
+
+/* 4. EBENE: Der Text */
+.motivation-content {
+  position: relative;
+  z-index: 201; /* Ganz oben */
+  max-width: 800px;
+  /* Optional: Damit man Text über der Sonne lesen kann */
+  text-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+}
+
+/* Container für die gesamte Section */
+.begeisterung {
+  width: 100%;
+  min-height: 50vh; /* Muss nicht 100svh sein, wenn der Inhalt kürzer ist */
+  padding: 6rem 2rem; /* Genug Abstand oben/unten */
+  display: flex;
+  justify-content: center;
+  background-color: var(--bg-body); /* Damit es sauber aussieht */
+}
+
+/* Innerer Wrapper, der die Breite begrenzt */
+.begeisterung-inner {
+  display: grid;
+  /* Desktop Layout: Linke Spalte 1 Teil, Rechte Spalte 2 Teile */
+  grid-template-columns: 1fr 2fr; 
+  gap: 4rem; /* Abstand zwischen Headline und Text */
+  max-width: 1100px; /* Maximale Breite des Inhalts */
+  width: 100%;
+}
+
+/* Headline Styling */
+.begeisterung-header h2 {
+  font-size: 2.5rem; /* Groß und plakativ */
+  line-height: 1.2;
+  margin: 0;
+  color: var(--text-main);
+
+}
+
+/* Text Styling */
+.begeisterung-body p {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  max-width: 65ch; /* Optimale Leselänge (ca. 65 Zeichen) */
+}
+
+/* ============ MOBILE ANPASSUNG ============ */
+@media (max-width: 768px) {
+  .begeisterung-inner {
+    /* Auf dem Handy: Alles untereinander */
+    grid-template-columns: 1fr; 
+    gap: 2rem;
+  }
+  
+  .begeisterung-header h2 {
+    font-size: 2rem;
+  }
+}
+
+
+
+
+/* Container für die gesamte Section */
+.favorite-spot {
+  width: 100%;
+  min-height: 50vh; /* Muss nicht 100svh sein, wenn der Inhalt kürzer ist */
+  padding: 6rem 2rem; /* Genug Abstand oben/unten */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-body); /* Damit es sauber aussieht */
+}
+
+/* Innerer Wrapper, der die Breite begrenzt */
+.favorite-spot-inner {
+  display: grid;
+  /* Desktop Layout: Linke Spalte 1 Teil, Rechte Spalte 2 Teile */
+  grid-template-columns: 1fr 2fr; 
+  gap: 4rem; /* Abstand zwischen Headline und Text */
+  max-width: 1100px; /* Maximale Breite des Inhalts */
+  width: 100%;
+}
+
+/* Headline Styling */
+.favorite-spot h2 {
+  font-size: 2.5rem; /* Groß und plakativ */
+  line-height: 1.2;
+  margin: 0;
+  color: var(--text-main);
+
+}
+
+/* Text Styling */
+.favorite-spot-body p {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  max-width: 65ch; /* Optimale Leselänge (ca. 65 Zeichen) */
+}
+
+/* ============ MOBILE ANPASSUNG ============ */
+@media (max-width: 768px) {
+  .favorite-spot-inner {
+    /* Auf dem Handy: Alles untereinander */
+    grid-template-columns: 1fr; 
+    gap: 2rem;
+  }
+  
+  .favorite-spot-header h2 {
+    font-size: 2rem;
+  }
+}
+
 
 .goals {
   width: 100%;                     /* statt 100vw */
@@ -395,6 +607,14 @@ background-image: url("../img/portait.svg");
   margin-bottom: 4rem;
 }
 
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+
 .card {
   background: var(--bg-card); /* Weiß im Light, Dunkel im Dark */
   border-radius: 16px;
@@ -405,6 +625,7 @@ background-image: url("../img/portait.svg");
   gap: 0.75rem;
   overflow: hidden; /* Damit Ecken sauber bleiben */
   border: 1px solid var(--border-color); /* Feiner Rand für Dark Mode */
+
 
   &__content {
     padding: 1.5rem;
@@ -433,6 +654,67 @@ background-image: url("../img/portait.svg");
     margin-top: 0.25rem;
   }
 }
+
+/* Bild oben – in eigener Hülle, damit nur das Bild runde Ecken hat */
+.card__media {
+  border-radius: 12px;          /* nur das Bild runden */
+  overflow: hidden;             /* Bild darf nicht „überlaufen“ */
+  /* gewünschtes Seitenverhältnis für konsistente Höhen */
+  aspect-ratio: 4 / 3;          /* 16/10 oder 3/2 geht auch – Geschmackssache */
+}
+
+.card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;            /* füllt die Hülle, ohne zu verzerren */
+  display: block;
+}
+
+/* Textbereich */
+.card__content { display: grid; gap: 0.25rem; }
+
+.card__title {
+  color: var(--primary-color);
+  font-size: 1.125rem;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.card__subline {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.card__body {
+  color: var(--text-color);
+  font-size: 0.95rem;
+  margin-top: 0.25rem;
+}
+
+/* Mobile: 1 Spalte */
+@media (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+    
+
+  }
+
+.card__media {
+  border-radius: 1rem;          /* nur das Bild runden */
+  overflow: hidden;             /* Bild darf nicht „überlaufen“ */
+  /* gewünschtes Seitenverhältnis für konsistente Höhen */
+  aspect-ratio: 4 / 3;          /* 16/10 oder 3/2 geht auch – Geschmackssache */
+}
+
+  .card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    /* kein padding hier */
+  }
+
 
 /* Community-Bereich */
 
@@ -479,7 +761,7 @@ section {
 .section-bg {
   background: linear-gradient(135deg, #2e86c1 50%, #f4f4f4 50%);
 }
-
+}
 /* Trainingsplan-Layout */
 .plan {
   display: grid;
@@ -571,10 +853,10 @@ footer a:hover {
   z-index: 1000;
 
   background-color: var(--bg-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 99px;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 1rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   
   display: flex;

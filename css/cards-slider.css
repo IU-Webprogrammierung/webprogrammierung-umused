@@ -1,41 +1,58 @@
+/* ============ SLIDER VARIABLES ============ */
+:root {
+  /* LIGHT MODE (Dein aktueller Style) */
+  --card-bg-gradient: linear-gradient(1deg, #E4FFC8 0%, #76FFEB 100%);
+  --card-border: 1px solid rgba(0,0,0,0.05);
+  
+  --card-title-color: #132739;
+  --card-body-color: #555555;
+  --card-subline-color: #132739; /* oder Accent */
+  
+  --nav-btn-bg: #132739;
+  --nav-btn-icon: #ffffff;
+}
+
+/* DARK MODE (Neu) */
+[data-theme="dark"] {
+  /* Ein dunkler Verlauf: Tiefes Nachtblau zu dunklem Petrol */
+  --card-bg-gradient: linear-gradient(1deg, #16222A 0%, #1d333b 100%);
+  --card-border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  --card-title-color: #ffffff;
+  --card-body-color: #bbbbbb;
+  --card-subline-color: #76FFEB; /* Hier nutzen wir das helle Cyan als Akzent! */
+  
+  --nav-btn-bg: #ffffff;
+  --nav-btn-icon: #132739;
+}
+
 /* --- Wrapper & Einbettung --- */
 .slider-section { 
-  /* 1. Volle Bildschirmhöhe erzwingen */
   min-height: 100vh; 
   width: 100%;
-  
-  /* 2. Alles zentrieren */
   display: flex;
   flex-direction: column; 
-  justify-content: center; /* Vertikal mittig */
-  
-  /* 3. Abstände steuern */
+  justify-content: center; 
   gap: 2rem; 
-  
-  /* Padding nur oben/unten (Links/Rechts ist 0 für Full-Bleed Slider) */
   padding: 2rem 0; 
-  
-  background: #fff; 
   box-sizing: border-box; 
   margin: 0; 
 }
 
 .slider-card__content {
-  /* Oben 0 (weil das Bild drüber ist), Rechts 2rem, Unten 2rem, Links 2rem */
   padding: 0 2rem 2rem 2rem;
-  
-  /* Damit der Text linksbündig bleibt (optional, falls du das willst) */
   text-align: left; 
 }
 
-/* Überschrift mit Abstand versorgen */
+/* WICHTIG: Damit Überschriften im Slider im Dark Mode weiß werden */
 .slider-section h2 {
   margin: 0; 
   width: 100%;
-  /* Hier geben wir den linken Abstand zurück, da der Wrapper keinen hat */
   padding-left: 2rem;
   padding-right: 2rem;
   box-sizing: border-box;
+  /* Farbe erbt er meist vom Body, aber sicherheitshalber: */
+  color: var(--text-main); 
 }
 
 /* --- Slider Container --- */
@@ -43,20 +60,16 @@
   position: relative; 
   width: 100%;
   padding: 0;       
-  overflow: hidden; /* Verhindert horizontalen Scrollbalken */
+  overflow: hidden; 
 }
 
-/* Viewport/Bahn: Slides nebeneinander */
+/* Viewport */
 .slider--radio .slider__viewport {
   display: flex;
   gap: 1.5rem;
   width: 100%;
-  
-  /* "Scroll-Padding": Karten starten eingerückt (optisch schön),
-     verschwinden beim Scrollen aber am Rand */
   padding-left: 2rem;  
   padding-right: 2rem; 
-  
   box-sizing: border-box; 
   scroll-behavior: smooth;
   transition: transform 0.4s ease;
@@ -64,21 +77,44 @@
 
 /* --- Slides (Cards) --- */
 .slider--radio .slider-card {
-  /* Standard-Basis (wird unten per Media Query überschrieben) */
   flex: 0 0 55%; 
   
- background: linear-gradient(1deg, #E4FFC8 0%, #76FFEB 100%);
+  /* HIER NEU: Variablen nutzen */
+  background: var(--card-bg-gradient);
+  border: var(--card-border);
+  
   border-radius: 16px;
-  border: 0px solid aqua;
   padding: 0;
-  box-shadow: 0 0 0 rgba(0,0,0,0.05);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05); /* Etwas schönerer Schatten */
   
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  
-  /* Innenabstand der Karte etwas reduziert, damit sie nicht zu hoch wird */
   padding-bottom: 1rem;
+  
+  transition: background 0.3s ease, border 0.3s ease;
+}
+
+/* Textfarben anpassen */
+.slider-card__title {
+  color: var(--card-title-color);
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+slider-card__subline {
+  color: var(--card-subline-color);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.slider-card__body {
+  color: var(--card-body-color);
+  font-size: 1rem;
+  margin: 0;
 }
 
 .slider-card__media {
@@ -95,6 +131,7 @@
   object-fit: contain;
   transform: rotate(-12deg) scale(0.9);
   overflow: hidden; 
+  transition: transform 0.3s ease;
 }
 
 .slider-card:nth-of-type(1) .slider-card__media img {
@@ -182,6 +219,11 @@
   width: 40px;
   height: 40px;
   border-radius: 99px;
+
+/* HIER NEU: Variablen nutzen */
+  background: var(--nav-btn-bg); 
+  color: var(--nav-btn-icon);
+
   /* Fallback, falls Variable fehlt */
   background: var(--primary-color, #000); 
   color: #fff;
@@ -192,6 +234,7 @@
   user-select: none;
   box-shadow: 0 2px 2px rgba(0,0,0,0.15);
   border: none;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.2s;
 }
 
 /* Hover / Fokus */
