@@ -1,5 +1,4 @@
-/* ============ SLIDER SPECIFIC VARIABLES ============ */
-/* Nur noch die Bilder, Farben kommen global aus style.css */
+
 :root {
   --img-band: url('../img/band_bright.svg');
   --img-shoe: url('../img/shoe_bright.svg');
@@ -13,7 +12,6 @@
 }
 
 
-/* ============ WRAPPER ============ */
 .slider-section { 
   min-height: 100vh; 
   width: 100%;
@@ -28,23 +26,22 @@
 }
 
 
-/* ============ SLIDER CONTAINER ============ */
 .slider--radio { 
   position: relative; width: 100%; padding: 0; overflow: hidden; 
 }
 
-/* Die Bahn */
+
 .slider--radio .slider__viewport {
   display: flex; gap: 1.5rem; width: 100%;
   padding-left: 2rem; padding-right: 2rem; 
   scroll-behavior: smooth; transition: transform 0.4s ease;
 }
 
-/* Die Karten */
+
 .slider--radio .slider-card {
   flex: 0 0 55%; 
   
-  /* Globale Variablen nutzen */
+
   background: var(--card-bg-gradient);
   border: var(--card-border-style);
   
@@ -54,12 +51,9 @@
   transition: background 0.3s ease, border 0.3s ease;
 }
 
-/* --- KORRIGIERT: Klassen ausgeschrieben statt SCSS Nesting --- */
-
 .slider-card__media {
   display: flex; align-items: center; justify-content: center; 
   padding: 1rem; 
-  /* WICHTIG: Höhe muss definiert sein, da kein IMG-Tag mehr da ist */
   height: 45vh; 
   width: 100%;
 }
@@ -90,18 +84,15 @@
 }
 
 
-/* Bild-Zuweisung */
 .img-band { background-image: var(--img-band); }
 .img-shoe { background-image: var(--img-shoe); }
 .img-airpods { background-image: var(--img-airpods); }
 
-/* Rotationen (Tilt-Effekt) */
 .slider-card:nth-of-type(1) .adaptive-img { transform: rotate(5deg) scale(0.95); }
 .slider-card:nth-of-type(2) .adaptive-img { transform: rotate(-15deg) scale(0.9); }
 .slider-card:nth-of-type(3) .adaptive-img { transform: rotate(10deg) scale(0.9); }
 
 
-/* ============ NAVIGATION (Pfeile) ============ */
 .slider-nav {
   margin-top: 2rem; display: flex; justify-content: flex-end; padding-right: 2rem; 
 }
@@ -113,7 +104,6 @@
   display: inline-grid; place-items: center;
   width: 40px; height: 40px; border-radius: 99px;
   
-  /* Globale Vars */
   background: var(--nav-btn-bg); 
   color: var(--nav-btn-icon);
   
@@ -134,14 +124,11 @@
 }
 
 
-/* Sichtbarkeits-Logik */
 #r1:checked ~ .slider-nav .nav--1 { display: flex; }
 #r2:checked ~ .slider-nav .nav--2 { display: flex; }
 #r3:checked ~ .slider-nav .nav--3 { display: flex; }
 
 
-/* ============ MEDIA QUERIES ============ */
-/* Desktop */
 @media (min-width: 1024px) {
   .slider--radio .slider-card { flex: 0 0 60%; }
   #r1:checked ~ .slider__viewport { transform: translateX(0); }
@@ -149,7 +136,7 @@
   #r3:checked ~ .slider__viewport { transform: translateX(calc(-120% + 1.8rem)); }
 }
 
-/* Mobile */
+
 @media (max-width: 768px) {
   .slider--radio .slider-card { flex: 0 0 95%; }
   #r1:checked ~ .slider__viewport { transform: translateX(0); }

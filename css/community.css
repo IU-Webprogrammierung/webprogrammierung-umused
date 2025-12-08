@@ -1,6 +1,4 @@
-/* ============ COMMUNITY PAGE LAYOUT ============ */
 
-/* Container */
 .content-wrapper {
   max-width: 1000px;
   margin: 0 auto;
@@ -8,10 +6,7 @@
   display: flex; flex-direction: column; gap: 6rem; 
 }
 
-/* (Hero Styles wurden entfernt -> Nutzen jetzt globale style.css) */
 
-
-/* ============ INTRO ============ */
 .community-intro {
   text-align: left; max-width: auto;
 
@@ -26,7 +21,7 @@
 }
 
 
-/* ============ EVENT CARD ============ */
+/*  Event-Karte  */
 .event-card {
   display: grid; grid-template-columns: 1fr 1fr;
   border-radius: 32px; overflow: hidden;
@@ -38,7 +33,6 @@
 
   & img { width: 100%; height: 100%; object-fit: cover; }
 
-  /* Badge oben links im Bild */
   & .event-badge {
     position: absolute; top: 1.5rem; left: 1.5rem;
     background: rgba(255, 255, 255, 0.95);
@@ -82,8 +76,6 @@
   &:hover { transform: translateY(-0px); opacity: 0.9; }
 }
 
-
-/* ============ SOCIAL LINKS ============ */
 .social-section { text-align: center; }
 
 .social-grid {
@@ -103,9 +95,6 @@
   & small { color: var(--text-muted); }
 
 }
-
-
-/* ============ CONTACT FORM ============ */
 .contact-card {
   background: var(--bg-formular); border-radius: 32px;
   padding: 4rem; max-width: 700px; margin: 0 auto;
@@ -143,7 +132,6 @@
 }
 
 
-/* ============ RESPONSIVE ============ */
 @media (max-width: 768px) {
   .event-card { grid-template-columns: 1fr; }
   .event-image { min-height: 250px; }

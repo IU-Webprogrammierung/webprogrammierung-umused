@@ -1,4 +1,4 @@
-/* ============ 1. RESET & BASICS ============ */
+
 * {
   margin: 0;
   padding: 0;
@@ -18,12 +18,9 @@ body {
   background-attachment: fixed;
   background-repeat: no-repeat;
   min-height: 100vh;
-  
-  color: var(--text-main);
+    color: var(--text-main);
   transition: background-color 0.3s ease, color 0.3s ease;
-  
-  /* Fix aus Training.css global gemacht */
-  overflow-x: hidden; 
+    overflow-x: hidden; 
 }
 
 img, video {
@@ -32,7 +29,7 @@ img, video {
   display: block;
 }
 
-/* ============ 2. COLOR SYSTEM (THEMING) ============ */
+/* ============ Theme-Farben ============ */
 :root {
   /* --- Primitive Farben --- */
   --color-brand-dark: #132739;
@@ -45,8 +42,8 @@ img, video {
   --bg-body: var(--color-brand-light);
   --bg-card: var(--color-white);
   --bg-formular: #f8bb49;
-  --bg-card-accent: #ffffff; /* Fallback Light */
-  --bg-glass: rgba(19, 39, 57, 0.15);
+  --bg-card-accent: #ffffff; 
+  --bg-glass: rgba(19, 39, 57, 0.4);
   --bg-footer: #f1f1f1;
   --bg-input: #FFEDCA; 
   
@@ -64,7 +61,7 @@ img, video {
   --ground-color: #E54465;
   --motivation-overlay: #feb47b; 
 
-  /* --- BADGES (LIGHT MODE) --- */
+  /* --- BADGES TRAINING-SEITE (LIGHT MODE) --- */
   --badge-regen-bg: #f0fff4;
   --badge-regen-text: #0CA95D;
   --badge-speed-bg: #fff0eb;
@@ -74,14 +71,14 @@ img, video {
   --badge-mental-bg: #f4f2ff;
   --badge-mental-text: #6e56cf;
   
-  /* --- Slider- & Card-Farben (Global) --- */
+  /* --- Slider- & Cards-Farben --- */
   --nav-btn-bg: #132739;
   --nav-btn-icon: #ffffff;
   --card-bg-gradient: linear-gradient(160deg, #e9e9e9 0%, #fafafa 100%);
   --card-border-style: 1px solid rgba(19, 39, 57, 0.08);
 }
 
-/* --- DARK MODE OVERRIDES --- */
+/* --- Farben Darkmode --- */
 [data-theme="dark"] {
   --bg-body: linear-gradient(to bottom, #000000, #16202a);
   --bg-card: #16202a; 
@@ -125,7 +122,7 @@ img, video {
 }
 
 
-/* ============ 3. GLOBAL TYPOGRAPHY ============ */
+/*  Schriftarten  */
 h1, h2, h3, h4 {
   color: var(--text-headings);
   font-weight: 600;
@@ -138,7 +135,7 @@ p {
 }
 
 
-/* ============ 4. GLOBAL COMPONENTS (Buttons, Badges, Animation) ============ */
+/*  Weitere Komp. Buttons, Animationen usw.  */
 
 /* Buttons */
 .cta, .button {
@@ -156,7 +153,7 @@ p {
   }
 }
 
-/* Badges (Globalisiert) */
+/* Badges */
 .badge {
   display: inline-block;
   padding: 0.4rem 0.8rem;
@@ -173,7 +170,7 @@ p {
   &.badge-mental{ background-color: var(--badge-mental-bg); color: var(--badge-mental-text); }
 }
 
-/* Animationen (Fade In Up) */
+/* Animation für Hero-Header */
 .fade-in-up {
   opacity: 0;
   animation: fadeInUp 1s ease-out forwards;
@@ -185,8 +182,8 @@ p {
 }
 
 
-/* ============ 5. GLOBAL HERO (Subpages: Community & Training) ============ */
-/* Dies ersetzt die doppelten Styles in den Unterseiten */
+/* Wrapper für hero  */
+
 .hero-wrapper {
   position: relative;
   width: 100%;
@@ -230,14 +227,14 @@ p {
 }
 
 
-/* ============ 6. HEADER & FOOTER ============ */
+/* Header und Footer */
 
-/* Header (Pill Style) mit Nesting */
+/* Navigation und header  */
 .site-header {
   position: fixed; top: 2rem; left: 50%; transform: translateX(-50%);
   width: auto; max-width: 90%; margin: 0; z-index: 1000;
   background-color: var(--bg-glass);
-  backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 1rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
   display: flex; align-items: center; justify-content: space-between;
@@ -265,7 +262,7 @@ p {
   }
 }
 
-/* Theme Toggle */
+/* Dark/Bright-Mode Toggle */
 .theme-toggle {
   background: transparent; border: 1px solid rgba(255,255,255,0.2);
   border-radius: 50%; width: 40px; height: 40px; display: grid;
@@ -275,9 +272,7 @@ p {
   & svg { width: 20px; height: 20px; fill: currentColor; }
 }
 
-/* --- LOGIK FÜR ICON-WECHSEL --- */
 
-/* Standard (Light Mode): Zeige Mond, verstecke Sonne */
 .theme-toggle .icon-sun {
   display: none;
 }
@@ -285,8 +280,6 @@ p {
   display: block;
 }
 
-/* Dark Mode: Zeige Sonne, verstecke Mond */
-/* Wir nutzen hier den Attribut-Selektor, da das JS das Attribut am HTML-Tag setzt */
 [data-theme="dark"] .theme-toggle .icon-sun {
   display: block;
 }
@@ -294,7 +287,6 @@ p {
   display: none;
 }
 
-/* Allgemeine Icon-Größe sicherstellen */
 .theme-toggle svg {
   width: 20px;
   height: 20px;
@@ -317,21 +309,19 @@ footer {
   }
   
   & ul {
-    list-style: none; /* Entfernt die Punkte */
-    padding: 0;       /* Entfernt den Standard-Einzug */
+    list-style: none; 
+    padding: 0; 
     margin: 0;
     justify-content: left;
 }   
 
 }   
 
-/* ============ 7. SPECIFIC HOME & ABOUT STYLES ============ */
-/* (Da index.html und about.html hauptsächlich style.css nutzen) */
-
-/* Hero (Index) */
+/*  spezifische codes */
+/* Hero nur für index */
 .hero {
   width: 100%; min-height: 110svh;
-  background: url("../img/hero.jpeg") center/cover no-repeat;
+  background: url("../img/hero.webp") center/cover no-repeat;
   display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
   padding: 0; padding-bottom: 1rem; margin-top: -4rem;
   
@@ -343,7 +333,7 @@ footer {
   & p { max-width: 700px; margin: 0 auto 1rem auto; }
 }
 
-/* About Hero (Über Mich) */
+/* nur für about */
 .about-hero {
   position: relative; width: 100%; min-height: 100svh;
   overflow: hidden; display: flex; align-items: center; justify-content: center;
@@ -367,7 +357,7 @@ footer {
   }
 }
 
-/* Dark Mode Logic About Hero */
+/* dark mode about hero */
 [data-theme="dark"] .about-hero {
   background: linear-gradient(to top, #025371 10%, #001A3A 100%);
   
@@ -400,11 +390,11 @@ background: transparent;}
   text-shadow: 0 0px 0px rgba(0,0,0,0.1);
 }
 
-/* Weitere Sections (Begeisterung, Goals, etc.) */
+/* weitere Sections */
 .begeisterung, .goals, .motto, .favorite-spot {
   width: 100%; min-height: 50vh; padding: 6rem 2rem;
   display: flex; justify-content: center;
-  /* Background kommt vom Body, außer überschrieben */
+
 }
 
 .begeisterung-inner, .goals-inner, .favorite-spot-inner {
@@ -420,7 +410,7 @@ background: transparent;}
   background: transparent;
 }
 
-/* Wolken & Sterne */
+/* Wolken & Sterne für bright/dark mode */
 .clouds-wrapper {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%;
   pointer-events: none; transition: opacity 0.5s ease;
@@ -442,15 +432,14 @@ html:not([data-theme="dark"]) .star-container { display: none; }
 @keyframes twinkle { 0%, 100% { opacity: 0.9; transform: scale(0.8); } 50% { opacity: 0.2; transform: scale(0.9); } }
 
 
-/* ============ FORCE SCROLL BUTTON ============ */
+/*  FORCE SCROLL BUTTON  */
 .scroll-to-top {
   /* ZWINGENDES Schweben */
   position: fixed !important;
   bottom: 30px !important;
   right: 30px !important;
-  z-index: 10000 !important; /* Über allem anderen */
+  z-index: 10000 !important; 
 
-  /* ZWINGENDES Aussehen (Rund & Orange) */
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -458,7 +447,7 @@ html:not([data-theme="dark"]) .star-container { display: none; }
   width: 50px !important;
   height: 50px !important;
   border-radius: 50% !important;
-  background-color: var(--accent, #E67E22) !important; /* Fallback Orange */
+  background-color: var(--accent, #E67E22) !important; 
   color: white !important;
   border: none !important;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3) !important;
@@ -494,31 +483,21 @@ html:not([data-theme="dark"]) .star-container { display: none; }
     position: fixed; top: 0; left: 0; right: 0; width: 100%; margin: 0;
     transform: none; background: transparent; border: none; box-shadow: none;
     backdrop-filter: none; pointer-events: none; z-index: 1100;
-    
-    /* FLEXBOX SETUP */
     display: flex;
     align-items: center;
-    /* WICHTIG: Kein 'justify-content: space-between', wir machen das manuell */
   }
 
-  /* 1. LOGO (Links) */
   .site-header .logo {
     pointer-events: auto;
     color: #fff;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     position: relative; z-index: 1200;
     padding: 2rem;
-    
-    /* WICHTIG: Flex-Grow 1 sorgt dafür, dass das Logo (bzw. sein Container-Bereich)
-       den gesamten verfügbaren Platz einnimmt und den Rest nach rechts drückt. */
-    flex-grow: 1; 
+        flex-grow: 1; 
     text-align: left; /* Text linksbündig */
   }
 
-  /* 2. NAVIGATION (Versteckt) */
   .site-header .nav {
-    /* ... Dein Nav Code (Position absolute/fixed, etc.) ... */
-    /* Da es fixed ist, beeinflusst es das Flex-Layout des Headers nicht! */
     display: block; position: fixed; top: 0; left: 0; width: 100%; height: 70vh;
     z-index: 1150; pointer-events: auto; background-color: rgba(19, 39, 57, 0.98);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -531,33 +510,27 @@ html:not([data-theme="dark"]) .star-container { display: none; }
     & a:hover, & a:focus { background-color: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.1); transform: scale(1.05); }
   }
 
-  /* 3. THEME TOGGLE (Rechts, neben Hamburger) */
   .theme-toggle {
     pointer-events: auto;
     z-index: 1200;
-    margin-right: 0.5rem; /* Kleiner Abstand zum Hamburger */
+    margin-right: 0.2rem; 
     
     /* Kein Flex-Grow, nimmt nur seinen Platz ein */
     flex-shrink: 0; 
   }
 
-  /* 4. HAMBURGER (Ganz Rechts) */
+  
   .hamburger {
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     gap: 8px; pointer-events: auto; z-index: 1200; background: transparent;
     border: none; box-shadow: none; padding: 0.5rem; cursor: pointer; width: 48px; height: 48px;
-    
-order: 3;
-    
-    /* HIER IST DER FIX: */
-    margin-left: auto;  /* "Schieb mich so weit nach rechts wie möglich" */
-    margin-right: 1rem; /* Kleiner Abstand zum Rand */
+    order: 3;
+    margin-left: auto; 
+    margin-right: 1rem; 
     
     & span { display: block; width: 24px; height: 2px; background-color: #fff; border-radius: 2px; transform-origin: center; transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); }
   }
 
-
-  /* OPEN STATE */
   body.menu-open {
     overflow: hidden;
     & .site-header { pointer-events: auto; }
@@ -567,7 +540,6 @@ order: 3;
     & .hamburger span:nth-child(2) { transform: translateY(-5px) rotate(-45deg); }
   }
 
-  /* Mobile Content Fixes */
   .begeisterung-inner, .favorite-spot-inner, .goals-inner { grid-template-columns: 1fr; gap: 2rem; }
   .begeisterung-header h2, .favorite-spot-header h2, .goals-header h2 { font-size: 2rem; }
   

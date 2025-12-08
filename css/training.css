@@ -1,6 +1,4 @@
-/* ============ TRAINING SPECIFIC STYLES ============ */
 
-/* ============ TRAININGSPLAN (Karte & Tabelle) ============ */
 .plan-section {
   width: 100%; padding: 4rem 2rem;
   display: flex; justify-content: center; align-items: center;
@@ -17,7 +15,7 @@
 .plan-intro h2 { color: var(--text-main); }
 .stat strong { color: var(--text-main); }
 
-/* Tabelle */
+
 .modern-table {
   width: 100%; border-collapse: collapse;
 
@@ -35,7 +33,6 @@
 }
 
 
-/* ============ INTRO TEXT SECTION ============ */
 .testhero {
   display: flex; align-items: center; justify-content: center;
   min-height: 40vh; background-color: transparent;
@@ -46,7 +43,6 @@
 .testhero-content h2 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-main); }
 
 
-/* ============ SCROLL STEPS SYSTEM (Sticky Cards) ============ */
 .training-step {
   position: relative; min-height: 500vh; margin-bottom: 0; padding-bottom: 0;
   box-sizing: border-box; z-index: 5; transform: translate3d(0,0,0);
@@ -64,7 +60,6 @@
   border-radius: 32px;
   overflow: hidden; display: flex; pointer-events: auto;
   
-  /* Startzustand JS */
   opacity: 0; transform: translateY(50px); will-change: transform, opacity;
 }
 
@@ -89,7 +84,6 @@
 }
 
 
-/* ============ INDIVIDUELLE STEPS ============ */
 
 /* 1. Dauerlauf */
 #dauerlauf {
@@ -147,7 +141,6 @@
 }
 
 
-/* ============ PROGRESS SECTION ============ */
 .progress {
   min-height: 80vh; padding: 4rem 2rem;
   display: flex; justify-content: center; align-items: center;
@@ -194,8 +187,6 @@
   & strong { display: block; font-size: 1.4rem; line-height: 1; }
 }
 
-
-/* ============ RESPONSIVE & MOBILE ============ */
 @media (min-width: 769px) {
   #ernaehrung .nutrition-egg { width: 55%; left: auto; right: 0; top: 0; bottom: 0; height: 100%; }
 }
@@ -206,10 +197,8 @@
 }
 
 @media (max-width: 768px) {
-  /* Cards Mobile */
   .step-card { width: 95%; height: 45vh; border-radius: 24px; flex-direction: column; }
 
-  /* Content Mobile */
   .training-step__content {
     flex-direction: column-reverse; padding: 2rem 1.5rem;
     justify-content: flex-end; gap: 1rem; text-align: center;
@@ -224,18 +213,14 @@
 
   .training-step__illustration { position: absolute; top: 0; height: 60%; opacity: 1; }
   
-  /* Ernährung Mobile */
   .nutrition-egg { width: 100%; left: 0; position: absolute; top: 0; height: 100%; }
   
-  /* Progress Mobile */
   .progress-card-wrapper { padding: 2rem 1.5rem; }
   .label-current strong { font-size: 1.2rem; }
   
-  /* EKG Herz */
   .interval-heart { top: 20%; right: 5%; max-width: 25%; }
 }
 
-/* ============ MOBILE TABLE OPTIMIZATION ============ */
 @media (max-width: 700px) {
   .plan-section { padding-left: 1rem; padding-right: 1rem; }
   .plan-card { padding: 1.25rem; gap: 1.5rem; }
@@ -253,8 +238,6 @@
     & td:nth-child(3) { position: absolute; top: 1.25rem; right: 0; width: auto; }
   }
 }
-
-/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto !important; }
   .training-step { min-height: auto !important; margin-bottom: 2rem !important; }
