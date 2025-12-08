@@ -102,9 +102,6 @@
   & span { font-weight: 700; font-size: 1.2rem; }
   & small { color: var(--text-muted); }
 
-  &.insta:hover { color: #E1306C; }
-  &.strava:hover { color: #FC4C02; }
-  &.facebook:hover { color: #1877F2; }
 }
 
 
@@ -128,7 +125,7 @@
 
   & input, & textarea {
     padding: 1rem 1.5rem; border-radius: 16px; border: 2px solid transparent;
-    background-color: var(--bg-body); /* Input BG */
+    background-color: var(--bg-input); /* Input BG */
     font-family: inherit; font-size: 1rem; color: var(--text-main);
     transition: background-color 0.2s, border-color 0.2s; resize: vertical;
     
