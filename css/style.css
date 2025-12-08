@@ -36,7 +36,6 @@ html {
   --motivation-bg: url('../img/motivation_bright.svg');
 
   --motivation: #feb47b; 
-   
 
 
 }
@@ -488,6 +487,47 @@ background-image:
   max-width: 65ch; /* Optimale Leselänge (ca. 65 Zeichen) */
 }
 
+
+
+/* Container für die gesamte Section */
+.goals {
+  width: 100%;
+  min-height: 50vh; /* Muss nicht 100svh sein, wenn der Inhalt kürzer ist */
+  padding: 6rem 2rem; /* Genug Abstand oben/unten */
+  display: flex;
+  justify-content: center;
+  background-color: var(--bg-body); /* Damit es sauber aussieht */
+}
+
+/* Innerer Wrapper, der die Breite begrenzt */
+.goals-inner {
+  display: grid;
+  /* Desktop Layout: Linke Spalte 1 Teil, Rechte Spalte 2 Teile */
+  grid-template-columns: 1fr 2fr; 
+  gap: 4rem; /* Abstand zwischen Headline und Text */
+  max-width: 1100px; /* Maximale Breite des Inhalts */
+  width: 100%;
+}
+
+/* Headline Styling */
+.goals-header h2 {
+  font-size: 2.5rem; /* Groß und plakativ */
+  line-height: 1.2;
+  margin: 0;
+  color: var(--text-main);
+
+}
+
+/* Text Styling */
+.goals-body p {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  max-width: 65ch; /* Optimale Leselänge (ca. 65 Zeichen) */
+}
+
+
 /* ============ MOBILE ANPASSUNG ============ */
 @media (max-width: 768px) {
   .begeisterung-inner {
@@ -499,6 +539,28 @@ background-image:
   .begeisterung-header h2 {
     font-size: 2rem;
   }
+
+  .favorite-spot-inner {
+    /* Auf dem Handy: Alles untereinander */
+    grid-template-columns: 1fr; 
+    gap: 2rem;
+  }
+  
+  .favorite-spot-header h2 {
+    font-size: 2rem;
+  }
+  .goals-inner {
+    /* Auf dem Handy: Alles untereinander */
+    grid-template-columns: 1fr; 
+    gap: 2rem;
+  }
+  
+  .goals-header h2 {
+    font-size: 2rem;
+  }
+
+
+
 }
 
 
@@ -961,6 +1023,7 @@ footer a:hover {
     z-index: 1100;
   }
 
+
   /* Logo klickbar machen */
   .site-header .logo {
     pointer-events: auto; /* Logo muss klickbar sein */
@@ -1111,4 +1174,31 @@ footer a:hover {
   body.menu-open .hamburger span:nth-child(2) { 
     transform: translateY(-5px) rotate(-45deg); 
   }
+
+
+  .about-hero::after {
+    /* WICHTIG: 'contain' sorgt dafür, dass das Bild immer komplett sichtbar bleibt,
+       egal wie schmal das Handy ist. Es passt sich in den Rahmen ein. */
+    background-size: contain;
+    
+    /* Positionierung: mittig fixieren */
+    background-position: center;
+    
+    /* Optional: Begrenze die Höhe auf 90%, damit oben etwas Luft zum Header bleibt,
+       falls das Handy sehr lang ist */
+       max-height: 100svh;
+    
+    /* Maske für Mobile etwas anpassen (optional), damit der Fade weicher wirkt */
+    -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 68%);
+            mask-image: linear-gradient(to bottom, black 55%, transparent 68%);
+  }
+
+  .motivation::after {
+    background-size: contain;
+    background-position: bottom center;
+  }
+.clouds-wrapper {
+    display: none; /* Wolken auf Mobile ausblenden für bessere Performance */
+  }
+
  }

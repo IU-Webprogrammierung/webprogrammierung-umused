@@ -1,15 +1,19 @@
 /* ============ SLIDER VARIABLES ============ */
 :root {
-  /* LIGHT MODE (Dein aktueller Style) */
-  --card-bg-gradient: linear-gradient(1deg, #E4FFC8 0%, #76FFEB 100%);
-  --card-border: 1px solid rgba(0,0,0,0.05);
+  /* LIGHT MODE: Clean Glass (Weiß mit ganz leichtem Grau-Verlauf) */
+  --card-bg-gradient: linear-gradient(160deg, #ffffff 0%, #f3f4f6 100%);
+  --card-border: 1px solid rgba(19, 39, 57, 0.08); /* Dein Brand-Dark als zarter Rahmen */
   
   --card-title-color: #132739;
   --card-body-color: #555555;
-  --card-subline-color: #132739; /* oder Accent */
+  --card-subline-color: #E67E22; /* Der Pop of Color kommt nur hier */
   
   --nav-btn-bg: #132739;
   --nav-btn-icon: #ffffff;
+
+--img-band: url('../img/band_bright.svg');
+  --img-shoe: url('../img/shoe_bright.svg');
+  --img-airpods: url('../img/airpods_bright.svg'); /* Falls du hier auch ein bright hast */
 }
 
 /* DARK MODE (Neu) */
@@ -24,6 +28,10 @@
   
   --nav-btn-bg: #ffffff;
   --nav-btn-icon: #132739;
+
+--img-band: url('../img/band_dark.svg');
+  --img-shoe: url('../img/shoe_dark.svg');
+  --img-airpods: url('../img/airpods_dark.svg'); /* Oder dark, falls vorhanden */
 }
 
 /* --- Wrapper & Einbettung --- */
@@ -124,28 +132,54 @@ slider-card__subline {
   padding: 1rem; /* Etwas Luft ums Bild */
 }
 
-/* WICHTIG: Begrenzung der Bildhöhe, damit Pfeile sichtbar bleiben */
-.slider-card__media img {
-  max-height: 45vh; /* Bild nimmt maximal ca. 1/3 der Bildschirmhöhe ein */
-  width: auto;
-  object-fit: contain;
-  transform: rotate(-12deg) scale(0.9);
-  overflow: hidden; 
-  transition: transform 0.3s ease;
+.slider-card__media {
+  display: flex;
+  align-items: center;    
+  justify-content: center; 
+  padding: 1rem;
+  
+  /* WICHTIG: Da kein <img> mehr da ist, brauchen wir eine feste Höhe für den Container,
+     damit das Hintergrundbild Platz hat. */
+  height: 45vh; 
+  width: 100%;
 }
 
-.slider-card:nth-of-type(1) .slider-card__media img {
-  transform: rotate(5deg) scale(0.95); /* Leicht nach rechts */
+/* Die neue Klasse für alle Bilder */
+.adaptive-img {
+  width: 100%;
+  height: 100%;
+  
+  /* Damit das Bild sich verhält wie ein <img> (nicht verzerrt) */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  /* Sanfter Übergang beim Theme-Wechsel */
+  transition: background-image 0.3s ease, transform 0.3s ease;
 }
 
-/* KARTE 2 (Schuh): Der sieht schräg gut aus (Dynamsich) */
-.slider-card:nth-of-type(2) .slider-card__media img {
-  transform: rotate(-15deg) scale(0.9); /* Stark nach links oben */
+/* Zuweisung der Variablen pro Karte */
+.img-band { background-image: var(--img-band); }
+.img-shoe { background-image: var(--img-shoe); }
+.img-airpods { background-image: var(--img-airpods); }
+
+
+/* --- ROTATIONEN (Deine Tilt-Effekte) --- */
+/* Wir wenden die Rotation jetzt auf das DIV an */
+
+/* Karte 1 (Band) */
+.slider-card:nth-of-type(1) .adaptive-img {
+  transform: rotate(5deg) scale(0.95); 
 }
 
-/* KARTE 3 (Airpods): Vielleicht in die andere Richtung? */
-.slider-card:nth-of-type(3) .slider-card__media img {
-  transform: rotate(10deg) scale(0.9); /* Nach rechts oben */
+/* Karte 2 (Schuh) */
+.slider-card:nth-of-type(2) .adaptive-img {
+  transform: rotate(-15deg) scale(0.9); 
+}
+
+/* Karte 3 (Airpods) */
+.slider-card:nth-of-type(3) .adaptive-img {
+  transform: rotate(10deg) scale(0.9); 
 }
 
 /* --- Desktop Logik (ab 1024px) --- */
