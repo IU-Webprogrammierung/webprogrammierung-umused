@@ -29,9 +29,9 @@
 /* ============ EVENT CARD ============ */
 .event-card {
   display: grid; grid-template-columns: 1fr 1fr;
-  background: var(--bg-card);
   border-radius: 32px; overflow: hidden;
-  box-shadow: 0 20px 40px rgba(19, 39, 57, 0.08);
+  background-color: var(--bg-body);
+  border: 1px solid var(--border, rgba(0,0,0,0.08));
 }
 
 .event-image {
@@ -80,7 +80,7 @@
   padding: 1rem 2rem; border-radius: 99px; text-decoration: none;
   font-weight: 600; transition: transform 0.2s ease, background-color 0.2s ease;
 
-  &:hover { transform: translateY(-2px); opacity: 0.9; }
+  &:hover { transform: translateY(-0px); opacity: 0.9; }
 }
 
 
@@ -93,13 +93,13 @@
 }
 
 .social-tile {
-  background: var(--bg-card); padding: 2rem; border-radius: 24px;
+  background: var(--bg-formular); padding: 2rem; border-radius: 24px;
   text-decoration: none; color: var(--text-main);
-  box-shadow: 0 10px 20px rgba(19, 39, 57, 0.05);
+  
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
 
-  &:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(19, 39, 57, 0.1); }
+  &:hover { transform: translateY(-0px); }
   & span { font-weight: 700; font-size: 1.2rem; }
   & small { color: var(--text-muted); }
 
