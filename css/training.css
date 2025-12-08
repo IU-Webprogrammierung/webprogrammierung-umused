@@ -207,7 +207,7 @@
 
 @media (max-width: 768px) {
   /* Cards Mobile */
-  .step-card { width: 95%; height: 85vh; border-radius: 24px; flex-direction: column; }
+  .step-card { width: 95%; height: 45vh; border-radius: 24px; flex-direction: column; }
 
   /* Content Mobile */
   .training-step__content {
