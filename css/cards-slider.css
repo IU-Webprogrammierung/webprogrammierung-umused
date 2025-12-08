@@ -19,7 +19,7 @@
 /* DARK MODE (Neu) */
 [data-theme="dark"] {
   /* Ein dunkler Verlauf: Tiefes Nachtblau zu dunklem Petrol */
-  --card-bg-gradient: linear-gradient(1deg, #16222A 0%, #1d333b 100%);
+  --card-bg-gradient: linear-gradient(1deg, #132739 0%, #16202a 100%);
   --card-border: 1px solid rgba(255, 255, 255, 0.1);
   
   --card-title-color: #ffffff;

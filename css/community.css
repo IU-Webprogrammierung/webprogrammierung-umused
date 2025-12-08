@@ -106,7 +106,7 @@
   border-radius: 32px;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(19, 39, 57, 0.08);
-  background: linear-gradient(135deg, #ffffff 0%, #f0fff4 100%);
+ background: var(--bg-card);
 }
 
 .event-image {
@@ -136,6 +136,7 @@
 }
 
 .event-content {
+  
   padding: 3rem;
   display: flex;
   flex-direction: column;
@@ -159,7 +160,7 @@
 
 .event-details {
   margin: 2rem 0;
-  background: rgba(255,255,255,0.6);
+   background: var(--bg-card-accent);
   padding: 1.5rem;
   border-radius: 16px;
   display: flex;

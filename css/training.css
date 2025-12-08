@@ -4,8 +4,7 @@
 
 /* Heller Hintergrund für die gesamte Seite, damit weiße Karten wirken */
 body {
-  background-color: var(--secondary-color, #F0F5FA);
-  overflow-x: hidden; /* Verhindert horizontales Scrollen */
+overflow-x: hidden; /* Verhindert horizontales Scrollen */
 }
 
 /* =========================================
@@ -68,37 +67,40 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.hero-content h1 {
-  color: #fff;        
-  font-size: 3rem;        
-  margin-bottom: 0.5rem;
-  text-shadow: 0 4px 10px rgba(0,0,0,0.3); 
-}
-
-.hero-content h2 {
-  color: #f0f0f0;    
-  font-size: 1.5rem;
-  font-weight: 500;
-  text-shadow: 0 2px 5px rgba(0,0,0,0.3);
-}
 
 /* =========================================
    3. TRAININGSPLAN (KARTE & TABELLE)
    ========================================= */
 
-/* Ersetze .plan-card in training.css */
+   /* Ersetze .plan-card in training.css */
+
+.plan-section {
+width: 100%;
+  padding: 4rem 2rem; /* Abstand oben/unten und seitlich */
+  
+  /* HIER IST DIE MAGIE ZUM ZENTRIEREN: */
+  display: flex;           /* Flexbox aktivieren */
+  justify-content: center; /* Horizontal mittig ausrichten */
+  align-items: center;     /* Vertikal mittig (falls nötig) */
+  }
+
 .plan-card {
-  background: var(--bg-card); /* Variabler Hintergrund */
+  background: var(--bg-card); 
   width: 100%;
-  max-width: 1600px;
+  
+  /* ÄNDERUNG 1: Schmalere Karte für besseren Fokus */
+  max-width: 1100px; /* War 1600px - das ist für Tabellen oft zu breit */
+  
   border-radius: 32px;
-  box-shadow: var(--shadow-soft);
-  padding: 3rem;
+  padding: 3rem; /* Etwas mehr Luft innen */
   border: 1px solid var(--border-color);
   
   display: grid;
-  grid-template-columns: 1fr 1.5fr; 
-  gap: 4rem;
+  /* ÄNDERUNG 2: Spaltenverhältnis anpassen (Text : Tabelle) */
+  grid-template-columns: 1fr 1.8fr; 
+  
+  /* ÄNDERUNG 3: Weniger Abstand zwischen Spalten */
+  gap: 3rem; 
   align-items: start;
 }
 
@@ -114,11 +116,17 @@ body {
 .modern-table th {
   color: var(--text-muted);
   border-bottom: 2px solid var(--border-color);
+  padding: 1.2rem 1rem; /* Mehr vertikaler Abstand */
+  text-align: left;
+  vertical-align: middle; /* Inhalte mittig */;
 }
 
 .modern-table td {
   color: var(--text-main);
   border-bottom: 1px solid var(--border-color);
+  padding: 1.2rem 1rem; /* Mehr vertikaler Abstand */
+  vertical-align: middle; /* Inhalte mittig */
+  
 }
 
 .modern-table tbody tr:hover td {
@@ -129,16 +137,11 @@ body {
 /* Die Steps Cards auch anpassen */
 .step-card {
   background-color: var(--bg-card);
-  box-shadow: var(--shadow-soft);
   /* ... Rest ... */
 }
 
-/* Text im Step */
-.training-step__text h3 {
-  color: var(--text-main);
-}
 
-/* Badges */
+/* ============ BADGES ============ */
 .badge {
   display: inline-block;
   padding: 0.4rem 0.8rem;
@@ -146,12 +149,31 @@ body {
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  /* Kleiner Übergang für den Theme-Wechsel */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-.badge-regen { background: #f0fff4; color: #0CA95D; }
-.badge-speed { background: #fff0eb; color: #FF5D34; }
-.badge-base  { background: #e6f7ff; color: #0091ff; }
-.badge-mental{ background: #f4f2ff; color: #6e56cf; }
 
+/* Die Varianten nutzen jetzt die Variablen */
+.badge-regen { 
+  background-color: var(--badge-regen-bg); 
+  color: var(--badge-regen-text); 
+}
+
+.badge-speed { 
+  background-color: var(--badge-speed-bg); 
+  color: var(--badge-speed-text); 
+}
+
+.badge-base { 
+  background-color: var(--badge-base-bg); 
+  color: var(--badge-base-text); 
+}
+
+.badge-mental { 
+  background-color: var(--badge-mental-bg); 
+  color: var(--badge-mental-text); 
+}
 
 /* =========================================
    4. INTRO TEXT SECTION
@@ -173,11 +195,7 @@ body {
   max-width: 800px;
 }
 
-.testhero-content h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: var(--primary-color, #132739);
-}
+
 
 
 /* =========================================
@@ -217,7 +235,6 @@ body {
   height: 70vh;          
   background-color: #fff;
   border-radius: 32px;   
-  box-shadow: 0 20px 40px rgba(19, 39, 57, 0.08); 
   overflow: hidden;      
   display: flex;
   pointer-events: auto;  
@@ -250,12 +267,7 @@ body {
   max-width: 400px;      
 }
 
-.training-step__text h3 {
-  margin-top: 0;
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: var(--primary-color, #132739);
-}
+
 
 /* SVG Wrapper Basis */
 .training-step__illustration {
@@ -287,9 +299,7 @@ body {
 /* --- 1. DAUERLAUF --- */
 #dauerlauf .step-card {
   /* Himmelsblau Verlauf */
-  background: linear-gradient(135deg, #e6f7ff 0%, #f4f2ff 100%);
-  box-shadow: 0 20px 40px rgba(81, 203, 255, 0.1);
-}
+  background: var(--card-bg-gradient);}
 
 #dauerlauf .training-step__content {
   flex-direction: row; 
@@ -304,61 +314,85 @@ body {
 .dauerlauf-path {
   height: auto; 
   max-height: 100%;
+  opacity: 0.8;
+
 }
 
 
 /* --- 2. INTERVALL --- */
 #intervall .step-card {
   /* Rötlicher Verlauf (Herz/Puls) */
-  background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
-  box-shadow: 0 20px 40px rgba(229, 57, 53, 0.1);
+  background: var(--card-bg-gradient);
+  position: relative; /* Wichtig für absolute Positionierung der Kinder */
 }
 
 .intervall-ekg {
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: center;    /* vertikal zentrieren */
+  justify-content: center;/* horizontal zentrieren */
+
+  /* absolut positioniert und mittig im Container */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 70%;
+  transform: translateY(-50%);
+
+  height: 200px; /* Begrenzte Höhe */
+  z-index: 0;    
+  pointer-events: none;
 }
 
 .ekg-line {
   display: block;
   width: 100%;
-  height: 40px; /* Dezentere Höhe */
-  opacity: 0.3; /* Dezenter */
+  height: 100%; /* Füllt den Container (120px) */
+  opacity: 0.5;
 }
 
 .ekg-line path {
   fill: none;
   stroke: #e53935;
-  stroke-width: 3;
+  stroke-width: 1; /* Etwas dicker für bessere Sichtbarkeit */
   stroke-linecap: round;
   stroke-linejoin: round;
+  
 }
 
 .interval-heart {
   position: absolute;
-  top: 50%;
+  top: 45%; /* Etwas höher, damit es nicht mit Text kollidiert */
   right: 10%;        
   width: 200px;      
   max-width: 30%;
   transform: translateY(-50%);
-  opacity: 0;        
   pointer-events: none;
   z-index: 1;
+  
 }
-
 
 /* --- 3. REGENERATION --- */
 #regeneration .step-card {
   /* Grün/Gelb Verlauf */
-  background: linear-gradient(135deg, #f0fff4 0%, #fffde7 100%);
-  box-shadow: 0 20px 40px rgba(168, 255, 120, 0.1);
+  background: var(--card-bg-gradient);
 }
 
 .regeneration-spiral {
-  width: 80%;
-  left: 10%;
+  position: absolute;
+  top: 0;
+  right: 0 !important;
+  left: auto !important;
+  width: 60%;
+  height: 100%;
+  max-width: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Inhalt an der rechten Seite ausrichten */
   opacity: 0.8;
+  pointer-events: none;
+  z-index: 0;
+  transform: translateX(10%); /* Bei Bedarf auf 0 ändern */
 }
 
 .reg-spiral path {
@@ -372,8 +406,7 @@ body {
 /* --- 4. ERNÄHRUNG --- */
 #ernaehrung .step-card {
   /* Warmer Pfirsich/Creme Verlauf */
-  background: linear-gradient(135deg, #FFF0EB 0%, #FFF9E6 100%);
-  box-shadow: 0 20px 40px rgba(255, 171, 158, 0.2);
+  background: var(--card-bg-gradient);
 }
 
 .nutrition-egg {
@@ -409,12 +442,11 @@ body {
 }
 
 .progress-card-wrapper {
-  background: white;
+  background: var(--card-bg-gradient);
   width: 100%;
   max-width: 900px;
   padding: 3rem;
   border-radius: 32px;
-  box-shadow: 0 20px 40px rgba(19, 39, 57, 0.08);
   text-align: center;
 }
 
@@ -528,41 +560,79 @@ body {
   /* Cards Mobile */
   .step-card {
     width: 95%;
-    height: 85vh;
+    height: 45vh;
     border-radius: 24px;
     flex-direction: column;
   }
 
-  /* Content Mobile */
-  .training-step__content {
-    flex-direction: column-reverse; /* Text unten */
-    padding: 2rem 1.5rem;
-    justify-content: flex-end;
-    gap: 1rem;
-    text-align: center;
+.training-step__illustration svg {
+ position: absolute;
+    bottom: 0;
+    right: 0;          /* nach rechts verschieben, damit es angeschnitten wird */
+    width: auto;    
+        height: auto;
+      /* größer als der Container, damit ein Teil außerhalb liegt */
+    display: flex;
+    align-items: flex-end; 
+    justify-content: flex-end; /* Inhalt an der rechten Seite des Elements ausrichten */
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+    display: block;
+    object-fit: cover;
+    pointer-events: none;
+    transform: translateZ(0);   /* Hardwarebeschleunigung für glatte Darstellung */
+  
   }
 
-  .training-step__text {
-    flex: 0 0 auto;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.85);
-    padding: 1rem;
-    border-radius: 16px;
-    backdrop-filter: blur(5px);
-  }
-
-  /* SVG Mobile allgemein */
-  .training-step__illustration {
-    position: absolute;
+.regeneration-spiral {
+ position: absolute;
     top: 0;
-    height: 60%;
-    opacity: 1;
+    right: 0;          /* nach rechts verschieben, damit es angeschnitten wird */
+    width: 100%;          /* größer als der Container, damit ein Teil außerhalb liegt */
+    height: 100%;
+    display: flex;
+    align-items: flex-end; 
+    justify-content: flex-end; /* Inhalt an der rechten Seite des Elements ausrichten */
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.7;
+    transform: translateZ(0);   /* Hardwarebeschleunigung für glatte Darstellung */
+  
+
+  }
+
+  /* Auf mobilen Ansichten ausblenden */
+  .interval-heart {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
   }
   
-  /* Ernährung Mobile (wieder volle Breite) */
+  /* Ernährung Mobile: rechts andocken und angeschnitten darstellen */
   .nutrition-egg {
-    width: 100%;
-    left: 0;
+    position: absolute;
+    top: 0;
+    right: 0%;          /* nach rechts verschieben, damit es angeschnitten wird */
+    width: 140%;          /* größer als der Container, damit ein Teil außerhalb liegt */
+    height: 100%;
+    display: flex;
+    align-items: flex-end; 
+    justify-content: flex-end; /* Inhalt an der rechten Seite des Elements ausrichten */
+    pointer-events: none;
+    z-index: 0;
+    transform: translateZ(0);   /* Hardwarebeschleunigung für glatte Darstellung */
+  }
+
+  /* SVG so skalieren, dass es den unteren Bereich füllt, aber nicht in den Text ragt */
+  .nutrition-egg svg.egg-svg {
+    height: 100%;
+    width: auto;
+    max-width: none;
+    display: block;
+    object-fit: cover;
+    pointer-events: none;
+    opacity: 0.7;
   }
   
   /* Progress Mobile */
@@ -570,7 +640,9 @@ body {
     padding: 2rem 1.5rem;
   }
   .label-current strong { font-size: 1.2rem; }
-}
+
+
+
 
 
 /* =========================================
@@ -614,34 +686,56 @@ body {
 
 @media (max-width: 700px) {
   
-  /* 1. Kopfzeile ausblenden (Brauchen wir mobil nicht) */
+  /* --- NEU: MEHR PLATZ SCHAFFEN --- */
+  
+  /* 1. Abstand der Sektion zum Bildschirmrand verringern */
+  .plan-section {
+    padding-left: 1rem;  /* Vorher 2rem */
+    padding-right: 1rem;
+  }
+
+  /* 2. Innenabstand der weißen Karte verringern */
+  .plan-card {
+    padding: 1.25rem; /* Vorher 2rem -> Das gibt der Tabelle viel mehr Raum */
+    gap: 1.5rem;      /* Abstand zwischen Elementen etwas kleiner */
+  }
+
+
+  /* --- DEIN BESTEHENDER TABLE CODE (OPTIMIERT) --- */
+
+  /* Kopfzeile ausblenden */
   .modern-table thead {
     display: none;
   }
 
-  /* 2. Jede Zeile wird ein Block (wie eine Karte) */
+  .modern-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  /* Jede Zeile wird ein Block */
   .modern-table tbody tr {
     display: flex;
     flex-direction: column;
-    position: relative; /* Wichtig für Positionierung des Badges */
+    position: relative; 
     padding: 1.25rem 0;
     border-bottom: 1px solid #eee;
+    width: 100%; /* Sicherstellen, dass die Zeile die volle Breite nutzt */
   }
   
-  /* Letzte Linie entfernen */
   .modern-table tbody tr:last-child {
     border-bottom: none;
   }
 
-  /* 3. Zellen-Reset: Kein Tabellenverhalten mehr */
+  /* Zellen-Reset */
   .modern-table td {
     display: block;
     padding: 0 !important;
     border: none !important;
-    width: auto;
+    width: 100%; /* Volle Breite für den Inhalt */
   }
 
-  /* --- ZELLE 1: WOCHENTAG (Montag) --- */
+  /* ZELLE 1: WOCHENTAG */
   .modern-table td:nth-child(1) {
     font-size: 0.8rem;
     text-transform: uppercase;
@@ -651,30 +745,31 @@ body {
     letter-spacing: 1px;
   }
 
-  /* --- ZELLE 2: EINHEIT (Der Haupttext) --- */
+  /* ZELLE 2: EINHEIT */
   .modern-table td:nth-child(2) {
     font-size: 1.1rem;
-    padding-right: 20px !important; /* Etwas Platz lassen */
+    /* Padding rechts, damit Text nicht hinter den Badge läuft */
+    padding-right: 110px !important; 
+    box-sizing: border-box;
   }
   
-  /* Die kleine Beschreibung unter der Einheit */
   .modern-table td:nth-child(2) small {
     font-size: 0.95rem;
     color: #666;
     margin-top: 4px;
+    display: block; /* Damit es sicher in neuer Zeile steht */
   }
 
-  /* --- ZELLE 3: BADGE (Fokus) --- */
-  /* Wir schieben den Badge nach oben rechts in die Ecke */
+  /* ZELLE 3: BADGE (Absolut oben rechts) */
   .modern-table td:nth-child(3) {
     position: absolute;
-    top: 1.25rem; /* Gleiche Höhe wie Padding oben */
+    top: 1.25rem; 
     right: 0;
+    width: auto; /* Badge braucht nur seine eigene Breite */
   }
   
-  /* Badge etwas kleiner machen mobil */
   .badge {
     font-size: 0.7rem;
-    padding: 0.3rem 0.6rem;
+    padding: 0.2rem 0.6rem;
   }
-}
+}}

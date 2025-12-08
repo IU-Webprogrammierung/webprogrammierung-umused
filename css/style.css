@@ -14,7 +14,7 @@ html {
   /* --- Primitive Farben (Die Palette) --- */
   --color-brand-dark: #132739;
   --color-brand-light: #ffffff;
-  --color-accent: #E67E22; /* Helles Orange für besseren Kontrast */
+  --color-accent: #E67E22; 
   --color-white: #ffffff;
   --color-black: #050a10;
 
@@ -25,59 +25,105 @@ html {
   
   --text-main: var(--color-brand-dark);
   --text-muted: #555555;
-  --text-inverse: var(--color-white); /* Text auf dunklen Flächen */
+  --text-inverse: var(--color-white); 
+  --text-hero: var(--color-brand-light); /* Hero Text dunkel */
+  --text-headings: #050a10;
   
   --border-color: rgba(19, 39, 57, 0.1);
   --shadow-soft: 0 20px 40px rgba(19, 39, 57, 0.08);
   
   --accent: var(--color-accent);
 
-  /* NEU: Das SVG für den Light Mode */
+  /* Footer & Section Backgrounds */
+  --bg-footer: #f1f1f1; /* Hellgrau für Abgrenzung */
+  
+  /* Motivation & Hero Assets */
   --motivation-bg: url('../img/motivation_bright.svg');
+  --ground-color: #E54465; /* Muss zum SVG passen */
 
-  --motivation: #feb47b; 
---color-brand-dark: #132739;
-  --color-brand-light: #ffffff;
-  --bg-footer: #f1f1f1; /* Leichtes Grau, damit man das Ende der Seite sieht */
+/* BADGES - LIGHT MODE (Deine Originalfarben) */
+  /* Regen (Grün) */
+  --badge-regen-bg: #f0fff4;
+  --badge-regen-text: #0CA95D;
+  
+  /* Speed (Orange/Rot) */
+  --badge-speed-bg: #fff0eb;
+  --badge-speed-text: #FF5D34;
+  
+  /* Base (Blau) */
+  --badge-base-bg: #e6f7ff;
+  --badge-base-text: #0091ff;
+  
+  /* Mental (Lila) */
+  --badge-mental-bg: #f4f2ff;
+  --badge-mental-text: #6e56cf;
+
+  
 
 }
 
 /* --- DARK MODE OVERRIDES --- */
 [data-theme="dark"] {
-  --bg-body: #0b1116; /* Sehr dunkles Blau/Grau */
-  --bg-card: #16202a; /* Etwas helleres Dunkel für Karten */
-  --bg-glass: rgba(0, 0, 0, 0.15); /* Header dunkler */
-  --bg-footer: #132739;
+  --bg-body: linear-gradient(to bottom, #000000, #16202a);
+  --bg-card: #16202a; /* Karten etwas heller */
+  --bg-card-accent: #132739;
+  --bg-glass: rgba(0, 0, 0, 0.15); 
   
-  --text-main: #f0f5fa; /* Heller Text */
+  --text-main: #d4d3d3; 
   --text-muted: #a0aab5;
   --text-inverse: #132739; 
+  --text-hero: #d1d1d1; /* Hero Text weiß */
+  --text-headings: #ebebeb;
   
   --border-color: rgba(255, 255, 255, 0.1);
   --shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.3);
   
-  /* Akzent im Darkmode etwas heller/leuchtender machen für Kontrast */
   --accent: #ff9f43; 
 
---motivation-bg: url('../img/motivation_dark.svg');
-  --motivation: #; 
+  /* Footer & Section Backgrounds */
+  --bg-footer: #132739; /* Brand Dark für Footer im Dark Mode */
 
+  /* Motivation & Hero Assets */
+  --motivation-bg: url('../img/motivation_dark.svg');
+  --ground-color: #0b1521; /* Muss zum Dark SVG passen */
+  
+/* --- DARK MODE OVERRIDES --- */
 
-
-
+  /* BADGES - DARK MODE (Angepasst: Transparenter BG, heller Text) */
+  
+  /* Regen: Dunkles transparentes Grün + Helles Text-Grün */
+  --badge-regen-bg: rgba(12, 169, 93, 0.15); 
+  --badge-regen-text: #6ee7b7; 
+  
+  /* Speed: Dunkles transparentes Orange + Helles Text-Orange */
+  --badge-speed-bg: rgba(255, 93, 52, 0.15); 
+  --badge-speed-text: #fdba74; 
+  
+  /* Base: Dunkles transparentes Blau + Helles Text-Blau */
+  --badge-base-bg: rgba(0, 145, 255, 0.15); 
+  --badge-base-text: #7dd3fc; 
+  
+  /* Mental: Dunkles transparentes Lila + Helles Text-Lila */
+  --badge-mental-bg: rgba(110, 86, 207, 0.15); 
+  --badge-mental-text: #c4b5fd; 
 }
+
+
 
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   line-height: 1.6;
-  background-color: var(--bg-body);
+  background: var(--bg-body);
+  background-attachment: fixed; 
+  background-repeat: no-repeat;
+  min-height: 100vh;
   color: var(--text-main);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Globale Typo Anpassung an Theme */
-h1, h2, h3 {
-  color: var(--text-main);
+h1, h2, h3, h4 {
+  /* HIER nutzen wir jetzt die neue Variable, die sich automatisch anpasst */
+  color: var(--text-headings);
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
@@ -93,12 +139,6 @@ img, video {
   display: block;
 }
 
-
-h1, h2, h3 {
-  color: var(--primary-color);
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
 
 p {
   color: var(--text-light);
@@ -294,14 +334,6 @@ background: linear-gradient(
 }
 
 
-/* Überschrift (Ganz vorne) */
-.about-hero h1 {
-  position: relative;
-  z-index: 20; /* Muss höher sein als alles andere */
-  color: var(--text-hero); 
-  text-align: center;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
 
 /* --- DIE WOLKEN --- */
 
@@ -687,13 +719,11 @@ background-image:
 .card {
   background: var(--bg-card); /* Weiß im Light, Dunkel im Dark */
   border-radius: 16px;
-  padding: 0;
-  box-shadow: var(--shadow-soft); /* Sanfter Schatten oder Glow */
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   overflow: hidden; /* Damit Ecken sauber bleiben */
-  border: 1px solid var(--border-color); /* Feiner Rand für Dark Mode */
+  border: 0px solid var(--border-color); /* Feiner Rand für Dark Mode */
 
 
   &__content {
@@ -931,7 +961,7 @@ footer a:hover {
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 1rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.06);
   
   display: flex;
   align-items: center;
