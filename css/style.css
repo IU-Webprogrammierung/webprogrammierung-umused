@@ -36,7 +36,9 @@ html {
   --motivation-bg: url('../img/motivation_bright.svg');
 
   --motivation: #feb47b; 
-
+--color-brand-dark: #132739;
+  --color-brand-light: #ffffff;
+  --bg-footer: #f1f1f1; /* Leichtes Grau, damit man das Ende der Seite sieht */
 
 }
 
@@ -45,6 +47,7 @@ html {
   --bg-body: #0b1116; /* Sehr dunkles Blau/Grau */
   --bg-card: #16202a; /* Etwas helleres Dunkel für Karten */
   --bg-glass: rgba(0, 0, 0, 0.15); /* Header dunkler */
+  --bg-footer: #132739;
   
   --text-main: #f0f5fa; /* Heller Text */
   --text-muted: #a0aab5;
@@ -58,6 +61,10 @@ html {
 
 --motivation-bg: url('../img/motivation_dark.svg');
   --motivation: #; 
+
+
+
+
 }
 
 body {
@@ -879,26 +886,31 @@ section {
 
 
 
-/* Footer */
-
 footer {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 1rem;
+  /* HIER DIE ÄNDERUNG: Variable nutzen */
+  background-color: var(--bg-footer);
+  
+  color: var(--text-main); /* Textfarbe passt sich automatisch an (dunkel/hell) */
+  padding: 2rem 1rem;
   text-align: center;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   padding-top: 3rem;
+  
+  /* Optional: Kleiner Rand oben für bessere Abtrennung */
+  border-top: 1px solid var(--border-color);
 }
 
 footer a {
-  color: #fff;
+  color: var(--text-main); /* Links passen sich auch an */
   text-decoration: none;
+  opacity: 0.8;
 }
 
 footer a:hover {
   text-decoration: underline;
+  opacity: 1;
 }
 
 /* ============ HEADER (Zentrierte 'Pille') ============ */
