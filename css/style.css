@@ -9,24 +9,49 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.6;
+  
+  /* Globale Hintergründe */
+  background: var(--bg-body);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  
+  /* Fix aus Training.css global gemacht */
+  overflow-x: hidden; 
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* ============ 2. COLOR SYSTEM (THEMING) ============ */
 :root {
-  /* --- Primitive Farben (Die Palette) --- */
+  /* --- Primitive Farben --- */
   --color-brand-dark: #132739;
-  --color-brand-light: #ffffff;
+  --color-brand-light: #F0F5FA;
   --color-accent: #E67E22; 
   --color-white: #ffffff;
   --color-black: #050a10;
 
-  /* --- Semantische Variablen (Standard = Light Mode) --- */
+  /* --- Semantische Variablen --- */
   --bg-body: var(--color-brand-light);
   --bg-card: var(--color-white);
-  --bg-glass: rgba(19, 39, 57, 0.15); /* Header Glas */
+  --bg-card-accent: #ffffff; /* Fallback Light */
+  --bg-glass: rgba(19, 39, 57, 0.15);
+  --bg-footer: #f1f1f1; 
   
   --text-main: var(--color-brand-dark);
   --text-muted: #555555;
   --text-inverse: var(--color-white); 
-  --text-hero: var(--color-brand-light); /* Hero Text dunkel */
+  --text-hero: var(--color-brand-dark); 
   --text-headings: #050a10;
   
   --border-color: rgba(19, 39, 57, 0.1);
@@ -34,95 +59,79 @@ html {
   
   --accent: var(--color-accent);
 
-  /* Footer & Section Backgrounds */
-  --bg-footer: #f1f1f1; /* Hellgrau für Abgrenzung */
-  
-  /* Motivation & Hero Assets */
+  /* --- Motivation & Hero Assets --- */
   --motivation-bg: url('../img/motivation_bright.svg');
-  --ground-color: #E54465; /* Muss zum SVG passen */
+  --ground-color: #E54465;
+  --motivation-overlay: #feb47b; 
 
-/* BADGES - LIGHT MODE (Deine Originalfarben) */
-  /* Regen (Grün) */
+  /* --- Himmelskörper (Sonne) --- */
+  --celestial-bg: radial-gradient(circle at center, #ffd200, #f7971e);
+  --celestial-shadow: 0 0 60px rgba(255, 160, 0, 0.8);
+
+  /* --- BADGES (LIGHT MODE) --- */
   --badge-regen-bg: #f0fff4;
   --badge-regen-text: #0CA95D;
-  
-  /* Speed (Orange/Rot) */
   --badge-speed-bg: #fff0eb;
   --badge-speed-text: #FF5D34;
-  
-  /* Base (Blau) */
   --badge-base-bg: #e6f7ff;
   --badge-base-text: #0091ff;
-  
-  /* Mental (Lila) */
   --badge-mental-bg: #f4f2ff;
   --badge-mental-text: #6e56cf;
-
   
-
+  /* --- Slider- & Card-Farben (Global) --- */
+  --nav-btn-bg: #132739;
+  --nav-btn-icon: #ffffff;
+  --card-bg-gradient: linear-gradient(160deg, #ffffff 0%, #f3f4f6 100%);
+  --card-border-style: 1px solid rgba(19, 39, 57, 0.08);
 }
 
 /* --- DARK MODE OVERRIDES --- */
 [data-theme="dark"] {
   --bg-body: linear-gradient(to bottom, #000000, #16202a);
-  --bg-card: #16202a; /* Karten etwas heller */
+  --bg-card: #16202a; 
   --bg-card-accent: #132739;
   --bg-glass: rgba(0, 0, 0, 0.15); 
+  --bg-footer: #132739; 
   
   --text-main: #d4d3d3; 
   --text-muted: #a0aab5;
   --text-inverse: #132739; 
-  --text-hero: #d1d1d1; /* Hero Text weiß */
+  --text-hero: #d1d1d1;
   --text-headings: #ebebeb;
   
   --border-color: rgba(255, 255, 255, 0.1);
   --shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.3);
-  
   --accent: #ff9f43; 
 
-  /* Footer & Section Backgrounds */
-  --bg-footer: #132739; /* Brand Dark für Footer im Dark Mode */
-
-  /* Motivation & Hero Assets */
+  /* Assets Dark */
   --motivation-bg: url('../img/motivation_dark.svg');
-  --ground-color: #0b1521; /* Muss zum Dark SVG passen */
+  --ground-color: #0b1521;
+  --motivation-overlay: transparent; /* Fix für #; Platzhalter */
   
-/* --- DARK MODE OVERRIDES --- */
+  /* Mond */
+  --celestial-bg: radial-gradient(circle at center, #f0f0f0, #cfcfcf);
+  --celestial-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
 
-  /* BADGES - DARK MODE (Angepasst: Transparenter BG, heller Text) */
-  
-  /* Regen: Dunkles transparentes Grün + Helles Text-Grün */
+  /* Badges Dark */
   --badge-regen-bg: rgba(12, 169, 93, 0.15); 
   --badge-regen-text: #6ee7b7; 
-  
-  /* Speed: Dunkles transparentes Orange + Helles Text-Orange */
   --badge-speed-bg: rgba(255, 93, 52, 0.15); 
   --badge-speed-text: #fdba74; 
-  
-  /* Base: Dunkles transparentes Blau + Helles Text-Blau */
   --badge-base-bg: rgba(0, 145, 255, 0.15); 
   --badge-base-text: #7dd3fc; 
-  
-  /* Mental: Dunkles transparentes Lila + Helles Text-Lila */
   --badge-mental-bg: rgba(110, 86, 207, 0.15); 
-  --badge-mental-text: #c4b5fd; 
+  --badge-mental-text: #c4b5fd;
+  
+  /* Slider Dark */
+  --nav-btn-bg: #ffffff;
+  --nav-btn-icon: #132739;
+  --card-bg-gradient: linear-gradient(1deg, #132739 0%, #16202a 100%);
+  --card-border-style: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 
-
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  line-height: 1.6;
-  background: var(--bg-body);
-  background-attachment: fixed; 
-  background-repeat: no-repeat;
-  min-height: 100vh;
-  color: var(--text-main);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
+/* ============ 3. GLOBAL TYPOGRAPHY ============ */
 h1, h2, h3, h4 {
-  /* HIER nutzen wir jetzt die neue Variable, die sich automatisch anpasst */
   color: var(--text-headings);
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -133,874 +142,128 @@ p {
   margin-bottom: 1rem;
 }
 
-img, video {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
 
+/* ============ 4. GLOBAL COMPONENTS (Buttons, Badges, Animation) ============ */
 
-p {
-  color: var(--text-light);
-  margin-bottom: 1rem;
-}
-
-/* Wenn das Menü offen ist, darf die Seite dahinter nicht scrollen */
-body.menu-open {
-  overflow: hidden;
-}
-
-/* ============ HEADER (Card Style) ============ */
-
-
-/* Logo Anpassung */
-.site-header .logo {
-  color: var(--primary-color, #132739); /* Dunkelblau statt Weiß */
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1.2rem;
-  letter-spacing: -0.5px;
-}
-
-/* Navigation Container (Desktop) */
-.site-header .nav ul {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-  margin: 0;
-  padding: 0rem;
-}
-
-/* Links Styling */
-.site-header .nav a {
-  color: var(--primary-color, #132739); /* Dunkelblau statt Weiß */
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.95rem;
-  
-  /* Optional: Kleiner Hover-Effekt (Pill-Shape) */
-  padding: 0.6rem 1.2rem;
-  border-radius: 99px;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-/* HOVER EFFEKT (Pill Background) - KORRIGIERT */
-  .site-header .nav a:hover,
-  .site-header .nav a:focus {
-    /* Hintergrund: Leichtes Weiß */
-    background-color: rgba(255, 255, 255, 0.15); 
-    
-    /* Rahmen: Zart sichtbar */
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    
-    /* WICHTIG: Text MUSS Weiß bleiben für Kontrast! */
-    color: #ffffff !important; 
-    
-    transform: scale(1.05); 
-  }
-
-
-
-/* HERO-BEREICH */
-.hero {
-  width: 100%;                     /* statt 100vw */
-  min-height: 95svh;              /* statt fixed height */
-  background: url("../img/hero.jpeg") center/cover no-repeat;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0rem;
-  padding-bottom: 1rem;
-  margin-top: -4rem;
-}
-
-.hero img {
-  display: block;              /* entfernt kleinen Inline-Abstand */
-  width: 100%;                 /* Bild über gesamte Breite */
-  height: auto;                /* Proportional skalieren */
-  max-height: 60vh;            /* maximale Höhe: 40% der Viewport-Höhe */
-  object-fit: cover;           /* Bild füllt den Bereich, ohne verzerrt zu wirken */
-  margin: 1.5rem 0;            /* Abstand zum Text */
-  object-position: 50% 35%;
-
-
-}
-
-.hero h1 {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.hero p {
-  max-width: 700px;
-  margin: 0 auto 1rem auto;
-}
-
-.cta,
-.button {
+/* Buttons */
+.cta, .button {
   display: inline-block;
-  background-color: var(--accent-color);
+  background-color: var(--accent);
   color: #fff;
   padding: 0.75rem 1.25rem;
   border-radius: 5px;
   text-decoration: none;
   font-weight: 600;
-}
-
-.cta:hover,
-.button:hover {
-  background-color: #e67e22;
-}
-
-.intro {
-  padding: 2rem;
-  background-color: var(--secondary-color);
-  text-align: center;
-}
-
-.visual-break {
-  width: 100%;                     /* statt 100vw */
-  max-height: 95svh;              /* statt fixed height */
-  min-height: 95svh;              /* statt fixed height */
-
-  background: url("../img/line.JPG") center/cover no-repeat;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 2rem;
-  padding-bottom: 1rem;
-}
-
-.visual-break figcaption {
-  color: white;
-  font-style: italic;
-  text-shadow: 0 0 6px rgba(0,0,0,0.7);
-}
-
-/* ============ ABOUT HERO (Dual Theme: Warm vs. Cold) ============ */
-
-/* ============ ABOUT HERO (Fixed & Layered) ============ */
-
-.about-hero {
-  position: relative;
-  width: 100%;
-  min-height: 100svh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 1rem;
+  transition: background-color 0.2s;
   
-  /* Light Mode Background */
-background: linear-gradient(
-  to bottom, 
-  #ff7e5f 0%,   /* Start ganz oben */
-  #feb47b 70%,  /* Bleibt bis 70% der Höhe die gleiche Farbe (kein Verlauf) */
-  #feb47b 100%  /* Schneller Verlauf von 70% bis 100% */
-);
-  transition: background 0.5s ease;
+  &:hover {
+    background-color: #e67e22;
+  }
 }
 
-/* --- PORTRAIT --- */
-.about-hero::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0; 
-  width: 100%;
-  height: 100%;
-  z-index: 200; 
+/* Badges (Globalisiert) */
+.badge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
   
-  background-image: url("../img/portait.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: auto 100%;
-
-  mix-blend-mode: overlay;
-  filter: contrast(1.0);
-  transition: all 1.1s ease;
-  pointer-events: none; 
-
-  /* --- NEU: CSS MASKE FÜR DEN FADE-EFFEKT --- */
-  /* Die Maske ist ein Verlauf von oben nach unten.
-     black = voll sichtbar
-     transparent = unsichtbar
-     Die Prozentwerte steuern, wo der Übergang beginnt und endet.
-     Hier: Bis 65% der Höhe ist alles sichtbar, dann verblasst es bis 95%.
-  */
-  -webkit-mask-image: linear-gradient(to bottom, black 72%, transparent 78%);
-          mask-image: linear-gradient(to bottom, black 72%, transparent 78%);
+  &.badge-regen { background-color: var(--badge-regen-bg); color: var(--badge-regen-text); }
+  &.badge-speed { background-color: var(--badge-speed-bg); color: var(--badge-speed-text); }
+  &.badge-base  { background-color: var(--badge-base-bg); color: var(--badge-base-text); }
+  &.badge-mental{ background-color: var(--badge-mental-bg); color: var(--badge-mental-text); }
 }
 
-
-
-/* --- DIE WOLKEN --- */
-
-/* Container, damit wir alle Wolken im Darkmode einfach ausblenden können */
-.clouds-wrapper {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  pointer-events: none;
-  transition: opacity 0.5s ease;
-}
-
-.cloud {
-  position: absolute;
-  opacity: 0.8; 
-  /* Sanfte Schwebe-Animation */
-  animation: floatClouds 8s infinite ease-in-out alternate;
-}
-
-/* Ebene 1: HINTER dem Portrait (z-index < 10) */
-.cloud-back {
-  z-index: 3; 
-  opacity: 0.7; /* Etwas blasser */
-  filter: blur(1.5px); /* Leichte Tiefenunschärfe */
-}
-
-/* Ebene 2: VOR dem Portrait (z-index > 10) */
-.cloud-front {
-  z-index: 225; 
-  filter: brightness(1.0);
-}
-
-/* Positionierung der einzelnen Wolken */
-.c1 { top: 2%; left: 10%; width: 30rem; animation-duration: 80s; }
-.c2 { top: 5%; right: 20%; width: 30rem; animation-duration: 40s; animation-delay: -2s;}
-
-.c3 { bottom: 0%; left: -16%; width: 30rem; opacity: 0.9; animation-duration: 90s; animation-delay: -2s;}
-.c4 { bottom: 0%; right: -10%; width: 55rem; opacity: 0.6; animation-duration: 80s; animation-delay: -2s;}
-
-
-/* Animation Keyframes */
-@keyframes floatClouds {
-  0% { transform: translateY(0px) translateX(0px); }
-  100% { transform: translateY(-15px) translateX(40rem); }
-}
-
-
-/* ============ DARK MODE LOGIK ============ */
-
-/* 1. Hintergrund wird dunkel */
-[data-theme="dark"] .about-hero {
-  background: linear-gradient(
-    to top, 
-    #025371 0%,   
-    #022943 35%,   
-    #001A3A 50%,   
-    #001A3A 100%   
-  );
-}
-
-
-/* 2. Wolken ausblenden */
-[data-theme="dark"] .clouds-wrapper {
+/* Animationen (Fade In Up) */
+.fade-in-up {
   opacity: 0;
+  animation: fadeInUp 1s ease-out forwards;
+  transform: translateY(20px);
 }
 
-/* 3. Portrait Anpassung für Nacht */
-[data-theme="dark"] .about-hero::after {
-  mix-blend-mode: overlay;
-  filter: contrast(1.2) brightness(0.9);
-  opacity: 0.9;
-}
-
-/* 4. Sterne einblenden */
-/* Standardmäßig ausblenden im Light Mode */
-html:not([data-theme="dark"]) .star-container {
-  display: none;
-}
-/* Im Dark Mode sind sie da (da display:block Standard für div ist) */
-
-/* Deine bestehenden Stern-Klassen */
-.star-container {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 120%;
-  z-index: 1; /* Ganz hinten */
-  pointer-events: none;
-}
-
-.star {
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.3;
-  animation: twinkle 2s infinite ease-in-out;
-}
-
-@keyframes twinkle {
-  0%, 100% { opacity: 0.9; transform: scale(0.8); }
-  50% { opacity: 0.2; transform: scale(0.9); }
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
 }
 
 
-/* ============ MOTIVATION SECTION ============ */
-.motivation {
-  width: 100%;
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* ============ 5. GLOBAL HERO (Subpages: Community & Training) ============ */
+/* Dies ersetzt die doppelten Styles in den Unterseiten */
+.hero-wrapper {
   position: relative;
-  overflow: hidden;
-  margin-top: -12rem;
-  padding: 2rem;  
-  /* 1. EBENE: Der Himmel (Hintergrund-Verlauf) */
-  transition: background 0.5s ease;
-}
-
-
-
-/* 3. EBENE: Die Landschaft (SVG) */
-.motivation::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
   width: 100%;
-  height: 100%; /* Oder weniger, je nach SVG-Format */
-  background-color: var(--motivation);
-  
-  /* Hier laden wir dein SVG */
-background-image: 
-    var(--motivation-bg);
-  background-position: bottom center;
-  background-repeat: no-repeat;
-  background-size: cover; /* Oder 'contain', je nachdem wie es besser aussieht */
-  
-  z-index: 200; /* Liegt ÜBER der Sonne */
-  pointer-events: none; /* Klicks gehen durch */
-  
-[data-theme="dark"] .motivation {
-  background-image: 
-    var(--motivation-bg), 
-    radial-gradient(circle, rgba(40, 60, 80, 1) 0%, #0b1116 100%);
-}
-}
-
-/* 4. EBENE: Der Text */
-.motivation-content {
-  position: relative;
-  z-index: 201; /* Ganz oben */
-  max-width: 800px;
-  /* Optional: Damit man Text über der Sonne lesen kann */
-  text-shadow: 0 2px 10px rgba(0,0,0,0.1); 
-}
-
-/* Container für die gesamte Section */
-.begeisterung {
-  width: 100%;
-  min-height: 50vh; /* Muss nicht 100svh sein, wenn der Inhalt kürzer ist */
-  padding: 6rem 2rem; /* Genug Abstand oben/unten */
-  display: flex;
-  justify-content: center;
-  background-color: var(--bg-body); /* Damit es sauber aussieht */
-}
-
-/* Innerer Wrapper, der die Breite begrenzt */
-.begeisterung-inner {
-  display: grid;
-  /* Desktop Layout: Linke Spalte 1 Teil, Rechte Spalte 2 Teile */
-  grid-template-columns: 1fr 2fr; 
-  gap: 4rem; /* Abstand zwischen Headline und Text */
-  max-width: 1100px; /* Maximale Breite des Inhalts */
-  width: 100%;
-}
-
-/* Headline Styling */
-.begeisterung-header h2 {
-  font-size: 2.5rem; /* Groß und plakativ */
-  line-height: 1.2;
-  margin: 0;
-  color: var(--text-main);
-
-}
-
-/* Text Styling */
-.begeisterung-body p {
-  font-size: 1.15rem;
-  line-height: 1.8;
-  color: var(--text-muted);
-  margin-bottom: 1.5rem;
-  max-width: 65ch; /* Optimale Leselänge (ca. 65 Zeichen) */
-}
-
-
-
-/* Container für die gesamte Section */
-.goals {
-  width: 100%;
-  min-height: 50vh; /* Muss nicht 100svh sein, wenn der Inhalt kürzer ist */
-  padding: 6rem 2rem; /* Genug Abstand oben/unten */
-  display: flex;
-  justify-content: center;
-  background-color: var(--bg-body); /* Damit es sauber aussieht */
-}
-
-/* Innerer Wrapper, der die Breite begrenzt */
-.goals-inner {
-  display: grid;
-  /* Desktop Layout: Linke Spalte 1 Teil, Rechte Spalte 2 Teile */
-  grid-template-columns: 1fr 2fr; 
-  gap: 4rem; /* Abstand zwischen Headline und Text */
-  max-width: 1100px; /* Maximale Breite des Inhalts */
-  width: 100%;
-}
-
-/* Headline Styling */
-.goals-header h2 {
-  font-size: 2.5rem; /* Groß und plakativ */
-  line-height: 1.2;
-  margin: 0;
-  color: var(--text-main);
-
-}
-
-/* Text Styling */
-.goals-body p {
-  font-size: 1.15rem;
-  line-height: 1.8;
-  color: var(--text-muted);
-  margin-bottom: 1.5rem;
-  max-width: 65ch; /* Optimale Leselänge (ca. 65 Zeichen) */
-}
-
-
-/* ============ MOBILE ANPASSUNG ============ */
-@media (max-width: 768px) {
-  .begeisterung-inner {
-    /* Auf dem Handy: Alles untereinander */
-    grid-template-columns: 1fr; 
-    gap: 2rem;
-  }
-  
-  .begeisterung-header h2 {
-    font-size: 2rem;
-  }
-
-  .favorite-spot-inner {
-    /* Auf dem Handy: Alles untereinander */
-    grid-template-columns: 1fr; 
-    gap: 2rem;
-  }
-  
-  .favorite-spot-header h2 {
-    font-size: 2rem;
-  }
-  .goals-inner {
-    /* Auf dem Handy: Alles untereinander */
-    grid-template-columns: 1fr; 
-    gap: 2rem;
-  }
-  
-  .goals-header h2 {
-    font-size: 2rem;
-  }
-
-
-
-}
-
-
-
-
-/* Container für die gesamte Section */
-.favorite-spot {
-  width: 100%;
-  min-height: 50vh; /* Muss nicht 100svh sein, wenn der Inhalt kürzer ist */
-  padding: 6rem 2rem; /* Genug Abstand oben/unten */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--bg-body); /* Damit es sauber aussieht */
-}
-
-/* Innerer Wrapper, der die Breite begrenzt */
-.favorite-spot-inner {
-  display: grid;
-  /* Desktop Layout: Linke Spalte 1 Teil, Rechte Spalte 2 Teile */
-  grid-template-columns: 1fr 2fr; 
-  gap: 4rem; /* Abstand zwischen Headline und Text */
-  max-width: 1100px; /* Maximale Breite des Inhalts */
-  width: 100%;
-}
-
-/* Headline Styling */
-.favorite-spot h2 {
-  font-size: 2.5rem; /* Groß und plakativ */
-  line-height: 1.2;
-  margin: 0;
-  color: var(--text-main);
-
-}
-
-/* Text Styling */
-.favorite-spot-body p {
-  font-size: 1.15rem;
-  line-height: 1.8;
-  color: var(--text-muted);
-  margin-bottom: 1.5rem;
-  max-width: 65ch; /* Optimale Leselänge (ca. 65 Zeichen) */
-}
-
-/* ============ MOBILE ANPASSUNG ============ */
-@media (max-width: 768px) {
-  .favorite-spot-inner {
-    /* Auf dem Handy: Alles untereinander */
-    grid-template-columns: 1fr; 
-    gap: 2rem;
-  }
-  
-  .favorite-spot-header h2 {
-    font-size: 2rem;
-  }
-}
-
-
-.goals {
-  width: 100%;                     /* statt 100vw */
-  min-height: 100svh;              /* statt fixed height */
+  height: 60vh;           
+  min-height: 400px;     
+  border-radius: 0px;  
+  overflow: hidden;  
+  box-shadow: 0 20px 40px rgba(19, 39, 57, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  padding-bottom: 1rem;
-}
-
-.motto {
-  width: 100%;                     /* statt 100vw */
-  min-height: 100svh;              /* statt fixed height */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  padding-bottom: 1rem;
-}
-
-.content-two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  padding: 2rem;
-  align-items: flex-start;  /* oder 'start' */
-  justify-items: start;
-  min-height: 95svh;    
-}
-
-
-.content-two-col img {
-  border-radius: 12px;       /* abgerundete Ecken */
-  max-height: 80vh;          /* maximal 80% der Viewport-Höhe */
-  width: auto;               /* Breite automatisch, um Seitenverhältnis zu erhalten */
-  height: auto;              /* Höhe automatisch, um Seitenverhältnis zu erhalten */
-  max-width: 100%;           /* Verhindert, dass das Bild über seine Spalte hinausragt */
-  object-fit: contain;       /* Bild wird vollständig gezeigt, ohne Verzerrung */
-  display: block;            /* entfernt mögliche Lücken unterhalb von Inline-Bildern */
-  margin: 0 auto;            /* zentriert das Bild in seiner Spalte */
-}
-
-/* ============ CARDS ============ */
-.card-section {
-  padding: 2rem;
-  background: var(--bg-body); /* Passt sich jetzt an */
-  text-align: left;
-  margin-bottom: 4rem;
-}
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
-  margin-top: 1.5rem;
-}
-
-
-.card {
-  background: var(--bg-card); /* Weiß im Light, Dunkel im Dark */
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  overflow: hidden; /* Damit Ecken sauber bleiben */
-  border: 0px solid var(--border-color); /* Feiner Rand für Dark Mode */
-
-
-  &__content {
-    padding: 1.5rem;
-    display: grid;
-    gap: 0.25rem;
-  }
-
-  &__title {
-    color: var(--text-main);
-    font-size: 1.125rem;
-    line-height: 1.3;
-    margin: 0;
-  }
-
-  &__subline {
-    color: var(--accent); /* Akzentfarbe nutzen */
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin: 0;
-  }
-
-  &__body {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    margin-top: 0.25rem;
-  }
-}
-
-/* Bild oben – in eigener Hülle, damit nur das Bild runde Ecken hat */
-.card__media {
-  border-radius: 12px;          /* nur das Bild runden */
-  overflow: hidden;             /* Bild darf nicht „überlaufen“ */
-  /* gewünschtes Seitenverhältnis für konsistente Höhen */
-  aspect-ratio: 4 / 3;          /* 16/10 oder 3/2 geht auch – Geschmackssache */
-}
-
-.card__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;            /* füllt die Hülle, ohne zu verzerren */
-  display: block;
-}
-
-/* Textbereich */
-.card__content { display: grid; gap: 0.25rem; }
-
-.card__title {
-  color: var(--primary-color);
-  font-size: 1.125rem;
-  line-height: 1.3;
-  margin: 0;
-}
-
-.card__subline {
-  color: var(--text-light);
-  font-size: 0.95rem;
-  margin: 0;
-}
-
-.card__body {
-  color: var(--text-color);
-  font-size: 0.95rem;
-  margin-top: 0.25rem;
-}
-
-/* Mobile: 1 Spalte */
-@media (max-width: 768px) {
-  .card-grid {
-    grid-template-columns: 1fr;
-    
-
-  }
-
-.card__media {
-  border-radius: 1rem;          /* nur das Bild runden */
-  overflow: hidden;             /* Bild darf nicht „überlaufen“ */
-  /* gewünschtes Seitenverhältnis für konsistente Höhen */
-  aspect-ratio: 4 / 3;          /* 16/10 oder 3/2 geht auch – Geschmackssache */
-}
-
-  .card__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    /* kein padding hier */
-  }
-
-
-/* Community-Bereich */
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-input, textarea {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-family: inherit;
-}
-
-input:focus, textarea:focus {
-  border-color: var(--primary-color);
-  outline: none;
-  box-shadow: 0 0 4px rgba(46, 134, 193, 0.5);
-}
-
-
-/* Test-Block für Über-Mich-Seite' */
-section {
-  height: auto;   justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-/* Nur gezielt verwenden, NICHT global */
-.full-viewport {
-  min-height: 100svh;   /* besser als 100vh auf Mobile */
-  width: 100%;          /* statt 100vw -> kein Überlaufen */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-
-.section-bg {
-  background: linear-gradient(135deg, #2e86c1 50%, #f4f4f4 50%);
-}
-}
-/* Trainingsplan-Layout */
-.plan {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.3fr);
-  gap: 2rem;              /* Abstand zwischen linker Spalte und Tabelle */
-  align-items: start;
-  padding: 0 2rem;
-}
-
-/* Linke Seite: Überschrift + Text als Block */
-.plan-text {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;            /* Abstand zwischen h2 und p */
-  max-width: 36rem;
-}
-
-/* Optionale Feinanpassung für Typo */
-.plan-text h2 {
-  margin: 0;
-}
-
-.plan-text p {
-  margin: 0;
-}
-
-/* Rechte Seite: Tabelle */
-.plan table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 1rem;
-}
-
-.plan th,
-.plan td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid #ddd;
-  text-align: left;
-}
-
-.plan th {
-  font-weight: 600;
-  background: #f5faff;
-  border-bottom: 2px solid #cfeaff;
-}
-
-/* Mobile: untereinander */
-@media (max-width: 768px) {
-  .plan {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-
-footer {
-  /* HIER DIE ÄNDERUNG: Variable nutzen */
-  background-color: var(--bg-footer);
-  
-  color: var(--text-main); /* Textfarbe passt sich automatisch an (dunkel/hell) */
-  padding: 2rem 1rem;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding-top: 3rem;
-  
-  /* Optional: Kleiner Rand oben für bessere Abtrennung */
-  border-top: 1px solid var(--border-color);
-}
 
-footer a {
-  color: var(--text-main); /* Links passen sich auch an */
-  text-decoration: none;
-  opacity: 0.8;
-}
-
-footer a:hover {
-  text-decoration: underline;
-  opacity: 1;
-}
-
-/* ============ HEADER (Zentrierte 'Pille') ============ */
-
-/* ============ HEADER ============ */
-.site-header {
-  position: fixed;
-  top: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: auto;
-  max-width: 90%;
-  margin: 0;
-  z-index: 1000;
-
-  background-color: var(--bg-glass);
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 1rem;
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.06);
-  
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 3rem;
-  padding: 0.8rem 2rem;
-  transition: all 0.3s ease;
-
-  .logo {
-    color: var(--color-white); /* Logo im Header immer weiß wegen Glas */
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1.2rem;
-    white-space: nowrap;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  & .hero-bg-img {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: 0;
   }
 
-  .nav {
-    ul {
-      display: flex;
-      gap: 1rem;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      align-items: center; /* Wichtig für Toggle Button */
+  & .hero-overlay-gradient {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+  }
+  
+  /* Overlay für Community (leicht anders, dunkler) */
+  & .hero-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.3); z-index: 1;
+  }
+
+  & .hero-content {
+    position: relative; z-index: 2; padding: 2rem; max-width: 800px;
+    
+    & h1 {
+      color: #fff; font-size: 3rem; margin-bottom: 0.5rem;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.3); 
     }
+    
+    & h2 {
+      color: #f0f0f0; font-size: 1.5rem; font-weight: 500;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+  }
+}
 
-    a {
-      color: var(--color-white); 
-      text-decoration: none;
-      font-weight: 500;
-      padding: 0.6rem 1.2rem;
-      border-radius: 99px;
-      white-space: nowrap;
-      border: 1px solid transparent; 
+
+/* ============ 6. HEADER & FOOTER ============ */
+
+/* Header (Pill Style) mit Nesting */
+.site-header {
+  position: fixed; top: 2rem; left: 50%; transform: translateX(-50%);
+  width: auto; max-width: 90%; margin: 0; z-index: 1000;
+  background-color: var(--bg-glass);
+  backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 3rem; padding: 0.8rem 2rem; transition: all 0.3s ease;
+
+  & .logo {
+    color: var(--color-white); text-decoration: none; font-weight: 700;
+    font-size: 1.2rem; white-space: nowrap; text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  & .nav {
+    & ul { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+    
+    & a {
+      color: var(--color-white); text-decoration: none; font-weight: 500;
+      padding: 0.6rem 1.2rem; border-radius: 99px; border: 1px solid transparent;
       transition: background-color 0.2s, border-color 0.2s, color 0.2s;
-
-      &:hover,
-      &:focus {
+      
+      &:hover, &:focus {
         background-color: rgba(255, 255, 255, 0.15);
         border-color: rgba(255, 255, 255, 0.3);
         color: #ffffff !important;
@@ -1009,238 +272,206 @@ footer a:hover {
   }
 }
 
-/* Theme Toggle Button (Neu) */
+/* Theme Toggle */
 .theme-toggle {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  color: white;
-  transition: all 0.2s ease;
+  background: transparent; border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%; width: 40px; height: 40px; display: grid;
+  place-items: center; cursor: pointer; color: white; transition: all 0.2s ease;
+  
+  &:hover { background-color: rgba(255, 255, 255, 0.15); }
+  & svg { width: 20px; height: 20px; fill: currentColor; }
+}
 
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+.hamburger { display: none; }
+
+/* Footer */
+footer {
+  background-color: var(--bg-footer);
+  color: var(--text-main);
+  padding: 2rem 1rem; text-align: center;
+  display: flex; flex-direction: column; gap: 0.5rem; padding-top: 3rem;
+  border-top: 1px solid var(--border-color);
+  
+  & a {
+    color: var(--text-main); text-decoration: none; opacity: 0.8;
+    &:hover { text-decoration: underline; opacity: 1; }
+  }
+}
+
+
+/* ============ 7. SPECIFIC HOME & ABOUT STYLES ============ */
+/* (Da index.html und about.html hauptsächlich style.css nutzen) */
+
+/* Hero (Index) */
+.hero {
+  width: 100%; min-height: 95svh;
+  background: url("../img/hero.jpeg") center/cover no-repeat;
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 0; padding-bottom: 1rem; margin-top: -4rem;
+  
+  & img {
+    display: block; width: 100%; height: auto; max-height: 60vh;
+    object-fit: cover; margin: 1.5rem 0; object-position: 50% 35%;
+  }
+  & h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+  & p { max-width: 700px; margin: 0 auto 1rem auto; }
+}
+
+/* About Hero (Über Mich) */
+.about-hero {
+  position: relative; width: 100%; min-height: 100svh;
+  overflow: hidden; display: flex; align-items: center; justify-content: center;
+  padding-bottom: 1rem;
+  background: linear-gradient(to bottom, #ff7e5f, #feb47b);
+  transition: background 0.5s ease;
+  
+  & h1 {
+    position: relative; z-index: 20; color: var(--text-hero);
+    text-align: center; text-shadow: 0 1px 3px rgba(0,0,0,0.1);
   }
   
-  svg {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
+  &::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+    z-index: 200; background-image: url("../img/portait.svg");
+    background-repeat: no-repeat; background-position: center;
+    background-size: auto 100%; mix-blend-mode: overlay;
+    filter: contrast(1.0); transition: all 1.1s ease; pointer-events: none;
+    -webkit-mask-image: linear-gradient(to bottom, black 72%, transparent 78%);
+            mask-image: linear-gradient(to bottom, black 72%, transparent 78%);
   }
 }
 
-/* Standard für Desktop: Hamburger ist weg */
-.hamburger {
-  display: none;
+/* Dark Mode Logic About Hero */
+[data-theme="dark"] .about-hero {
+  background: linear-gradient(to top, #025371 0%, #001A3A 100%);
+  
+  &::after {
+    mix-blend-mode: overlay; filter: contrast(1.2) brightness(0.9); opacity: 0.9;
+  }
 }
 
-/* ============ MOBILE ANPASSUNG (Fixed & Clickable) ============ */
+/* Motivation Section */
+.motivation {
+  width: 100%; min-height: 100svh;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; margin-top: -12rem; padding: 2rem;
+  transition: background 0.5s ease;
+  
+  &::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+    background-color: var(--motivation-overlay); /* Fallback/Blend Color */
+    background-image: var(--motivation-bg);
+    background-position: bottom center; background-repeat: no-repeat;
+    background-size: cover; z-index: 200; pointer-events: none;
+  }
+}
+
+[data-theme="dark"] .motivation {
+  background-image: var(--motivation-bg), radial-gradient(circle, rgba(40, 60, 80, 1) 0%, #0b1116 100%);
+}
+
+.motivation-content {
+  position: relative; z-index: 201; max-width: 800px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Weitere Sections (Begeisterung, Goals, etc.) */
+.begeisterung, .goals, .motto, .favorite-spot {
+  width: 100%; min-height: 50vh; padding: 6rem 2rem;
+  display: flex; justify-content: center;
+  /* Background kommt vom Body, außer überschrieben */
+}
+
+.begeisterung-inner, .goals-inner, .favorite-spot-inner {
+  display: grid; grid-template-columns: 1fr 2fr; gap: 4rem;
+  max-width: 1100px; width: 100%;
+}
+
+.begeisterung-header h2, .goals-header h2, .favorite-spot-header h2 { font-size: 2.5rem; line-height: 1.2; margin: 0; }
+.begeisterung-body p, .goals-body p, .favorite-spot-body p { font-size: 1.15rem; line-height: 1.8; max-width: 65ch; }
+
+.favorite-spot {
+  align-items: center;
+  background: url("../img/strecke.svg") center/cover no-repeat;
+}
+
+/* Wolken & Sterne */
+.clouds-wrapper {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; transition: opacity 0.5s ease;
+}
+.cloud { position: absolute; opacity: 0.8; animation: floatClouds 8s infinite ease-in-out alternate; }
+.cloud-back { z-index: 3; opacity: 0.7; filter: blur(1.5px); }
+.cloud-front { z-index: 225; filter: brightness(1.0); }
+.c1 { top: 2%; left: 10%; width: 30rem; animation-duration: 80s; }
+.c2 { top: 5%; right: 20%; width: 30rem; animation-duration: 40s; animation-delay: -2s;}
+.c3 { bottom: 0%; left: -16%; width: 30rem; opacity: 0.9; animation-duration: 90s; animation-delay: -2s;}
+.c4 { bottom: 0%; right: -10%; width: 55rem; opacity: 0.6; animation-duration: 80s; animation-delay: -2s;}
+
+[data-theme="dark"] .clouds-wrapper { opacity: 0; }
+html:not([data-theme="dark"]) .star-container { display: none; }
+.star-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+.star { position: absolute; background: white; border-radius: 50%; opacity: 0.3; animation: twinkle 2s infinite ease-in-out; }
+
+@keyframes floatClouds { 0% { transform: translateY(0) translateX(0); } 100% { transform: translateY(-15px) translateX(40rem); } }
+@keyframes twinkle { 0%, 100% { opacity: 0.9; transform: scale(0.8); } 50% { opacity: 0.2; transform: scale(0.9); } }
+
+
+/* ============ 8. GLOBAL MOBILE ADAPTION ============ */
 @media (max-width: 768px) {
-  
-  /* 1. DER HEADER CONTAINER (eingeklappt) */
+  /* Mobile Header */
   .site-header {
-    /* WICHTIG: Fixed, damit es beim Scrollen da bleibt! */
-    position: fixed; 
-    top: 0; left: 0; right: 0;
-    width: 100%;
-    margin: 0;
-    transform: none; 
+    position: fixed; top: 0; left: 0; right: 0; width: 100%; margin: 0;
+    transform: none; background: transparent; border: none; box-shadow: none;
+    backdrop-filter: none; display: flex; justify-content: space-between;
+    align-items: center; pointer-events: none; z-index: 1100;
     
-    background: transparent; 
-    border: none; 
-    box-shadow: none; 
-    backdrop-filter: none; 
+    & .logo { pointer-events: auto; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); position: relative; z-index: 1200; padding: 2rem; }
     
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-    
-    /* Container lässt Klicks durch, damit man das Bild darunter bedienen kann */
-    pointer-events: none;
-    z-index: 1100;
+    & .nav {
+      display: block; position: fixed; top: 0; left: 0; width: 100%; height: 70vh;
+      z-index: 1150; pointer-events: auto; background-color: rgba(19, 39, 57, 0.98);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1); box-shadow: none;
+      transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      padding: 120px 2rem 2rem 2rem; display: flex; flex-direction: column; align-items: center;
+      
+      & ul { display: flex; flex-direction: column; gap: 1rem; align-items: center; padding: 0; margin: 0; width: 100%; }
+      & a { color: #fff; font-size: 1.4rem; font-weight: 600; text-align: center; display: inline-block; padding: 0.8rem 2rem; border-radius: 99px; border: 1px solid transparent; background-color: transparent; transition: all 0.2s ease; }
+      & a:hover, & a:focus { background-color: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.1); transform: scale(1.05); }
+    }
   }
 
-
-  /* Logo klickbar machen */
-  .site-header .logo {
-    pointer-events: auto; /* Logo muss klickbar sein */
-    color: #fff; 
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5); 
-    position: relative;
-    z-index: 1200; /* Sehr hoch */
-    padding: 2rem; 
-  }
-
-  /* 2. DER HAMBURGER-BUTTON (2 Striche Version) */
   .hamburger {
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center;
-    align-items: center;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    gap: 8px; pointer-events: auto; z-index: 1200; background: transparent;
+    border: none; box-shadow: none; padding: 0.5rem; cursor: pointer; width: 48px; height: 48px;
     
-    /* Wir definieren den Abstand fix */
-    gap: 8px; 
-    
-    pointer-events: auto; 
-    z-index: 1200; 
-    
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    padding: 0.5rem; 
-    cursor: pointer;
-    width: 48px;
-    height: 48px;
+    & span { display: block; width: 24px; height: 2px; background-color: #fff; border-radius: 2px; transform-origin: center; transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); }
   }
 
-  /* Die Striche */
-  .hamburger span {
-    display: block;
-    width: 24px;      
-    height: 2px;      
-    background-color: #fff;
-    border-radius: 2px;
-    
-    /* WICHTIG: Drehpunkt Mitte */
-    transform-origin: center;
-    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); 
+  body.menu-open {
+    overflow: hidden;
+    & .site-header { pointer-events: auto; }
+    & .site-header .nav { transform: translateY(0); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    & .backdrop { display: block; position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 1140; }
+    & .hamburger span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+    & .hamburger span:nth-child(2) { transform: translateY(-5px) rotate(-45deg); }
   }
 
-  /* 3. DAS MENÜ (Vorhang von Oben) */
-  .site-header .nav {
-    display: block; 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 70vh; 
-    
-    /* Muss unter dem Hamburger liegen (1200), aber über dem Inhalt */
-    z-index: 1150; 
-    
-    /* Menü muss Interaktionen annehmen */
-    pointer-events: auto; 
-    
-    /* Design */
-    background-color: rgba(19, 39, 57, 0.98); 
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: none; 
-    
-    /* Start: Versteckt OBEN */
-    transform: translateY(-100%);
-    
-    /* Animation */
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-    
-    padding: 120px 2rem 2rem 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-  }
-
-  /* Links Container */
-  .site-header .nav ul {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem; 
-    align-items: center; 
-    padding: 0;
-    margin: 0;
-    width: 100%;
-  }
-
-  /* 4. LINKS DESIGN */
-  .site-header .nav a {
-    color: #fff;
-    font-size: 1.4rem; 
-    font-weight: 600;  
-    text-decoration: none;
-    text-align: center;
-    
-    display: inline-block; 
-    padding: 0.8rem 2rem;
-    border-radius: 99px;
-    
-    border: 1px solid transparent; 
-    background-color: transparent;
-    
-    transition: all 0.2s ease;
-  }
+  /* Mobile Content Fixes */
+  .begeisterung-inner, .favorite-spot-inner, .goals-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .begeisterung-header h2, .favorite-spot-header h2, .goals-header h2 { font-size: 2rem; }
   
-  /* Hover Effekt */
-  .site-header .nav a:hover,
-  .site-header .nav a:focus {
-    background-color: rgba(255, 255, 255, 0.15); 
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transform: scale(1.05); 
-  }
-
-  /* 5. ZUSTAND: MENÜ OFFEN */
-  body.menu-open .site-header .nav { 
-    transform: translateY(0); 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  }
-  
-  /* Header Container interaktiv machen, wenn offen */
-  body.menu-open .site-header {
-    pointer-events: auto;
-  }
-  
-  body.menu-open .backdrop { 
-    display: block; 
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(4px);
-    z-index: 1140; /* Unter dem Menü */
-  }
-  
-  body.menu-open { overflow: hidden; }
-
-/* Oberer Strich: 
-     Er muss die Hälfte des Gaps (4px) + die Hälfte seiner Höhe (1px) nach unten.
-     Also 5px. */
-  body.menu-open .hamburger span:nth-child(1) { 
-    transform: translateY(5px) rotate(45deg); 
-  }
-  
-  /* Unterer Strich: 
-     Er muss 5px nach oben. */
-  body.menu-open .hamburger span:nth-child(2) { 
-    transform: translateY(-5px) rotate(-45deg); 
-  }
-
-
   .about-hero::after {
-    /* WICHTIG: 'contain' sorgt dafür, dass das Bild immer komplett sichtbar bleibt,
-       egal wie schmal das Handy ist. Es passt sich in den Rahmen ein. */
-    background-size: contain;
-    
-    /* Positionierung: mittig fixieren */
-    background-position: center;
-    
-    /* Optional: Begrenze die Höhe auf 90%, damit oben etwas Luft zum Header bleibt,
-       falls das Handy sehr lang ist */
-       max-height: 100svh;
-    
-    /* Maske für Mobile etwas anpassen (optional), damit der Fade weicher wirkt */
+    background-size: contain; background-position: center; max-height: 100svh;
     -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 68%);
             mask-image: linear-gradient(to bottom, black 55%, transparent 68%);
   }
-
+  
   .motivation::after {
-    background-size: contain;
-    background-position: bottom center;
+    background-size: contain; background-position: bottom center;
   }
-.clouds-wrapper {
-    display: none; /* Wolken auf Mobile ausblenden für bessere Performance */
-  }
-
- }
+  
+  .clouds-wrapper { display: none; }
+}

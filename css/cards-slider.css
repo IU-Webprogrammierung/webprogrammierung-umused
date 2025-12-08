@@ -1,290 +1,158 @@
-/* ============ SLIDER VARIABLES ============ */
+/* ============ SLIDER SPECIFIC VARIABLES ============ */
+/* Nur noch die Bilder, Farben kommen global aus style.css */
 :root {
-  /* LIGHT MODE: Clean Glass (Weiß mit ganz leichtem Grau-Verlauf) */
-  --card-bg-gradient: linear-gradient(160deg, #ffffff 0%, #f3f4f6 100%);
-  --card-border: 1px solid rgba(19, 39, 57, 0.08); /* Dein Brand-Dark als zarter Rahmen */
-  
-  --card-title-color: #132739;
-  --card-body-color: #555555;
-  --card-subline-color: #E67E22; /* Der Pop of Color kommt nur hier */
-  
-  --nav-btn-bg: #132739;
-  --nav-btn-icon: #ffffff;
-
---img-band: url('../img/band_bright.svg');
+  --img-band: url('../img/band_bright.svg');
   --img-shoe: url('../img/shoe_bright.svg');
-  --img-airpods: url('../img/airpods_bright.svg'); /* Falls du hier auch ein bright hast */
+  --img-airpods: url('../img/airpods_bright.svg');
 }
 
-/* DARK MODE (Neu) */
 [data-theme="dark"] {
-  /* Ein dunkler Verlauf: Tiefes Nachtblau zu dunklem Petrol */
-  --card-bg-gradient: linear-gradient(1deg, #132739 0%, #16202a 100%);
-  --card-border: 1px solid rgba(255, 255, 255, 0.1);
-  
-  --card-title-color: #ffffff;
-  --card-body-color: #bbbbbb;
-  --card-subline-color: #76FFEB; /* Hier nutzen wir das helle Cyan als Akzent! */
-  
-  --nav-btn-bg: #ffffff;
-  --nav-btn-icon: #132739;
-
---img-band: url('../img/band_dark.svg');
+  --img-band: url('../img/band_dark.svg');
   --img-shoe: url('../img/shoe_dark.svg');
-  --img-airpods: url('../img/airpods_dark.svg'); /* Oder dark, falls vorhanden */
+  --img-airpods: url('../img/airpods_dark.svg'); 
 }
 
-/* --- Wrapper & Einbettung --- */
+
+/* ============ WRAPPER ============ */
 .slider-section { 
   min-height: 100vh; 
   width: 100%;
-  display: flex;
-  flex-direction: column; 
-  justify-content: center; 
-  gap: 2rem; 
-  padding: 2rem 0; 
-  box-sizing: border-box; 
-  margin: 0; 
+  display: flex; flex-direction: column; justify-content: center; 
+  gap: 2rem; padding: 2rem 0; margin: 0; 
 }
 
-.slider-card__content {
-  padding: 0 2rem 2rem 2rem;
-  text-align: left; 
-}
-
-/* WICHTIG: Damit Überschriften im Slider im Dark Mode weiß werden */
 .slider-section h2 {
-  margin: 0; 
-  width: 100%;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  box-sizing: border-box;
-  /* Farbe erbt er meist vom Body, aber sicherheitshalber: */
-  color: var(--text-main); 
+  margin: 0; width: 100%; box-sizing: border-box;
+  padding-left: 2rem; padding-right: 2rem;
+  /* Farbe erbt automatisch global */
 }
 
-/* --- Slider Container --- */
+
+/* ============ SLIDER CONTAINER ============ */
 .slider--radio { 
-  position: relative; 
-  width: 100%;
-  padding: 0;       
-  overflow: hidden; 
+  position: relative; width: 100%; padding: 0; overflow: hidden; 
 }
 
-/* Viewport */
+/* Die Bahn */
 .slider--radio .slider__viewport {
-  display: flex;
-  gap: 1.5rem;
-  width: 100%;
-  padding-left: 2rem;  
-  padding-right: 2rem; 
-  box-sizing: border-box; 
-  scroll-behavior: smooth;
-  transition: transform 0.4s ease;
+  display: flex; gap: 1.5rem; width: 100%;
+  padding-left: 2rem; padding-right: 2rem; 
+  scroll-behavior: smooth; transition: transform 0.4s ease;
 }
 
-/* --- Slides (Cards) --- */
+/* Die Karten */
 .slider--radio .slider-card {
   flex: 0 0 55%; 
   
-  /* HIER NEU: Variablen nutzen */
+  /* Globale Variablen nutzen */
   background: var(--card-bg-gradient);
-  border: var(--card-border);
+  border: var(--card-border-style);
   
-  border-radius: 16px;
-  padding: 0;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05); /* Etwas schönerer Schatten */
-  
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  padding-bottom: 1rem;
-  
+  border-radius: 16px; padding: 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  display: flex; flex-direction: column; gap: 0.75rem; padding-bottom: 1rem;
   transition: background 0.3s ease, border 0.3s ease;
 }
 
-/* Textfarben anpassen */
-.slider-card__title {
-  color: var(--card-title-color);
-  margin: 0;
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
-slider-card__subline {
-  color: var(--card-subline-color);
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  margin: 0;
-}
-
-.slider-card__body {
-  color: var(--card-body-color);
-  font-size: 1rem;
-  margin: 0;
-}
+/* --- KORRIGIERT: Klassen ausgeschrieben statt SCSS Nesting --- */
 
 .slider-card__media {
-  display: flex;
-  align-items: center;    
-  justify-content: center; 
-  padding: 1rem; /* Etwas Luft ums Bild */
-}
-
-.slider-card__media {
-  display: flex;
-  align-items: center;    
-  justify-content: center; 
-  padding: 1rem;
-  
-  /* WICHTIG: Da kein <img> mehr da ist, brauchen wir eine feste Höhe für den Container,
-     damit das Hintergrundbild Platz hat. */
+  display: flex; align-items: center; justify-content: center; 
+  padding: 1rem; 
+  /* WICHTIG: Höhe muss definiert sein, da kein IMG-Tag mehr da ist */
   height: 45vh; 
   width: 100%;
 }
 
-/* Die neue Klasse für alle Bilder */
-.adaptive-img {
-  width: 100%;
-  height: 100%;
-  
-  /* Damit das Bild sich verhält wie ein <img> (nicht verzerrt) */
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  
-  /* Sanfter Übergang beim Theme-Wechsel */
+.slider-card__media .adaptive-img {
+  width: 100%; height: 100%;
+  background-size: contain; background-repeat: no-repeat; background-position: center;
   transition: background-image 0.3s ease, transform 0.3s ease;
 }
 
-/* Zuweisung der Variablen pro Karte */
+.slider-card__content {
+  padding: 0 2rem 2rem 2rem; text-align: left; 
+}
+
+.slider-card__title {
+  color: var(--text-main); 
+  margin: 0; font-size: 1.25rem; font-weight: 700;
+}
+
+.slider-card__subline {
+  color: var(--accent); 
+  font-size: 0.9rem; font-weight: 600; text-transform: uppercase; margin: 0;
+}
+
+.slider-card__body {
+  color: var(--text-muted); 
+  font-size: 1rem; margin: 0;
+}
+
+
+/* Bild-Zuweisung */
 .img-band { background-image: var(--img-band); }
 .img-shoe { background-image: var(--img-shoe); }
 .img-airpods { background-image: var(--img-airpods); }
 
+/* Rotationen (Tilt-Effekt) */
+.slider-card:nth-of-type(1) .adaptive-img { transform: rotate(5deg) scale(0.95); }
+.slider-card:nth-of-type(2) .adaptive-img { transform: rotate(-15deg) scale(0.9); }
+.slider-card:nth-of-type(3) .adaptive-img { transform: rotate(10deg) scale(0.9); }
 
-/* --- ROTATIONEN (Deine Tilt-Effekte) --- */
-/* Wir wenden die Rotation jetzt auf das DIV an */
 
-/* Karte 1 (Band) */
-.slider-card:nth-of-type(1) .adaptive-img {
-  transform: rotate(5deg) scale(0.95); 
-}
-
-/* Karte 2 (Schuh) */
-.slider-card:nth-of-type(2) .adaptive-img {
-  transform: rotate(-15deg) scale(0.9); 
-}
-
-/* Karte 3 (Airpods) */
-.slider-card:nth-of-type(3) .adaptive-img {
-  transform: rotate(10deg) scale(0.9); 
-}
-
-/* --- Desktop Logik (ab 1024px) --- */
-@media (min-width: 1024px) {
-  .slider--radio .slider-card { 
-    flex: 0 0 60%; 
-  }
-
-  /* State 1: Alles auf Anfang */
-  #r1:checked ~ .slider__viewport {
-    transform: translateX(0);
-
-  
-  }
-
-  /* State 2: Korrektur des "Overshootings" */
-  /* Formel: -60% (Basis) + 0.9rem (Korrekturfaktor für Padding & Gap) */
-  #r2:checked ~ .slider__viewport {
-    transform: translateX(calc(-60% + 0.9rem));
-  }
-
-  /* State 3: Das Ganze mal zwei */
-  /* Formel: -120% + 1.8rem */
-  #r3:checked ~ .slider__viewport {
-    transform: translateX(calc(-120% + 1.8rem));
-  }
-}
-
-/* --- Mobile Logik (bis 768px) --- */
-@media (max-width: 768px) {
-  .slider--radio .slider-card {
-    flex: 0 0 95%; 
-  }
-
-  /* State 1 */
-  #r1:checked ~ .slider__viewport {
-    transform: translateX(0);
-  }
-
-  /* State 2 Mobile: -95% + 2.3rem */
-  /* Korrekturfaktor ist hier höher, weil 95% des Paddings ausgeglichen werden müssen */
-  #r2:checked ~ .slider__viewport {
-    transform: translateX(calc(-95% + 2.3rem));
-  }
-
-  /* State 3 Mobile */
-  #r3:checked ~ .slider__viewport {
-    transform: translateX(calc(-190% + 4.6rem));
-  }
-}
-
-/* --- Pfeil-Navigation --- */
+/* ============ NAVIGATION (Pfeile) ============ */
 .slider-nav {
-  margin-top: 2rem; /* Abstand zum Slider etwas verringert */
-  display: flex;
-  justify-content: flex-end;
-  
-  /* Rechts Abstand halten (da Wrapper keinen hat) */
-  padding-right: 2rem; 
+  margin-top: 2rem; display: flex; justify-content: flex-end; padding-right: 2rem; 
 }
 
-.slider-nav .nav {
-  display: none;
-  gap: 1.5rem;
-}
+.slider-nav .nav { display: none; gap: 1.5rem; }
 
-.slider-nav .prev,
+.slider-nav .prev, 
 .slider-nav .next {
-  display: inline-grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 99px;
-
-/* HIER NEU: Variablen nutzen */
+  display: inline-grid; place-items: center;
+  width: 40px; height: 40px; border-radius: 99px;
+  
+  /* Globale Vars */
   background: var(--nav-btn-bg); 
   color: var(--nav-btn-icon);
-
-  /* Fallback, falls Variable fehlt */
-  background: var(--primary-color, #000); 
-  color: #fff;
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 0;
-  cursor: pointer;
-  user-select: none;
+  
+  font-size: 1.5rem; font-weight: 700; line-height: 0;
+  cursor: pointer; user-select: none; border: none;
   box-shadow: 0 2px 2px rgba(0,0,0,0.15);
-  border: none;
   transition: background 0.3s ease, color 0.3s ease, transform 0.2s;
 }
 
-/* Hover / Fokus */
-.slider-nav .prev:hover,
-.slider-nav .next:hover {
-  transform: translateY(-1px) scale(1.03);
-  box-shadow: 0 2px 2px rgba(0,0,0,0.2);
+.slider-nav .prev:hover, 
+.slider-nav .next:hover { 
+  transform: translateY(-2px) scale(1.05); box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
 }
 
-.slider-nav .prev:focus-visible,
-.slider-nav .next:focus-visible {
-  outline: 1px solid #000;
-  outline-offset: 1px;
+.slider-nav .prev:focus-visible, 
+.slider-nav .next:focus-visible { 
+  outline: 1px solid #000; outline-offset: 1px; 
 }
 
-/* Logik: Welche Pfeile wann sichtbar sind */
+
+/* Sichtbarkeits-Logik */
 #r1:checked ~ .slider-nav .nav--1 { display: flex; }
 #r2:checked ~ .slider-nav .nav--2 { display: flex; }
 #r3:checked ~ .slider-nav .nav--3 { display: flex; }
+
+
+/* ============ MEDIA QUERIES ============ */
+/* Desktop */
+@media (min-width: 1024px) {
+  .slider--radio .slider-card { flex: 0 0 60%; }
+  #r1:checked ~ .slider__viewport { transform: translateX(0); }
+  #r2:checked ~ .slider__viewport { transform: translateX(calc(-60% + 0.9rem)); }
+  #r3:checked ~ .slider__viewport { transform: translateX(calc(-120% + 1.8rem)); }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .slider--radio .slider-card { flex: 0 0 95%; }
+  #r1:checked ~ .slider__viewport { transform: translateX(0); }
+  #r2:checked ~ .slider__viewport { transform: translateX(calc(-95% + 2.3rem)); }
+  #r3:checked ~ .slider__viewport { transform: translateX(calc(-190% + 4.6rem)); }
+}
