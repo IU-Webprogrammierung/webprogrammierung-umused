@@ -38,8 +38,8 @@
 /* ============ INTRO TEXT SECTION ============ */
 .testhero {
   display: flex; align-items: center; justify-content: center;
-  min-height: 60vh; background-color: transparent;
-  position: relative; z-index: 10; padding: 4rem 2rem; text-align: center;
+  min-height: 40vh; background-color: transparent;
+  position: relative; z-index: 10; padding: 0rem 0rem; text-align: center;
 }
 
 .testhero-content { max-width: 800px; }
@@ -61,7 +61,7 @@
 .step-card {
   position: relative; width: 90%; max-width: 1100px; height: 70vh;
   background-color: var(--bg-card);
-  border-radius: 32px; box-shadow: 0 20px 40px rgba(19, 39, 57, 0.08);
+  border-radius: 32px;
   overflow: hidden; display: flex; pointer-events: auto;
   
   /* Startzustand JS */
@@ -95,7 +95,6 @@
 #dauerlauf {
   & .step-card {
     background: var(--card-bg-gradient); /* Nutzt globale Variable */
-    box-shadow: 0 20px 40px rgba(81, 203, 255, 0.1);
   }
   & .training-step__content { flex-direction: row; }
 }
@@ -105,7 +104,6 @@
 /* 2. Intervall */
 #intervall .step-card {
   background: var(--card-bg-gradient);
-  box-shadow: 0 20px 40px rgba(229, 57, 53, 0.1);
   position: relative;
 }
 
@@ -128,7 +126,6 @@
 /* 3. Regeneration */
 #regeneration .step-card {
   background: var(--card-bg-gradient);
-  box-shadow: 0 20px 40px rgba(168, 255, 120, 0.1);
 }
 .regeneration-spiral {
   position: absolute; top: 0; right: 0 !important; left: auto !important;
@@ -141,7 +138,6 @@
 /* 4. Ernährung */
 #ernaehrung .step-card {
   background: var(--card-bg-gradient);
-  box-shadow: 0 20px 40px rgba(255, 171, 158, 0.2);
 }
 .nutrition-egg {
   position: absolute; top: 0; bottom: 0; height: 100%; z-index: 0;
@@ -161,7 +157,7 @@
 .progress-card-wrapper {
   background: var(--card-bg-gradient);
   width: 100%; max-width: 900px; padding: 3rem;
-  border-radius: 32px; box-shadow: 0 20px 40px rgba(19, 39, 57, 0.08);
+  border-radius: 32px;
   text-align: center;
   
   & h2 { color: var(--text-main); margin-bottom: 0.5rem; }
