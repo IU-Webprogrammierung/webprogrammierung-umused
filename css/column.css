@@ -1,0 +1,145 @@
+/* ============ HOME SPECIFIC STYLES ============ */
+
+/* 1. ZWEISPALTIGES TEXT/BILD LAYOUT */
+.content-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem; 
+  padding: 4rem 2rem;
+  align-items: center; 
+  max-width: 1200px; 
+  margin: 0 auto; 
+}
+
+.content-two-col article {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.content-two-col img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  max-height: 500px;
+  display: block;
+}
+
+.content-two-col h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--text-main);
+}
+
+.content-two-col p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+}
+
+
+/* 2. CARD SECTION (Weitere Themen) */
+.card-section {
+  padding: 2rem;
+  background: var(--bg-body);
+  text-align: left;
+  margin-bottom: 4rem;
+}
+
+.card-section h2 {
+  margin-bottom: 1.5rem;
+  color: var(--text-main);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+/* Einzelne Karte */
+.card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 0;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(0px);
+}
+
+/* --- HIER WAREN DIE FEHLER (Klassen jetzt ausgeschrieben) --- */
+
+.card__media {
+  border-radius: 0px; /* Oder 12px, wenn du es rund magst */
+  overflow: hidden;
+  
+  /* HIER IST DIE FIXE HÖHE */
+  height: 480px; /* Ich empfehle 280px statt 180px, damit man mehr sieht */
+  width: 100%;
+}
+
+.card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Wichtig: Füllt den Kasten komplett aus */
+  display: block;
+}
+
+.card__content {
+  padding: 1.5rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.card__title {
+  color: var(--text-main);
+  font-size: 1.125rem;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.card__subline {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.card__body {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-top: 0.25rem;
+}
+
+
+/* ============ MOBILE ANPASSUNG (Für Home) ============ */
+@media (max-width: 768px) {
+  
+  /* Grid untereinander */
+  .content-two-col {
+    grid-template-columns: 1fr; 
+    padding: 2rem;
+    gap: 2rem;
+    text-align: center; 
+  }
+  
+  /* Cards untereinander */
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Media Ecken etwas weniger rund mobil */
+  .card__media {
+    border-radius: 1rem;
+  }
+}
