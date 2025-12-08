@@ -440,39 +440,77 @@ html:not([data-theme="dark"]) .star-container { display: none; }
 @keyframes twinkle { 0%, 100% { opacity: 0.9; transform: scale(0.8); } 50% { opacity: 0.2; transform: scale(0.9); } }
 
 
-/* ============ 8. GLOBAL MOBILE ADAPTION ============ */
 @media (max-width: 768px) {
-  /* Mobile Header */
+  
   .site-header {
+    /* ... Basis-Styles ... */
     position: fixed; top: 0; left: 0; right: 0; width: 100%; margin: 0;
     transform: none; background: transparent; border: none; box-shadow: none;
-    backdrop-filter: none; display: flex; justify-content: space-between;
-    align-items: center; pointer-events: none; z-index: 1100;
+    backdrop-filter: none; pointer-events: none; z-index: 1100;
     
-    & .logo { pointer-events: auto; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); position: relative; z-index: 1200; padding: 2rem; }
-    
-    & .nav {
-      display: block; position: fixed; top: 0; left: 0; width: 100%; height: 70vh;
-      z-index: 1150; pointer-events: auto; background-color: rgba(19, 39, 57, 0.98);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1); box-shadow: none;
-      transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-      padding: 120px 2rem 2rem 2rem; display: flex; flex-direction: column; align-items: center;
-      
-      & ul { display: flex; flex-direction: column; gap: 1rem; align-items: center; padding: 0; margin: 0; width: 100%; }
-      & a { color: #fff; font-size: 1.4rem; font-weight: 600; text-align: center; display: inline-block; padding: 0.8rem 2rem; border-radius: 99px; border: 1px solid transparent; background-color: transparent; transition: all 0.2s ease; }
-      & a:hover, & a:focus { background-color: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.1); transform: scale(1.05); }
-    }
+    /* FLEXBOX SETUP */
+    display: flex;
+    align-items: center;
+    /* WICHTIG: Kein 'justify-content: space-between', wir machen das manuell */
   }
 
+  /* 1. LOGO (Links) */
+  .site-header .logo {
+    pointer-events: auto;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    position: relative; z-index: 1200;
+    padding: 2rem;
+    
+    /* WICHTIG: Flex-Grow 1 sorgt dafür, dass das Logo (bzw. sein Container-Bereich)
+       den gesamten verfügbaren Platz einnimmt und den Rest nach rechts drückt. */
+    flex-grow: 1; 
+    text-align: left; /* Text linksbündig */
+  }
+
+  /* 2. NAVIGATION (Versteckt) */
+  .site-header .nav {
+    /* ... Dein Nav Code (Position absolute/fixed, etc.) ... */
+    /* Da es fixed ist, beeinflusst es das Flex-Layout des Headers nicht! */
+    display: block; position: fixed; top: 0; left: 0; width: 100%; height: 70vh;
+    z-index: 1150; pointer-events: auto; background-color: rgba(19, 39, 57, 0.98);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); box-shadow: none;
+    transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    padding: 120px 2rem 2rem 2rem; display: flex; flex-direction: column; align-items: center;
+    
+    & ul { display: flex; flex-direction: column; gap: 1rem; align-items: center; padding: 0; margin: 0; width: 100%; }
+    & a { color: #fff; font-size: 1.4rem; font-weight: 600; text-align: center; display: inline-block; padding: 0.8rem 2rem; border-radius: 99px; border: 1px solid transparent; background-color: transparent; transition: all 0.2s ease; }
+    & a:hover, & a:focus { background-color: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.1); transform: scale(1.05); }
+  }
+
+  /* 3. THEME TOGGLE (Rechts, neben Hamburger) */
+  .theme-toggle {
+    pointer-events: auto;
+    z-index: 1200;
+    margin-right: 0.5rem; /* Kleiner Abstand zum Hamburger */
+    
+    /* Kein Flex-Grow, nimmt nur seinen Platz ein */
+    flex-shrink: 0; 
+  }
+
+  /* 4. HAMBURGER (Ganz Rechts) */
   .hamburger {
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     gap: 8px; pointer-events: auto; z-index: 1200; background: transparent;
     border: none; box-shadow: none; padding: 0.5rem; cursor: pointer; width: 48px; height: 48px;
     
+order: 3;
+    
+    /* HIER IST DER FIX: */
+    margin-left: auto;  /* "Schieb mich so weit nach rechts wie möglich" */
+    margin-right: 1rem; /* Kleiner Abstand zum Rand */
+    
     & span { display: block; width: 24px; height: 2px; background-color: #fff; border-radius: 2px; transform-origin: center; transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); }
   }
 
+
+  /* OPEN STATE */
   body.menu-open {
     overflow: hidden;
     & .site-header { pointer-events: auto; }
